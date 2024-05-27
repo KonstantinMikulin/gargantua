@@ -12,6 +12,7 @@ from dialogs.user_dialogs import user_start_dialog
 logger = logging.getLogger(__name__)
 
 
+# info
 async def main() -> None:
     logging.basicConfig(
         level=logging.INFO,
