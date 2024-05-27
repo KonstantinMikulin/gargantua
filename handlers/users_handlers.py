@@ -17,3 +17,8 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
 @router.message(Command(commands=['help']))
 async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=UserSG.help_dialog)
+
+
+@router.message(Command(commands=['desc']))
+async def process_desc_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    await dialog_manager.start(state=UserSG.desc_dialog)

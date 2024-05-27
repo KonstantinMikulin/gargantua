@@ -1,4 +1,5 @@
 LEXICON_RU = {
     '/start': 'Hello {username}',
-    '/help': 'This bot can do some'
+    '/help': 'This bot can do some',
+    '/desc': 'Here what you can do...'
 }
