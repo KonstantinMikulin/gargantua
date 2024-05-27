@@ -7,10 +7,16 @@ from aiogram_dialog.widgets.text import Const, Format
 from lexicon.lexicon import LEXICON_RU
 
 
+# temporary state group for testing
 class UserSG(StatesGroup):
     start_dialog = State()
     help_dialog = State()
     desc_dialog = State()
+    
+
+# temporary state group for testing Gargantua`s story  
+class WhatSG(StatesGroup):
+    start_what = State()
     
     
 async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str]:
@@ -30,5 +36,12 @@ user_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/desc']),
         state=UserSG.desc_dialog
+    )
+)
+
+what_dialog = Dialog(
+    Window(
+        Const(LEXICON_RU['/what']),
+        state=WhatSG.start_what
     )
 )
