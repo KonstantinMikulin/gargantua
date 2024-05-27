@@ -4,7 +4,7 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-from dialogs.users_dialogs import UserSG, WhatSG
+from dialogs.users_dialogs import UserSG, WhatSG, MeasureSG
 
 router = Router()
 
@@ -27,3 +27,9 @@ async def process_desc_cmd(message: Message, dialog_manager: DialogManager) -> N
 @router.message(Command(commands=['what']))
 async def process_what_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=WhatSG.start_what)
+    
+    
+# handler for weight measurement
+@router.message(Command(commands=['weight']))
+async def process_weight_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    await dialog_manager.start(state=MeasureSG.start_weight)

@@ -7,7 +7,11 @@ from aiogram_dialog import setup_dialogs
 
 from config.config import Config, load_config
 from handlers import users_handlers
-from dialogs.users_dialogs import user_dialog, what_dialog
+from dialogs.users_dialogs import (
+    user_dialog,
+    what_dialog,
+    measure_dialog
+)
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +33,8 @@ async def main() -> None:
     dp.include_router(users_handlers.router)
     dp.include_routers(
         user_dialog,
-        what_dialog
+        what_dialog,
+        measure_dialog
         )
     setup_dialogs(dp)
     
