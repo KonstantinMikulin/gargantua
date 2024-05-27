@@ -5,7 +5,7 @@ from aiogram_dialog import Dialog, DialogManager, Window
 from aiogram_dialog.widgets.text import Format
 
 
-class AdminSG(StatesGroup):
+class UserSG(StatesGroup):
     start_dialog = State()
     
     
@@ -13,10 +13,10 @@ async def get_username(dialog_manager: DialogManager, event_from_user: User, **k
     return {'username': event_from_user.username}
 
 
-admin_start_dialog = Dialog(
+user_start_dialog = Dialog(
     Window(
         Format('Hello {username}'),
         getter=get_username,
-        state=AdminSG.start_dialog
+        state=UserSG.start_dialog
     ),
 )
