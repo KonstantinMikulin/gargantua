@@ -4,7 +4,7 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-from dialogs.user_dialogs import UserSG
+from dialogs.users_dialogs import UserSG
 
 router = Router()
 
