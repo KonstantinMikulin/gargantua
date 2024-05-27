@@ -25,15 +25,9 @@ async def main() -> None:
     bot = Bot(token=config.tg_bot.token)
     dp = Dispatcher()
     
-<<<<<<< HEAD
     dp.include_router(admin_start_dialog)
     setup_dialogs(dp)
     
-=======
-    dp.include_router(admin_handlers.router)
-    dp.include_router(admin_start_dialog)
-    setup_dialogs(dp)
->>>>>>> 5292fba (addde main.py with one simple /start cmd)
     
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
