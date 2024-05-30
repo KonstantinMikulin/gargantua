@@ -11,7 +11,8 @@ from dialogs.users_dialogs import (
     user_start_dialog,
     what_dialog,
     measure_dialog,
-    setup_dialog
+    setup_dialog,
+    account_dialog
 )
 
 logger = logging.getLogger(__name__)
@@ -36,7 +37,8 @@ async def main() -> None:
         user_start_dialog,
         what_dialog,
         measure_dialog,
-        setup_dialog
+        setup_dialog,
+        account_dialog
         )
     setup_dialogs(dp)
     

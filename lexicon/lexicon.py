@@ -5,5 +5,6 @@ LEXICON_RU = {
     '/what': 'Gargantua the Great! It will be a story of Garngantua the Minght',
     '/weight': '{username}, send your weight, please',
     '/measure': '{username}, send your measurments, please',
-    '/setup': 'Let`s setup your bot'
+    '/setup': 'Let`s setup your bot',
+    '/account': 'Can we save data from your Telegram?'
 }

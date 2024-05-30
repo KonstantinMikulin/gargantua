@@ -30,6 +30,11 @@ class SetupSG(StatesGroup):
     start_setup = State()
     
     
+# draft state group for testing user`s account details
+class AccountSG(StatesGroup):
+    start_account = State()
+    
+    
 async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str]:
     return {'username': event_from_user.username}
 
@@ -74,5 +79,15 @@ setup_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/setup']),
         state=SetupSG.start_setup
+    )
+)
+
+# TODO: add functionality for parsing account`s details from Telegram
+# TODO: add nessesary Windows
+account_dialog = Dialog(
+    Window(
+        Const(LEXICON_RU['/account']),
+        # add some getter here for parsing data
+        state=AccountSG.start_account
     )
 )

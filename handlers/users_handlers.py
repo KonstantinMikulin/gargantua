@@ -4,7 +4,7 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-from dialogs.users_dialogs import UserSG, WhatSG, MeasureSG, SetupSG
+from dialogs.users_dialogs import UserSG, WhatSG, MeasureSG, SetupSG, AccountSG
 
 router = Router()
 
@@ -49,3 +49,9 @@ async def process_measure_cmd(message: Message, dialog_manager: DialogManager) -
 @router.message(Command(commands=['setup']))
 async def process_setup_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=SetupSG.start_setup)
+
+
+# handler for /account cmd
+@router.message(Command(commands=['account']))
+async def process_account_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    await dialog_manager.start(state=AccountSG.start_account)
