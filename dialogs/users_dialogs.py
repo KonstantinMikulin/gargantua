@@ -22,6 +22,7 @@ class WhatSG(StatesGroup):
 # temp state group for testing weight saving data
 class MeasureSG(StatesGroup):
     start_weight = State()
+    start_measure = State()
         
     
 async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str]:
@@ -56,5 +57,10 @@ measure_dialog = Dialog(
         Format(LEXICON_RU['/weight']),
         getter=get_username,
         state=MeasureSG.start_weight
+    ),
+    Window(
+        Format(LEXICON_RU['/measure']),
+        getter=get_username,
+        state=MeasureSG.start_measure
     )
 )

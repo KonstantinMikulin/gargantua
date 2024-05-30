@@ -3,5 +3,6 @@ LEXICON_RU = {
     '/help': 'Commands etc.',
     '/desc': 'Here what you can do with this bot...',
     '/what': 'Gargantua the Great! It will be a story of Garngantua the Minght',
-    '/weight': '{username}, send your weight, please'
+    '/weight': '{username}, send your weight, please',
+    '/measure': '{username}, send your measurments, please'
 }

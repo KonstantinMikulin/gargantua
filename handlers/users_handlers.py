@@ -39,4 +39,7 @@ async def process_weight_cmd(message: Message, dialog_manager: DialogManager) ->
     await dialog_manager.start(state=MeasureSG.start_weight)
 
 
-
+# handler for /measure cmd
+@router.message(Command(commands=['measure']))
+async def process_measure_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    await dialog_manager.start(state=MeasureSG.start_measure)
