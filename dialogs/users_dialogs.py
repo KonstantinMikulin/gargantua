@@ -2,7 +2,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import User
 
 from aiogram_dialog import Dialog, DialogManager, Window
-from aiogram_dialog.widgets.text import Const, Format
+from aiogram_dialog.widgets.text import Const, Format, Multi
 
 from lexicon.lexicon import LEXICON_RU
 
@@ -47,8 +47,14 @@ async def get_username(dialog_manager: DialogManager, event_from_user: User, **k
 
 # TODO: add nessesary Windows
 user_start_dialog = Dialog(
+    # TODO: change this Window for sending parts of text with delay
     Window(
-        Format(LEXICON_RU['/start']),
+        Multi(
+            Format(LEXICON_RU['/start']['step_1']),
+            Const(LEXICON_RU['/start']['step_2']),
+            Const(LEXICON_RU['/start']['step_3']),
+            sep='\n\n'
+        ),
         getter=get_username,
         state=UserSG.start_dialog
     ),
