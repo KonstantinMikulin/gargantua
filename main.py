@@ -16,7 +16,7 @@ from dialogs.users_dialogs import (
 logger = logging.getLogger(__name__)
 
 
-# some more info
+# Some info
 async def main() -> None:
     logging.basicConfig(
         level=logging.INFO,
