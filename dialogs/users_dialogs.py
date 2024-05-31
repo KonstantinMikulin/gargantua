@@ -18,7 +18,7 @@ class StartSG(StatesGroup):
     
 # draft state group for help
 class HelpSG(StatesGroup):
-    help_dialog = State()
+    start_help = State()   
 
 
 # draft state group for testing Gargantua`s story  
@@ -60,7 +60,14 @@ async def get_username(dialog_manager: DialogManager, event_from_user: User, **k
 # TODO: make this getter work
 async def get_user_data(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str]:
     pass
+
+
+# getter for collecting all commands in one dict
+# TODO: make this getter work
+async def get_commands(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str]:
+    pass
  
+
 
 # TODO: add nessesary Windows
 start_dialog = Dialog(
@@ -77,6 +84,17 @@ start_dialog = Dialog(
         Const(LEXICON_RU['/start']['step_3']),
         state=StartSG.start_dialog_desc
         )
+)
+
+# /help dialog
+# TODO: add nessesary Windows
+help_dialog = Dialog(
+    Window(
+        Const(LEXICON_RU['/help']),
+        state=HelpSG.start_help,
+        # TODO: ucomment getter`s row
+        # getter=get_commands
+    )
 )
 
 # TODO: add nessesary Windows
@@ -123,7 +141,7 @@ report_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/report']),
         state=ReportSG.start_report,
-        # TODO: ucomment this getter`s row`
+        # TODO: ucomment getter`s row
         # getter=get_user_data
     )
 )

@@ -6,7 +6,7 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-from dialogs.users_dialogs import StartSG, WhatSG, MeasureSG, SetupSG, AccountSG, ReportSG
+from dialogs.users_dialogs import StartSG, WhatSG, MeasureSG, SetupSG, AccountSG, ReportSG, HelpSG
 
 router = Router()
 
@@ -17,14 +17,14 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
     sleep(1)
     await dialog_manager.start(state=StartSG.start_dialog_help)
-    sleep(1)
+    sleep(2)
     await dialog_manager.start(state=StartSG.start_dialog_desc)
 
 
 # handler for /help cmd
 @router.message(Command(commands=['help']))
 async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=StartSG.help_dialog)
+    await dialog_manager.start(state=HelpSG.start_help)
 
 
 # handler for bot`s description cmd

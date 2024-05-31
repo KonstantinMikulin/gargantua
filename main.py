@@ -13,7 +13,8 @@ from dialogs.users_dialogs import (
     measure_dialog,
     setup_dialog,
     account_dialog,
-    report_dialog
+    report_dialog,
+    help_dialog
 )
 
 logger = logging.getLogger(__name__)
@@ -35,12 +36,15 @@ async def main() -> None:
     
     dp.include_router(users_handlers.router)
     dp.include_routers(
+        *[
         start_dialog,
         what_dialog,
         measure_dialog,
         setup_dialog,
         account_dialog,
-        report_dialog
+        report_dialog,
+        help_dialog
+        ]
         )
     setup_dialogs(dp)
     
