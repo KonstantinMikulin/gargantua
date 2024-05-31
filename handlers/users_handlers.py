@@ -1,10 +1,12 @@
+from time import sleep
+
 from aiogram import Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-from dialogs.users_dialogs import UserSG, WhatSG, MeasureSG, SetupSG, AccountSG
+from dialogs.users_dialogs import StartSG, WhatSG, MeasureSG, SetupSG, AccountSG
 
 router = Router()
 
@@ -12,19 +14,23 @@ router = Router()
 # handler for /start cmd
 @router.message(CommandStart())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=UserSG.start_dialog, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
+    sleep(1)
+    await dialog_manager.start(state=StartSG.start_dialog_help)
+    sleep(1)
+    await dialog_manager.start(state=StartSG.start_dialog_desc)
 
 
 # handler for /help cmd
 @router.message(Command(commands=['help']))
 async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=UserSG.help_dialog)
+    await dialog_manager.start(state=StartSG.help_dialog)
 
 
 # handler for bot`s description cmd
 @router.message(Command(commands=['desc']))
 async def process_desc_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=UserSG.desc_dialog)
+    await dialog_manager.start(state=StartSG.desc_dialog)
 
 
 # handler for Gargantua`s story cmd

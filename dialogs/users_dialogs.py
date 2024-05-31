@@ -1,3 +1,5 @@
+from time import sleep
+
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import User
 
@@ -7,13 +9,19 @@ from aiogram_dialog.widgets.text import Const, Format, Multi
 from lexicon.lexicon import LEXICON_RU
 
 
-# draft state group for testing
+# draft state group for testing starting dialogs
 # TODO: add nessesary States
-class UserSG(StatesGroup):
+class StartSG(StatesGroup):
     start_dialog = State()
-    help_dialog = State()
+    start_dialog_help = State()
+    start_dialog_desc = State()
     desc_dialog = State()
     
+    
+# draft state group for help
+class HelpSG(StatesGroup):
+    help_dialog = State()
+
 
 # draft state group for testing Gargantua`s story  
 # TODO: add nessesary States
@@ -47,26 +55,21 @@ async def get_username(dialog_manager: DialogManager, event_from_user: User, **k
 
 # TODO: add nessesary Windows
 user_start_dialog = Dialog(
-    # TODO: change this Window for sending parts of text with delay
     Window(
-        Multi(
-            Format(LEXICON_RU['/start']['step_1']),
-            Const(LEXICON_RU['/start']['step_2']),
-            Const(LEXICON_RU['/start']['step_3']),
-            sep='\n\n'
-        ),
+        Format(LEXICON_RU['/start']['step_1']),
         getter=get_username,
-        state=UserSG.start_dialog
+        state=StartSG.start_dialog
     ),
     Window(
-        Const(LEXICON_RU['/help']),
-        state=UserSG.help_dialog
+        Const(LEXICON_RU['/start']['step_2']),
+        state=StartSG.start_dialog_help
     ),
     Window(
-        Const(LEXICON_RU['/desc']),
-        state=UserSG.desc_dialog
-    )
+        Const(LEXICON_RU['/start']['step_3']),
+        state=StartSG.start_dialog_desc
+        )
 )
+
 
 # TODO: add nessesary Windows
 what_dialog = Dialog(

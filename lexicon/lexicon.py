@@ -1,7 +1,7 @@
 start_text = {
     'step_1': 'Hello {username}',
-    'step_2': 'This bot can save your weight and body measurments',
-    'step_3': 'You can send /help for command`s list\nYou can send /instruction for how to use bot'
+    'step_2': 'You can send /help for command`s list',
+    'step_3': 'You can send /desc for how to use bot'
 }
 
 
