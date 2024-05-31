@@ -19,6 +19,8 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     await dialog_manager.start(state=StartSG.start_dialog_help)
     sleep(2)
     await dialog_manager.start(state=StartSG.start_dialog_desc)
+    sleep(3)
+    await dialog_manager.start(state=StartSG.create_account_on_start)
 
 
 # handler for /help cmd

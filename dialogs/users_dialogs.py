@@ -2,7 +2,8 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import User
 
 from aiogram_dialog import Dialog, DialogManager, Window
-from aiogram_dialog.widgets.text import Const, Format, Multi
+from aiogram_dialog.widgets.text import Const, Format
+from aiogram_dialog.widgets.kbd import Button, Row
 
 from lexicon.lexicon import LEXICON_RU
 
@@ -13,7 +14,7 @@ class StartSG(StatesGroup):
     start_dialog = State()
     start_dialog_help = State()
     start_dialog_desc = State()
-    desc_dialog = State()
+    create_account_on_start = State()
     
     
 # draft state group for help
@@ -57,20 +58,20 @@ class ReportSG(StatesGroup):
     
 
 # getter for username
-async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str]:
+async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str | None]:
     return {'username': event_from_user.username}
 
 
 # getter for retrieving data from db
 # TODO: make this getter work
-async def get_user_data(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str]:
-    pass
+# async def get_user_data(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str | None]:
+#     pass
 
 
 # getter for collecting all commands in one dict
 # TODO: make this getter work
-async def get_commands(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str]:
-    pass
+# async def get_commands(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str | None]:
+#     pass
  
 
 
@@ -88,7 +89,15 @@ start_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/start']['step_3']),
         state=StartSG.start_dialog_desc
-        )
+    ),
+    Window(
+        Const(LEXICON_RU['/start']['step_4']),
+        Row(
+            Button(text=Const('Yes'), id='yes'),
+            Button(Const('No'), id='no')
+        ),
+        state=StartSG.create_account_on_start
+    )
 )
 
 # /help dialog
