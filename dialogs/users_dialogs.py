@@ -1,5 +1,3 @@
-from time import sleep
-
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import User
 
@@ -47,14 +45,25 @@ class SetupSG(StatesGroup):
 class AccountSG(StatesGroup):
     start_account = State()
     
+    
+# drafr start group for testing reporting system
+class ReportSG(StatesGroup):
+    start_report = State()
+    
 
 # getter for username
 async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str]:
     return {'username': event_from_user.username}
 
 
+# getter for retrieving data from db
+# TODO: make this getter work
+async def get_user_data(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str]:
+    pass
+ 
+
 # TODO: add nessesary Windows
-user_start_dialog = Dialog(
+start_dialog = Dialog(
     Window(
         Format(LEXICON_RU['/start']['step_1']),
         getter=get_username,
@@ -69,7 +78,6 @@ user_start_dialog = Dialog(
         state=StartSG.start_dialog_desc
         )
 )
-
 
 # TODO: add nessesary Windows
 what_dialog = Dialog(
@@ -108,5 +116,14 @@ account_dialog = Dialog(
         Const(LEXICON_RU['/account']),
         # add some getter here for parsing data
         state=AccountSG.start_account
+    )
+)
+
+report_dialog = Dialog(
+    Window(
+        Const(LEXICON_RU['/report']),
+        state=ReportSG.start_report,
+        # TODO: ucomment this getter`s row`
+        # getter=get_user_data
     )
 )
