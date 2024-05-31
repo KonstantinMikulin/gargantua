@@ -21,6 +21,11 @@ class HelpSG(StatesGroup):
     start_help = State()   
 
 
+# draft state group for desc
+class DescSG(StatesGroup):
+    start_desc = State()  
+
+
 # draft state group for testing Gargantua`s story  
 # TODO: add nessesary States
 class WhatSG(StatesGroup):
@@ -94,6 +99,15 @@ help_dialog = Dialog(
         state=HelpSG.start_help,
         # TODO: ucomment getter`s row
         # getter=get_commands
+    )
+)
+
+# /desc dialog
+# TODO: add nessesary Windows
+desc_dialog = Dialog(
+    Window(
+        Const(LEXICON_RU['/desc']),
+        state=DescSG.start_desc
     )
 )
 

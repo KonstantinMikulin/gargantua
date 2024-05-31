@@ -14,7 +14,8 @@ from dialogs.users_dialogs import (
     setup_dialog,
     account_dialog,
     report_dialog,
-    help_dialog
+    help_dialog,
+    desc_dialog
 )
 
 logger = logging.getLogger(__name__)
@@ -43,7 +44,8 @@ async def main() -> None:
         setup_dialog,
         account_dialog,
         report_dialog,
-        help_dialog
+        help_dialog,
+        desc_dialog
         ]
         )
     setup_dialogs(dp)

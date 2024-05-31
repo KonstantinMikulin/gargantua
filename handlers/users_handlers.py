@@ -6,7 +6,7 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-from dialogs.users_dialogs import StartSG, WhatSG, MeasureSG, SetupSG, AccountSG, ReportSG, HelpSG
+from dialogs.users_dialogs import StartSG, WhatSG, MeasureSG, SetupSG, AccountSG, ReportSG, HelpSG, DescSG
 
 router = Router()
 
@@ -30,7 +30,7 @@ async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> N
 # handler for bot`s description cmd
 @router.message(Command(commands=['desc']))
 async def process_desc_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=StartSG.desc_dialog)
+    await dialog_manager.start(state=DescSG.start_desc)
 
 
 # handler for Gargantua`s story cmd
