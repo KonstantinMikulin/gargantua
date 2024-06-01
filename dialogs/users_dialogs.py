@@ -1,4 +1,4 @@
-from aiogram.fsm.state import State, StatesGroup
+import imp
 from aiogram.types import User
 
 from aiogram_dialog import Dialog, DialogManager, Window
@@ -6,60 +6,22 @@ from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.kbd import Button, Row
 
 from lexicon.lexicon import LEXICON_RU
-from aiogram_dialog_handlers.aiogram_dialog_handlers import account_yes_get_clicked, account_no_get_clicked
+from handlers.aiogram_dialog_handlers import account_yes_get_clicked, account_no_get_clicked
+from states.aiogram_dialog_states import (
+    StartSG,
+    HelpSG,
+    DescSG,
+    WhatSG,
+    MeasureSG,
+    SetupSG,
+    AccountSG,
+    ReportSG
+)
 
 # TODO: remove all states group to another module
 # TODO: remove all getters to another module
 # TODO: remove all aiogram_dialog handlers to another module
 
-# draft state group for testing starting dialogs
-# TODO: add nessesary States
-class StartSG(StatesGroup):
-    start_dialog = State()
-    start_dialog_help = State()
-    start_dialog_desc = State()
-    create_account_on_start = State()
-    
-    
-# draft state group for help
-class HelpSG(StatesGroup):
-    start_help = State()   
-
-
-# draft state group for desc
-class DescSG(StatesGroup):
-    start_desc = State()  
-
-
-# draft state group for testing Gargantua`s story  
-# TODO: add nessesary States
-class WhatSG(StatesGroup):
-    start_what = State()
-    
-    
-# draft state group for testing weight saving data
-# TODO: add nessesary States
-class MeasureSG(StatesGroup):
-    start_weight = State()
-    start_measure = State()
-        
-
-# draft state group for testing bot`s setup
-# TODO: add nessesary States
-class SetupSG(StatesGroup):
-    start_setup = State()
-    
-    
-# draft state group for testing user`s account details
-# TODO: add nessesary States
-class AccountSG(StatesGroup):
-    start_account = State()
-    
-    
-# drafr start group for testing reporting system
-class ReportSG(StatesGroup):
-    start_report = State()
-    
 
 # getter for username
 async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str | None]:
@@ -110,7 +72,7 @@ help_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/help']),
         state=HelpSG.start_help,
-        # TODO: ucomment getter`s row
+        # TODO: uncomment getter`s row
         # getter=get_commands
     )
 )

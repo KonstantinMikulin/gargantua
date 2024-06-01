@@ -6,7 +6,16 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-from dialogs.users_dialogs import StartSG, WhatSG, MeasureSG, SetupSG, AccountSG, ReportSG, HelpSG, DescSG
+from states.aiogram_dialog_states import (
+    StartSG,
+    HelpSG,
+    DescSG,
+    WhatSG,
+    MeasureSG,
+    SetupSG,
+    AccountSG,
+    ReportSG
+)
 
 router = Router()
 
@@ -14,12 +23,13 @@ router = Router()
 # handler for /start cmd
 @router.message(CommandStart())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
+    # TODO: uncomment sleep()
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
-    sleep(1)
+    # sleep(1)
     await dialog_manager.start(state=StartSG.start_dialog_help)
-    sleep(2)
+    # sleep(2)
     await dialog_manager.start(state=StartSG.start_dialog_desc)
-    sleep(3)
+    # sleep(3)
     await dialog_manager.start(state=StartSG.create_account_on_start)
 
 
