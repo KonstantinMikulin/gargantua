@@ -1,4 +1,3 @@
-import imp
 from aiogram.types import User
 
 from aiogram_dialog import Dialog, DialogManager, Window
@@ -17,28 +16,10 @@ from states.aiogram_dialog_states import (
     AccountSG,
     ReportSG
 )
+from getters.aiogram_dialog_getters import get_username
 
-# TODO: remove all states group to another module
 # TODO: remove all getters to another module
 # TODO: remove all aiogram_dialog handlers to another module
-
-
-# getter for username
-async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str | None]:
-    return {'username': event_from_user.username}
-
-
-# getter for retrieving data from db
-# TODO: make this getter work
-# async def get_user_data(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str | None]:
-#     pass
-
-
-# getter for collecting all commands in one dict
-# TODO: make this getter work
-# async def get_commands(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str | None]:
-#     pass
- 
 
 
 # TODO: add nessesary Windows
