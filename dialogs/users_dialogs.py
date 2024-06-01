@@ -15,7 +15,8 @@ from states.aiogram_dialog_states import (
     SetupSG,
     AccountSG,
     ReportSG,
-    SupportSG
+    SupportSG,
+    ContactsSG
 )
 from getters.aiogram_dialog_getters import get_username
 
@@ -122,5 +123,13 @@ support_dialog = Dialog(
         state=SupportSG.start_support,
         # TODO: ucomment getter`s row
         # getter=get_user_data
+    )
+)
+
+# TODO: add nessesary Windows
+contacts_dialog = Dialog(
+    Window(
+        Const(LEXICON_RU['/contacts']),
+        state=ContactsSG.start_contacts
     )
 )

@@ -53,3 +53,7 @@ class ReportSG(StatesGroup):
 # draft state group for testing support function
 class SupportSG(StatesGroup):
     start_support = State()
+
+# draft state group for testing contacts sending
+class ContactsSG(StatesGroup):
+    start_contacts = State()

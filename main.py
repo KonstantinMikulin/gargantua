@@ -17,7 +17,8 @@ from dialogs.users_dialogs import (
     report_dialog,
     help_dialog,
     desc_dialog,
-    support_dialog
+    support_dialog,
+    contacts_dialog
 )
 
 logger = logging.getLogger(__name__)
@@ -38,6 +39,7 @@ async def main() -> None:
     dp = Dispatcher()
     
     dp.include_router(users_handlers.router)
+    # TODO: check that this method work correctly after refactoring import of dialogs
     dp.include_routers(
         *[
         start_dialog,
@@ -48,7 +50,8 @@ async def main() -> None:
         report_dialog,
         help_dialog,
         desc_dialog,
-        support_dialog
+        support_dialog,
+        contacts_dialog
         ]
         )
     setup_dialogs(dp)

@@ -15,7 +15,8 @@ from states.aiogram_dialog_states import (
     SetupSG,
     AccountSG,
     ReportSG,
-    SupportSG
+    SupportSG,
+    ContactsSG
 )
 
 router = Router()
@@ -86,3 +87,10 @@ async def process_report_cmd(message: Message, dialog_manager: DialogManager) ->
 async def process_support_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=SupportSG.start_support)
     # TODO: add logic for sending message to dev
+
+
+# handler for /contacts
+@router.message(Command(commands=['contacts']))
+async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    await dialog_manager.start(state=ContactsSG.start_contacts)
+    
