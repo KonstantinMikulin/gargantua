@@ -6,7 +6,11 @@ from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.kbd import Button, Row
 
 from lexicon.lexicon import LEXICON_RU
+from aiogram_dialog_handlers.aiogram_dialog_handlers import account_yes_get_clicked, account_no_get_clicked
 
+# TODO: remove all states group to another module
+# TODO: remove all getters to another module
+# TODO: remove all aiogram_dialog handlers to another module
 
 # draft state group for testing starting dialogs
 # TODO: add nessesary States
@@ -93,8 +97,8 @@ start_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/start']['step_4']),
         Row(
-            Button(text=Const('Yes'), id='yes'),
-            Button(Const('No'), id='no')
+            Button(text=Const('Yes'), id='yes', on_click=account_yes_get_clicked),
+            Button(Const('No'), id='no', on_click=account_no_get_clicked)
         ),
         state=StartSG.create_account_on_start
     )
