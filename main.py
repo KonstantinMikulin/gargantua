@@ -7,6 +7,7 @@ from aiogram_dialog import setup_dialogs
 
 from config.config import Config, load_config
 from handlers import users_handlers
+# TODO: refactor this (maybe import list with dialogs from mudule)
 from dialogs.users_dialogs import (
     start_dialog,
     what_dialog,
@@ -15,7 +16,8 @@ from dialogs.users_dialogs import (
     account_dialog,
     report_dialog,
     help_dialog,
-    desc_dialog
+    desc_dialog,
+    support_dialog
 )
 
 logger = logging.getLogger(__name__)
@@ -45,7 +47,8 @@ async def main() -> None:
         account_dialog,
         report_dialog,
         help_dialog,
-        desc_dialog
+        desc_dialog,
+        support_dialog
         ]
         )
     setup_dialogs(dp)

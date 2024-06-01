@@ -14,12 +14,10 @@ from states.aiogram_dialog_states import (
     MeasureSG,
     SetupSG,
     AccountSG,
-    ReportSG
+    ReportSG,
+    SupportSG
 )
 from getters.aiogram_dialog_getters import get_username
-
-# TODO: remove all getters to another module
-# TODO: remove all aiogram_dialog handlers to another module
 
 
 # TODO: add nessesary Windows
@@ -107,10 +105,21 @@ account_dialog = Dialog(
     )
 )
 
+# TODO: add nessesary Windows
 report_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/report']),
         state=ReportSG.start_report,
+        # TODO: ucomment getter`s row
+        # getter=get_user_data
+    )
+)
+
+# TODO: add nessesary Windows
+support_dialog = Dialog(
+    Window(
+        Const(LEXICON_RU['/support']),
+        state=SupportSG.start_support,
         # TODO: ucomment getter`s row
         # getter=get_user_data
     )

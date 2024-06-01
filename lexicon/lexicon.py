@@ -16,5 +16,6 @@ LEXICON_RU = {
     '/measure': '{username}, send your measurments, please',
     '/setup': 'Let`s setup your bot',
     '/account': 'Can we save data from your Telegram?',
-    '/report': 'Preparing report...'
+    '/report': 'Preparing report...',
+    '/support': 'Your message was sent to support'
 }

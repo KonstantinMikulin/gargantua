@@ -48,3 +48,8 @@ class AccountSG(StatesGroup):
 # drafr start group for testing reporting system
 class ReportSG(StatesGroup):
     start_report = State()
+    
+
+# draft state group for testing support function
+class SupportSG(StatesGroup):
+    start_support = State()
