@@ -17,7 +17,7 @@ LEXICON_RU = {
     '/setup': 'Let`s setup your bot',
     '/account': 'Can we save data from your Telegram?',
     '/report': 'Preparing report...',
-    '/support': 'Your message was sent to support',
+    '/support': 'Send your question, please...',
     '/contacts': 'Here are our contacts...'
 }
 

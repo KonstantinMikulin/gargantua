@@ -1,11 +1,13 @@
+from cgi import print_environ
 from time import sleep
 
-from aiogram import Router
+from aiogram import Router, Bot
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
+from config.config import Config, load_config
 from states.aiogram_dialog_states import (
     StartSG,
     HelpSG,
@@ -20,6 +22,7 @@ from states.aiogram_dialog_states import (
 )
 
 router = Router()
+config: Config = load_config()
 
 
 # handler for /start cmd
@@ -82,10 +85,15 @@ async def process_report_cmd(message: Message, dialog_manager: DialogManager) ->
     await dialog_manager.start(state=ReportSG.start_report)
     
 
+# TODO: clean this handler
 # handler for /support
+# allow text message from user and send it to support
 @router.message(Command(commands=['support']))
-async def process_support_cmd(message: Message, dialog_manager: DialogManager) -> None:
+async def process_support_cmd(message: Message, bot: Bot, dialog_manager: DialogManager, config) -> None:
+    support = config.tg_bot.support_id[0]
     await dialog_manager.start(state=SupportSG.start_support)
+    await dialog_manager.switch_to(state=SupportSG.text_imput)
+    # await bot.forward_message(chat_id=support, from_chat_id=message.chat.id, message_id=message.message_id)
     # TODO: add logic for sending message to dev
 
 

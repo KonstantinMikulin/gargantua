@@ -41,6 +41,7 @@ async def main() -> None:
     
     await set_main_menu(bot)
     
+    dp.workflow_data.update({'config': config})
     dp.include_router(users_handlers.router)
     # TODO: check that this method work correctly after refactoring import of dialogs
     dp.include_routers(
@@ -58,10 +59,8 @@ async def main() -> None:
         ]
         )
     setup_dialogs(dp)
-    # dp.startup.register(set_main_menu)
     
     await bot.delete_webhook(drop_pending_updates=True)
-    # function for set bot commands in 'menu' button
     await dp.start_polling(bot)
     
     

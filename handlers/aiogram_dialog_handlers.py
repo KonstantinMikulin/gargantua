@@ -1,4 +1,5 @@
-from aiogram.types import CallbackQuery
+from aiogram import Bot
+from aiogram.types import Message, CallbackQuery
 
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.kbd import Button
@@ -14,3 +15,8 @@ async def account_yes_get_clicked(callback: CallbackQuery, button: Button, dialo
 # TODO: change logic of this handler
 async def account_no_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     await callback.message.answer('You choose "No"') # type: ignore
+
+
+# handler for forwarding message to support
+# async def forward_msg_to_support(message: Message, bot: Bot) -> None:
+#     await bot.forward_message(chat_id=)

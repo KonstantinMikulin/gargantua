@@ -2,6 +2,7 @@ from aiogram.types import User
 
 from aiogram_dialog import Dialog, DialogManager, Window
 from aiogram_dialog.widgets.text import Const, Format
+from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button, Row
 
 from lexicon.lexicon import LEXICON_RU
@@ -123,7 +124,14 @@ support_dialog = Dialog(
         state=SupportSG.start_support,
         # TODO: ucomment getter`s row
         # getter=get_user_data
-    )
+    ),
+    # Window(
+    #     TextInput(
+    #         id='support_msg',
+    #         type_factory=str,
+    #         on_success=
+    #     )
+    # )
 )
 
 # TODO: add nessesary Windows
