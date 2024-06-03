@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram_dialog import setup_dialogs
 
 from config.config import Config, load_config
+from keyboards.bot_main_menu import set_main_menu
 from handlers import users_handlers
 # TODO: refactor this (maybe import list with dialogs from mudule)
 from dialogs.users_dialogs import (
@@ -55,9 +56,10 @@ async def main() -> None:
         ]
         )
     setup_dialogs(dp)
-    
+    dp.startup.register(set_main_menu)
     
     await bot.delete_webhook(drop_pending_updates=True)
+    # function for set bot commands in 'menu' button
     await dp.start_polling(bot)
     
     

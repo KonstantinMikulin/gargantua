@@ -1,3 +1,4 @@
+from aiogram import Bot
 from aiogram.types import BotCommand
 
 commands_dict = {
@@ -11,13 +12,12 @@ commands_dict = {
     '/account': 'Setup/view your account',
     '/report': 'Show report',
     '/support': 'Contact support',
-    '/contacts': 'Contacs us'
+    '/contacts': 'Contact us'
 }
 
-res = [BotCommand(command=cmd, description=desc) for cmd, desc in commands_dict.items()]
-
-print(res)
-
-
-
-
+# TODO: finish it
+# function for set bot commands in 'menu' button
+async def set_main_menu(bot: Bot):
+    main_menu_command = [BotCommand(command=cmd, description=desc) for cmd, desc in commands_dict.items()]
+    
+    await bot.set_my_commands(main_menu_command)
