@@ -39,6 +39,8 @@ async def main() -> None:
     bot = Bot(token=config.tg_bot.token)
     dp = Dispatcher()
     
+    await set_main_menu(bot)
+    
     dp.include_router(users_handlers.router)
     # TODO: check that this method work correctly after refactoring import of dialogs
     dp.include_routers(
@@ -56,7 +58,7 @@ async def main() -> None:
         ]
         )
     setup_dialogs(dp)
-    dp.startup.register(set_main_menu)
+    # dp.startup.register(set_main_menu)
     
     await bot.delete_webhook(drop_pending_updates=True)
     # function for set bot commands in 'menu' button

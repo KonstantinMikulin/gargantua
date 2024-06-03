@@ -94,3 +94,7 @@ async def process_support_cmd(message: Message, dialog_manager: DialogManager) -
 async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=ContactsSG.start_contacts)
     
+    
+# TODO: make handler for processing messages whick starts with '/' but commands not exist or was deleted
+# @router.message
+# pass    
