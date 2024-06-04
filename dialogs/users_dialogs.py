@@ -6,7 +6,11 @@ from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button, Row
 
 from lexicon.lexicon import LEXICON_RU
-from handlers.aiogram_dialog_handlers import account_yes_get_clicked, account_no_get_clicked
+from handlers.aiogram_dialog_handlers import (
+    account_yes_get_clicked,
+    account_no_get_clicked,
+    pass_handler 
+    )
 from states.aiogram_dialog_states import (
     StartSG,
     HelpSG,
@@ -125,13 +129,14 @@ support_dialog = Dialog(
         # TODO: ucomment getter`s row
         # getter=get_user_data
     ),
-    # Window(
-    #     TextInput(
-    #         id='support_msg',
-    #         type_factory=str,
-    #         on_success=
-    #     )
-    # )
+    Window(
+        TextInput(
+            id='support_msg',
+            type_factory=str,
+            on_success=pass_handler
+        ),
+        state=SupportSG.text_imput
+    )
 )
 
 # TODO: add nessesary Windows

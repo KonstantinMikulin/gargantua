@@ -1,8 +1,13 @@
-from aiogram import Bot
+from aiogram import Bot, Router
 from aiogram.types import Message, CallbackQuery
 
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.input import ManagedTextInput
+
+from config.config import Config
+
+aiogram_handlers_router = Router()
 
 
 # handler for processing 'yes' button for account settings
@@ -17,6 +22,6 @@ async def account_no_get_clicked(callback: CallbackQuery, button: Button, dialog
     await callback.message.answer('You choose "No"') # type: ignore
 
 
-# handler for forwarding message to support
-# async def forward_msg_to_support(message: Message, bot: Bot) -> None:
-#     await bot.forward_message(chat_id=)
+# type: pass handler for temporary purpose
+async def pass_handler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager, text: str) -> None:
+    await message.answer(text=f'We will do something later with {text}')
