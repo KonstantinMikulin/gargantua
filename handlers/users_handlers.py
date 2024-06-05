@@ -101,6 +101,16 @@ async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) 
     await dialog_manager.start(state=ContactsSG.start_contacts)
     
     
-# TODO: make handler for processing messages whick starts with '/' but commands not exist or was deleted
+# TODO: make handler for processing messages which starts with '/', but commands not exist or was deleted
 # @router.message
 # pass    
+
+
+@user_handlers_router.message(Command(commands=['test']))
+async def process_test_cmd(message: Message, config, bot: Bot) -> None:
+    await message.answer(f'TEST: {config.tg_bot.support_id}')
+    await bot.forward_message(
+        chat_id=828900493,
+        from_chat_id=message.chat.id,
+        message_id=message.message_id
+        )

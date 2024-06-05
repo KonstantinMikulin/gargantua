@@ -41,7 +41,8 @@ async def main() -> None:
     
     await set_main_menu(bot)
     
-    dp.workflow_data.update({'config': config, 'my_bot': bot})
+    dp.workflow_data.update({'test_1': 'test_1 done', 'config': config, 'bot': bot})
+    # dp.workflow_data.update({'config': config, 'my_bot': bot})
     dp.include_router(users_handlers.user_handlers_router)
     # TODO: check that this method work correctly after refactoring import of dialogs
     dp.include_routers(
