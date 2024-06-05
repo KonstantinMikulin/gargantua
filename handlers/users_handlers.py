@@ -109,7 +109,7 @@ async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) 
 async def process_test_cmd(message: Message, config, bot: Bot) -> None:
     await message.answer(f'TEST: {config.tg_bot.support_id}')
     await bot.forward_message(
-        chat_id=828900493,
+        chat_id=config.tg_bot.support_id,
         from_chat_id=message.chat.id,
         message_id=message.message_id
         )
