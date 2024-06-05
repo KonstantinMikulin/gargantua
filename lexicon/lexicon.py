@@ -1,9 +1,9 @@
 # TODO: rename keys?
 start_text = {
-    'step_1': 'Hello {username}',
-    'step_2': 'You can send /help for command`s list',
-    'step_3': 'You can send /desc for how to use bot',
-    'step_4': 'Do you want to create your account?'
+    'start_text_1': 'Hello {username}',
+    'start_text_2': 'You can send /help for command`s list',
+    'start_text_3': 'You can send /desc for how to use bot',
+    'start_text_4': 'Do you want to create your account?'
 }
 
 

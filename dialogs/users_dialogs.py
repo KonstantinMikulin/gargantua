@@ -29,20 +29,20 @@ from getters.aiogram_dialog_getters import get_username
 # TODO: add nessesary Windows
 start_dialog = Dialog(
     Window(
-        Format(LEXICON_RU['/start']['step_1']),
+        Format(LEXICON_RU['/start']['start_text_1']),
         getter=get_username,
         state=StartSG.start_dialog
     ),
     Window(
-        Const(LEXICON_RU['/start']['step_2']),
+        Const(LEXICON_RU['/start']['start_text_2']),
         state=StartSG.start_dialog_help
     ),
     Window(
-        Const(LEXICON_RU['/start']['step_3']),
+        Const(LEXICON_RU['/start']['start_text_3']),
         state=StartSG.start_dialog_desc
     ),
     Window(
-        Const(LEXICON_RU['/start']['step_4']),
+        Const(LEXICON_RU['/start']['start_text_4']),
         Row(
             Button(text=Const('Yes'), id='yes', on_click=account_yes_get_clicked),
             Button(Const('No'), id='no', on_click=account_no_get_clicked)

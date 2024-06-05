@@ -103,7 +103,6 @@ async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) 
     
 # TODO: make handler for processing messages which starts with '/', but commands not exist or was deleted
 # @router.message
-# pass    
 
 
 @user_handlers_router.message(Command(commands=['test']))
