@@ -1,4 +1,3 @@
-from cgi import print_environ
 from time import sleep
 
 from aiogram import Router, Bot
@@ -85,14 +84,15 @@ async def process_report_cmd(message: Message, dialog_manager: DialogManager) ->
     await dialog_manager.start(state=ReportSG.start_report)
     
 
-# TODO: clean this handler
+# TODO: create another logic for contacting with support/admin
 # handler for /support
 # allow text message from user and send it to support
 @user_handlers_router.message(Command(commands=['support']))
 async def process_support_cmd(message: Message, bot: Bot, dialog_manager: DialogManager, config) -> None:
+    support = config.tg_bot.support_id[0]
+    
     await dialog_manager.start(state=SupportSG.start_support)
-    await dialog_manager.switch_to(state=SupportSG.text_imput)
-    # TODO: add logic for sending message to dev
+    await bot.forward_message(chat_id=support, from_chat_id=message.chat.id, message_id=message.message_id)
 
 
 # handler for /contacts

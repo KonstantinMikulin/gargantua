@@ -1,4 +1,3 @@
-# TODO: rename keys?
 start_text = {
     'start_text_1': 'Hello {username}',
     'start_text_2': 'You can send /help for command`s list',

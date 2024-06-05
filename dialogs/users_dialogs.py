@@ -128,14 +128,6 @@ support_dialog = Dialog(
         state=SupportSG.start_support,
         # TODO: ucomment getter`s row
         # getter=get_user_data
-    ),
-    Window(
-        TextInput(
-            id='support_msg',
-            type_factory=str,
-            on_success=pass_handler
-        ),
-        state=SupportSG.text_imput
     )
 )
 
