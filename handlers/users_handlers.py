@@ -119,9 +119,9 @@ async def process_test_cmd(message: Message, config, bot: Bot) -> None:
     #     )
 
 
-@user_handlers_router.message()
-async def send_echo(message: Message):
-    try:
-        await message.send_copy(chat_id=message.chat.id)
-    except TypeError:
-        await message.reply(text='No no no')
+# @user_handlers_router.message()
+# async def send_echo(message: Message):
+#     try:
+#         await message.send_copy(chat_id=message.chat.id)
+#     except TypeError:
+#         await message.reply(text='No no no')
