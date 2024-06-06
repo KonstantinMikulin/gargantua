@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class UserValidation(BaseFilter):
     async def __call__(self, event: TelegramObject, config, bot: Bot) -> bool:
-        logger.debug('We are inside filter %s', __class__.__name__)
+        logger.info('We are inside filter %s', __class__.__name__)
         allowed_users = config.tg_bot.users_ids
         
         if event.from_user.id in allowed_users: # type: ignore

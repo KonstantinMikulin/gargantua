@@ -29,10 +29,9 @@ logger = logging.getLogger(__name__)
 async def main() -> None:
     logging.basicConfig(
         level=logging.INFO,
-        format='%(filename)s:%(lineno)d #%(levelname)-8s '
-                '[%(asctime)s] - %(name)s - %(message)s'
+        format='[%(asctime)s] #%(levelname)-8s %(filename)s:'
+                '%(lineno)d - %(name)s - %(message)s'
     )
-    logger.info('Starting bot')
     
     config: Config = load_config()
     

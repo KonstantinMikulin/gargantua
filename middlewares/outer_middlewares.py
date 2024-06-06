@@ -18,7 +18,7 @@ class OuterMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: dict[str, Any]
     ) -> Any:
-        logger.debug(
+        logger.info(
             'We are in middleware %s, updaste type %s',
             __class__.__name__,
             event.__class__.__name__
@@ -26,7 +26,7 @@ class OuterMiddleware(BaseMiddleware):
         
         result = await handler(event, data)
         
-        logger.debug('We are exiting from middleware %s', __class__.__name__)
+        logger.info('We are exiting middleware %s', __class__.__name__)
         
         return result
         

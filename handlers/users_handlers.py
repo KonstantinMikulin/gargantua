@@ -1,3 +1,4 @@
+import logging
 from time import sleep
 
 from aiogram import Router, Bot
@@ -23,12 +24,14 @@ from states.aiogram_dialog_states import (
 )
 
 user_handlers_router = Router()
-config: Config = load_config()
 
+logger = logging.getLogger(__name__)
 
 # handler for /start cmd
 @user_handlers_router.message(CommandStart(), UserValidation())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
+    logger.info('We are in /start handler')
+    
     # TODO: uncomment sleep()
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
     # sleep(1)
@@ -37,13 +40,18 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     await dialog_manager.start(state=StartSG.start_dialog_desc)
     # sleep(3)
     await dialog_manager.start(state=StartSG.create_account_on_start)
+    
+    logger.info('We are exiting /start handler')
 
 
 # handler for /help cmd
 @user_handlers_router.message(Command(commands=['help']))
 async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    logger.info('We are in /help handler')
+    
     await dialog_manager.start(state=HelpSG.start_help)
 
+    logger.info('We are exiting /help handler')
 
 # handler for bot`s description cmd
 @user_handlers_router.message(Command(commands=['desc']))
