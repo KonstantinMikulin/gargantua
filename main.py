@@ -7,7 +7,7 @@ from aiogram_dialog import setup_dialogs
 
 from config.config import Config, load_config
 from keyboards.bot_main_menu import set_main_menu
-from handlers import users_handlers
+from handlers.users_handlers import user_handlers_router
 from dialogs.users_dialogs import (
     start_dialog,
     what_dialog,
@@ -42,7 +42,7 @@ async def main() -> None:
     
     dp.workflow_data.update({'test_1': 'test_1 done', 'config': config, 'bot': bot})
     # dp.workflow_data.update({'config': config, 'my_bot': bot})
-    dp.include_router(users_handlers.user_handlers_router)
+    dp.include_router(user_handlers_router)
     dp.include_routers(
         start_dialog,
         what_dialog,

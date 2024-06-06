@@ -1,6 +1,4 @@
-from aiogram.types import BotCommand
-
-commands_dict = {
+LEXICON_COMMANDS = {
     '/start': 'Start/re-start bot',
     '/help': 'Show all commands',
     '/desc': 'Bot`s description',
@@ -11,13 +9,7 @@ commands_dict = {
     '/account': 'Setup/view your account',
     '/report': 'Show report',
     '/support': 'Contact support',
-    '/contacts': 'Contacs us'
+    '/contacts': 'Contact us'
 }
 
-res = [BotCommand(command=cmd, description=desc) for cmd, desc in commands_dict.items()]
-
-print(res)
-
-
-
-
+print('/star' in LEXICON_COMMANDS)

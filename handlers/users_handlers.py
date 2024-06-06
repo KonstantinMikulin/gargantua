@@ -3,10 +3,12 @@ from time import sleep
 from aiogram import Router, Bot
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
+from aiogram.methods import CreateChatInviteLink
 
 from aiogram_dialog import DialogManager, StartMode
 
 from config.config import Config, load_config
+from filters.filters import UserValidation
 from states.aiogram_dialog_states import (
     StartSG,
     HelpSG,
@@ -25,7 +27,7 @@ config: Config = load_config()
 
 
 # handler for /start cmd
-@user_handlers_router.message(CommandStart())
+@user_handlers_router.message(CommandStart(), UserValidation())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
     # TODO: uncomment sleep()
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
@@ -107,9 +109,19 @@ async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) 
 
 @user_handlers_router.message(Command(commands=['test']))
 async def process_test_cmd(message: Message, config, bot: Bot) -> None:
-    await message.answer(f'TEST: {config.tg_bot.support_id}')
-    await bot.forward_message(
-        chat_id=config.tg_bot.support_id,
-        from_chat_id=message.chat.id,
-        message_id=message.message_id
-        )
+    link = await bot.create_chat_invite_link(chat_id=message.chat.id)
+    
+    await message.answer(f'TEST: {link}')
+    # await bot.forward_message(
+    #     chat_id=config.tg_bot.support_id,
+    #     from_chat_id=message.chat.id,
+    #     message_id=message.message_id
+    #     )
+
+
+@user_handlers_router.message()
+async def send_echo(message: Message):
+    try:
+        await message.send_copy(chat_id=message.chat.id)
+    except TypeError:
+        await message.reply(text='No no no')
