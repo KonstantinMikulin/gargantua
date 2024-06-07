@@ -2,16 +2,16 @@ import logging
 
 from typing import Any, Awaitable, Callable, Dict
 
-from aiogram import BaseMiddleware
-from aiogram.types import TelegramObject
+from aiogram import BaseMiddleware, Bot
+from aiogram.types import TelegramObject, Chat
+
+from filters.filters import UserValidation
 
 logger = logging.getLogger(__name__)
 
 
-# TODO: middleware for checking user is allowed
-# TODO: rename middleware
 # middleware for validating allowed users
-class MyOuterMiddleware(BaseMiddleware):
+class UserValidationOuterMiddleware(BaseMiddleware):
     async def __call__(
         self,
         handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
@@ -24,11 +24,25 @@ class MyOuterMiddleware(BaseMiddleware):
             event.__class__.__name__
         )
         
-        result = await handler(event, data)
+        user_id: int = data.get('event_from_user').id # type: ignore
+        allowed_users: list = data.get('config').tg_bot.users_ids # type: ignore
+        bot: Bot = data.get('bot') # type: ignore
+        user_chat: Chat = data.get('event_chat') # type: ignore
         
+        if user_id not in allowed_users:
+            logger.info('We are exiting middleware %s', __class__.__name__)
+            await bot.send_message(
+                chat_id=user_chat.id,
+                # TODO: change this text
+                text='You are not allowed'
+            )
+            
+            return
+    
         logger.info('We are exiting middleware %s', __class__.__name__)
         
-        return result
+        return await handler(event, data)
+        
         
 
 # TODO: middleware for filtering legit commands

@@ -8,7 +8,7 @@ from aiogram_dialog import setup_dialogs
 from config.config import Config, load_config
 from keyboards.bot_main_menu import set_main_menu
 from handlers.users_handlers import user_handlers_router
-from middlewares.outer_middlewares import MyOuterMiddleware
+from middlewares.outer_middlewares import UserValidationOuterMiddleware
 from dialogs.users_dialogs import (
     start_dialog,
     what_dialog,
@@ -58,7 +58,7 @@ async def main() -> None:
         )
     setup_dialogs(dp)
     
-    dp.update.outer_middleware(MyOuterMiddleware())
+    dp.update.outer_middleware(UserValidationOuterMiddleware())
     
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

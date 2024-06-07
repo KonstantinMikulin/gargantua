@@ -28,7 +28,7 @@ user_handlers_router = Router()
 logger = logging.getLogger(__name__)
 
 # handler for /start cmd
-@user_handlers_router.message(CommandStart(), UserValidation())
+@user_handlers_router.message(CommandStart())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
     logger.info('We are in /start handler')
     
