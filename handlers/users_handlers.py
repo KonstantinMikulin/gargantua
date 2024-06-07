@@ -10,7 +10,7 @@ from aiogram_dialog import DialogManager, StartMode
 
 from config.config import Config, load_config
 from filters.filters import UserValidation
-from states.users_handlers_dialog_states import (
+from states.users_dialog_states import (
     StartSG,
     HelpSG,
     DescSG,

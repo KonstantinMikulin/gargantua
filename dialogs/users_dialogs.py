@@ -1,8 +1,7 @@
 from aiogram.types import User
 
-from aiogram_dialog import Dialog, DialogManager, Window
+from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
-from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button, Row
 
 from lexicon.lexicon import LEXICON_RU
@@ -11,7 +10,7 @@ from handlers.aiogram_dialog_handlers import (
     account_no_get_clicked,
     pass_handler 
     )
-from states.users_handlers_dialog_states import (
+from states.users_dialog_states import (
     StartSG,
     HelpSG,
     DescSG,

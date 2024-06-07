@@ -14,7 +14,7 @@ from middlewares.outer_middlewares import (
     CommandsValidationOuterMiddleware
 )
 from lexicon.lexicon import LEXICON_COMMANDS
-from dialogs.users_handlers_dialogs import (
+from dialogs.users_dialogs import (
     start_dialog,
     what_dialog,
     measure_dialog,

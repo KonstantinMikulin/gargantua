@@ -1,3 +1,4 @@
+from time import sleep
 import logging
 
 from typing import Any, Awaitable, Callable, Dict
@@ -5,7 +6,7 @@ from typing import Any, Awaitable, Callable, Dict
 from aiogram import BaseMiddleware, Bot
 from aiogram.types import TelegramObject, Chat
 
-from filters.filters import UserValidation
+from lexicon.lexicon import LEXICON_COMMANDS, LEXICON_MIDDLEWARES
 
 logger = logging.getLogger(__name__)
 
@@ -68,11 +69,18 @@ class CommandsValidationOuterMiddleware(BaseMiddleware):
         command = event.message.text # type: ignore
         
         if command not in bot_commands:
+            # TODO: fix sending messages
             logger.info('We are exiting middleware %s', __class__.__name__)
             await bot.send_message(
                 chat_id=user_chat.id,
                 # TODO: change this text
-                text='I don`t know this command'
+                text=LEXICON_COMMANDS['wrong_cmd']
+            )
+            sleep(1)
+            await bot.send_message(
+                chat_id=user_chat.id,
+                # TODO: change this text
+                text=LEXICON_MIDDLEWARES['show_cmds']
             )
             
             return

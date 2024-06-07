@@ -33,3 +33,8 @@ LEXICON_COMMANDS = {
     '/support': 'Contact support',
     '/contacts': 'Contact us'
 }
+
+LEXICON_MIDDLEWARES = {
+    'wrong_cmd': 'I don`t know this command',
+    'show_cmds': 'Tap this -> /help, to show all commands'
+}
