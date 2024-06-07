@@ -4,12 +4,17 @@ import logging
 from aiogram import Bot, Dispatcher
 
 from aiogram_dialog import setup_dialogs
+from annotated_types import Le
 
 from config.config import Config, load_config
 from keyboards.bot_main_menu import set_main_menu
 from handlers.users_handlers import user_handlers_router
-from middlewares.outer_middlewares import UserValidationOuterMiddleware
-from dialogs.users_dialogs import (
+from middlewares.outer_middlewares import (
+    UserValidationOuterMiddleware,
+    CommandsValidationOuterMiddleware
+)
+from lexicon.lexicon import LEXICON_COMMANDS
+from dialogs.users_handlers_dialogs import (
     start_dialog,
     what_dialog,
     measure_dialog,
@@ -40,7 +45,7 @@ async def main() -> None:
     
     await set_main_menu(bot)
     
-    dp.workflow_data.update({'test_1': 'test_1 done', 'config': config, 'bot': bot})
+    dp.workflow_data.update({'config': config, 'bot': bot, 'commands': LEXICON_COMMANDS})
     
     dp.include_router(user_handlers_router)
     
@@ -59,6 +64,7 @@ async def main() -> None:
     setup_dialogs(dp)
     
     dp.update.outer_middleware(UserValidationOuterMiddleware())
+    dp.update.outer_middleware(CommandsValidationOuterMiddleware())
     
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

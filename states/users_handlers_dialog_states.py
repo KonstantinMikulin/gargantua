@@ -11,11 +11,13 @@ class StartSG(StatesGroup):
     
     
 # draft state group for help
+# TODO: add nessesary States
 class HelpSG(StatesGroup):
     start_help = State()   
 
 
 # draft state group for desc
+# TODO: add nessesary States
 class DescSG(StatesGroup):
     start_desc = State()  
 
