@@ -31,7 +31,8 @@ LEXICON_COMMANDS = {
     '/account': 'Setup/view your account',
     '/report': 'Show report',
     '/support': 'Contact support',
-    '/contacts': 'Contact us'
+    '/contacts': 'Contact us',
+    'wrong_cmd': 'I don`t know this command'
 }
 
 LEXICON_MIDDLEWARES = {
