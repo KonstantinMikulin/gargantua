@@ -11,6 +11,7 @@ from lexicon.lexicon import LEXICON_COMMANDS, LEXICON_MIDDLEWARES
 logger = logging.getLogger(__name__)
 
 
+# TODO: cheak this middleware. It should be in first layer of middlewares.
 # middleware for validating allowed users
 class UserValidationOuterMiddleware(BaseMiddleware):
     async def __call__(
@@ -25,6 +26,9 @@ class UserValidationOuterMiddleware(BaseMiddleware):
             __class__.__name__,
             event.__class__.__name__
         )
+        
+        # TODO: remove this line
+        data.update({'hey': 'Hello you!!!'})
         
         user_id: int = data.get('event_from_user').id # type: ignore
         allowed_users: list = data.get('config').tg_bot.users_ids # type: ignore
