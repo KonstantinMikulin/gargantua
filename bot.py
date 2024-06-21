@@ -2,9 +2,10 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties 
+from aiogram.enums import ParseMode
 
 from aiogram_dialog import setup_dialogs
-from annotated_types import Le
 
 from config.config import Config, load_config
 from keyboards.bot_main_menu import set_main_menu
@@ -40,7 +41,15 @@ async def main() -> None:
     
     config: Config = load_config()
     
-    bot = Bot(token=config.tg_bot.token)
+    # as dafault I set Markdown for parse mode
+    # and show caption above media
+    bot = Bot(
+        token=config.tg_bot.token,
+        default=DefaultBotProperties(
+            parse_mode=ParseMode.MARKDOWN_V2,
+            show_caption_above_media=True
+        )
+    )
     dp = Dispatcher()
     
     await set_main_menu(bot)
