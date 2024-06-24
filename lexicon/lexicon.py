@@ -34,6 +34,7 @@ LEXICON_COMMANDS = {
     '/contacts': 'Contact us',
     '/test': 'Some action',
     '/images': 'Some actions',
+    '/link': 'Link',
     'wrong_cmd': 'I don`t know this command'
 }
 

@@ -9,7 +9,8 @@ from aiogram_dialog import setup_dialogs
 
 from config.config import Config, load_config
 from keyboards.bot_main_menu import set_main_menu
-from handlers.users_handlers import user_handlers_router
+from handlers.users_handlers import user_router
+from handlers.admin_handlers import admin_router
 from middlewares.outer_middlewares import (
     UserValidationOuterMiddleware,
     CommandsValidationOuterMiddleware
@@ -56,7 +57,7 @@ async def main() -> None:
     
     dp.workflow_data.update({'config': config, 'bot': bot, 'commands': LEXICON_COMMANDS})
     
-    dp.include_router(user_handlers_router)
+    dp.include_routers(admin_router, user_router)
     
     dp.include_routers(
         start_dialog,
@@ -73,7 +74,7 @@ async def main() -> None:
     setup_dialogs(dp)
     
     dp.update.outer_middleware(UserValidationOuterMiddleware())
-    dp.update.outer_middleware(CommandsValidationOuterMiddleware())
+    # dp.update.outer_middleware(CommandsValidationOuterMiddleware())
     
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

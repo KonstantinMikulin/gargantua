@@ -24,12 +24,12 @@ from states.users_dialog_states import (
     ContactsSG
 )
 
-user_handlers_router = Router()
+user_router = Router()
 
 logger = logging.getLogger(__name__)
 
 # handler for /start cmd
-@user_handlers_router.message(CommandStart())
+@user_router.message(CommandStart())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
     logger.info('We are in /start handler')
     
@@ -42,11 +42,15 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     # sleep(3)
     await dialog_manager.start(state=StartSG.create_account_on_start)
     
+    # TODO: fix this logic
+    # temp solution
+    await dialog_manager.reset_stack()
+    
     logger.info('We are exiting /start handler')
 
 
 # handler for /help cmd
-@user_handlers_router.message(Command(commands=['help']))
+@user_router.message(Command(commands=['help']))
 async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
     logger.info('We are in /help handler')
     
@@ -55,42 +59,42 @@ async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> N
     logger.info('We are exiting /help handler')
 
 # handler for bot`s description cmd
-@user_handlers_router.message(Command(commands=['desc']))
+@user_router.message(Command(commands=['desc']))
 async def process_desc_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=DescSG.start_desc)
 
 
 # handler for Gargantua`s story cmd
-@user_handlers_router.message(Command(commands=['what']))
+@user_router.message(Command(commands=['what']))
 async def process_what_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=WhatSG.start_what)
     
     
 # handler for weight record
-@user_handlers_router.message(Command(commands=['weight', 'kg']))
+@user_router.message(Command(commands=['weight', 'kg']))
 async def process_weight_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=MeasureSG.start_weight)
 
 
 # handler for /measure cmd
-@user_handlers_router.message(Command(commands=['measure', 'cm']))
+@user_router.message(Command(commands=['measure', 'cm']))
 async def process_measure_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=MeasureSG.start_measure)
 
 
 # handler for /setup cmd
-@user_handlers_router.message(Command(commands=['setup']))
+@user_router.message(Command(commands=['setup']))
 async def process_setup_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=SetupSG.start_setup)
 
 
 # handler for /account cmd
-@user_handlers_router.message(Command(commands=['account']))
+@user_router.message(Command(commands=['account']))
 async def process_account_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=AccountSG.start_account)
 
 # handler for /report
-@user_handlers_router.message(Command(commands=['report']))
+@user_router.message(Command(commands=['report']))
 async def process_report_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=ReportSG.start_report)
     
@@ -98,7 +102,7 @@ async def process_report_cmd(message: Message, dialog_manager: DialogManager) ->
 # TODO: create another logic for contacting with support/admin
 # handler for /support
 # allow text message from user and send it to support
-@user_handlers_router.message(Command(commands=['support']))
+@user_router.message(Command(commands=['support']))
 async def process_support_cmd(message: Message, bot: Bot, dialog_manager: DialogManager, config) -> None:
     support = config.tg_bot.support_id[0]
     
@@ -107,12 +111,12 @@ async def process_support_cmd(message: Message, bot: Bot, dialog_manager: Dialog
 
 
 # handler for /contacts
-@user_handlers_router.message(Command(commands=['contacts']))
+@user_router.message(Command(commands=['contacts']))
 async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=ContactsSG.start_contacts)
 
 
-@user_handlers_router.message(Command('images'))  
+@user_router.message(Command('images'))  
 async def upload_photo(message: Message) -> None:  
     # Сюда будем помещать file_id отправленных файлов, чтобы потом ими воспользоваться  
     file_ids = []  

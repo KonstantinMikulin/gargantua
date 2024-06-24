@@ -51,7 +51,7 @@ class UserValidationOuterMiddleware(BaseMiddleware):
         
         
 
-# TODO: middleware for filtering legit commands
+# TODO: make this validation in other way (filters maybe ot handler for /<some text>)
 # middleware for filtering legit commands
 class CommandsValidationOuterMiddleware(BaseMiddleware):
     async def __call__(
@@ -74,6 +74,7 @@ class CommandsValidationOuterMiddleware(BaseMiddleware):
         
         if command.startswith('/'):
             if command not in bot_commands:
+                print(command)
                 # TODO: fix sending messages
                 logger.info('We are exiting middleware %s', __class__.__name__)
                 await bot.send_message(
