@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 # handler for /start cmd
 @user_handlers_router.message(CommandStart())
-async def process_cmd_start(message: Message, dialog_manager: DialogManager, hey) -> None:
+async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
     logger.info('We are in /start handler')
     
     # TODO: uncomment sleep()
@@ -41,9 +41,6 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager, hey
     await dialog_manager.start(state=StartSG.start_dialog_desc)
     # sleep(3)
     await dialog_manager.start(state=StartSG.create_account_on_start)
-    
-    # TODO: remove this line
-    await message.answer(text=f'HEY: {hey}')
     
     logger.info('We are exiting /start handler')
 

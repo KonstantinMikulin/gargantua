@@ -1,5 +1,5 @@
 start_text = {
-    'start_text_1': 'Hello {username}',
+    'start_text_1': 'Hello, {username}',
     'start_text_2': 'You can send /help for command`s list',
     'start_text_3': 'You can send /desc for how to use bot',
     'start_text_4': 'Do you want to create your account?'
@@ -10,7 +10,7 @@ LEXICON_RU = {
     '/start': start_text,
     '/help': 'Commands etc.',
     '/desc': 'Here what you can do with this bot...',
-    '/what': 'Gargantua the Great! It will be a story of Garngantua the Minght',
+    '/what': 'Gargantua the Great It will be a story of Garngantua the Minght',
     '/weight': '{username}, send your weight, please',
     '/measure': '{username}, send your measurments, please',
     '/setup': 'Let`s setup your bot',

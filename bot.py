@@ -42,11 +42,11 @@ async def main() -> None:
     config: Config = load_config()
     
     # as dafault I set Markdown for parse mode
-    # and show caption above media
+    # and set show caption above media
     bot = Bot(
         token=config.tg_bot.token,
         default=DefaultBotProperties(
-            parse_mode=ParseMode.MARKDOWN_V2,
+            parse_mode=ParseMode.HTML,
             show_caption_above_media=True
         )
     )

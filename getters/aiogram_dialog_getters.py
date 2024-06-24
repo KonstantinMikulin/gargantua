@@ -1,3 +1,5 @@
+import html
+
 from aiogram.types import User
 
 from aiogram_dialog import DialogManager
@@ -5,7 +7,7 @@ from aiogram_dialog import DialogManager
 
 # getter for username
 async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str | None]:
-    return {'username': event_from_user.username}
+    return {'username': html.escape(event_from_user.first_name)}
 
 
 # getter for retrieving data from db
