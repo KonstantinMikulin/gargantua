@@ -1,7 +1,7 @@
 import logging
 from time import sleep
 
-from aiogram import Router, Bot
+from aiogram import Router, Bot, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.methods import CreateChatInviteLink
@@ -110,10 +110,6 @@ async def process_support_cmd(message: Message, bot: Bot, dialog_manager: Dialog
 @user_handlers_router.message(Command(commands=['contacts']))
 async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=ContactsSG.start_contacts)
-    
-    
-# TODO: make handler for processing messages which starts with '/', but commands not exist or was deleted
-# @router.message
 
 
 @user_handlers_router.message(Command('images'))  
@@ -153,10 +149,9 @@ async def upload_photo(message: Message) -> None:
     await message.answer("Отправленные файлы:\n"+"\n".join(file_ids))
 
 
-@user_handlers_router.message(Command(commands=['test']))
-async def process_test_cmd(message: Message, config, bot: Bot) -> None:
-    pass
-
+# @user_handlers_router.message(F.text)
+# async def extract_data(message: Message) -> None:
+#     print(message)
 
 # @user_handlers_router.message()
 # async def send_echo(message: Message):

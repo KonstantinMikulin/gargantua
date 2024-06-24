@@ -41,7 +41,7 @@ async def main() -> None:
     
     config: Config = load_config()
     
-    # as dafault I set Markdown for parse mode
+    # as default I set Markdown for parse mode
     # and set show caption above media
     bot = Bot(
         token=config.tg_bot.token,

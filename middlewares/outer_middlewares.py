@@ -70,24 +70,25 @@ class CommandsValidationOuterMiddleware(BaseMiddleware):
         bot: Bot = data.get('bot') # type: ignore
         user_chat: Chat = data.get('event_chat') # type: ignore
         bot_commands = data.get('commands')
-        command = event.message.text # type: ignore
+        command: str = event.message.text # type: ignore
         
-        if command not in bot_commands:
-            # TODO: fix sending messages
-            logger.info('We are exiting middleware %s', __class__.__name__)
-            await bot.send_message(
-                chat_id=user_chat.id,
-                # TODO: change this text
-                text=LEXICON_COMMANDS['wrong_cmd']
-            )
-            sleep(1)
-            await bot.send_message(
-                chat_id=user_chat.id,
-                # TODO: change this text
-                text=LEXICON_MIDDLEWARES['show_cmds']
-            )
-            
-            return
+        if command.startswith('/'):
+            if command not in bot_commands:
+                # TODO: fix sending messages
+                logger.info('We are exiting middleware %s', __class__.__name__)
+                await bot.send_message(
+                    chat_id=user_chat.id,
+                    # TODO: change this text
+                    text=LEXICON_COMMANDS['wrong_cmd']
+                )
+                sleep(1)
+                await bot.send_message(
+                    chat_id=user_chat.id,
+                    # TODO: change this text
+                    text=LEXICON_MIDDLEWARES['show_cmds']
+                )
+                
+                return
             
         logger.info('We are exiting middleware %s', __class__.__name__)
         
