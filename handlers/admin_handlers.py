@@ -15,5 +15,5 @@ admin_router = Router()
 # handler to create invite link
 @admin_router.message(Command(commands=['link']))
 async def create_invite_link(message: Message, bot: Bot) -> None:
-    link = await create_start_link(bot, 'help')
+    link = await create_start_link(bot, 'score')
     await message.answer(f'Here you go: {html.escape(link)}')

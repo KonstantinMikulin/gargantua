@@ -2,6 +2,9 @@ from dataclasses import dataclass
 
 from environs import Env
 
+# TODO: remove this line
+# temp dict
+USER_DATA = {'score': 10}
 
 @dataclass
 class TgBotConfig:

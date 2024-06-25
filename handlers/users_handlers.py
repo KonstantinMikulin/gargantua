@@ -1,7 +1,7 @@
 import logging
 from time import sleep
 
-from aiogram import Router, Bot, F
+from aiogram import Router, Bot, F, Dispatcher
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.methods import CreateChatInviteLink
@@ -23,21 +23,23 @@ from states.users_dialog_states import (
     SupportSG,
     ContactsSG
 )
+# TODO: remove this import
+from config.config import USER_DATA
 
 user_router = Router()
 
 logger = logging.getLogger(__name__)
 
 
-# handler for /help cmd
-@user_router.message(Command(commands=['help']))
-@user_router.message(CommandStart(deep_link=True, magic=F.args == 'help'))
-async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    logger.info('We are in /help handler')
+# TODO: remove this handler
+# temp handler for testing scoring possibilities
+@user_router.message(Command(commands=['score']))
+@user_router.message(CommandStart(deep_link=True, magic=F.args == 'score'))
+async def process_score_cmd(message: Message) -> None:
+    USER_DATA['score'] += 1
+    user_name = message.from_user.first_name
     
-    await dialog_manager.start(state=HelpSG.start_help)
-
-    logger.info('We are exiting /help handler')
+    await message.answer(f'{user_name}`s score now is {USER_DATA['score']}')
 
 
 # handler for /start cmd
@@ -59,6 +61,16 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     await dialog_manager.reset_stack()
     
     logger.info('We are exiting /start handler')
+    
+    
+# handler for /help cmd
+@user_router.message(Command(commands=['help']))
+async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    logger.info('We are in /help handler')
+    
+    await dialog_manager.start(state=HelpSG.start_help)
+
+    logger.info('We are exiting /help handler')
     
 
 # handler for bot`s description cmd
