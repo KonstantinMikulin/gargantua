@@ -37,6 +37,7 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     logger.info('We are in /start handler')
     
     # TODO: uncomment sleep()
+    # TODO: add logic if account alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
     # sleep(1)
     await dialog_manager.start(state=StartSG.start_dialog_help)
@@ -159,13 +160,6 @@ async def upload_photo(message: Message) -> None:
     await message.answer("Отправленные файлы:\n"+"\n".join(file_ids))
 
 
-# @user_handlers_router.message(F.text)
-# async def extract_data(message: Message) -> None:
-#     print(message)
-
-# @user_handlers_router.message()
-# async def send_echo(message: Message):
-#     try:
-#         await message.send_copy(chat_id=message.chat.id)
-#     except TypeError:
-#         await message.reply(text='No no no')
+@user_router.message()
+async def sen_what(message: Message):
+    await message.answer(text='I don`t understand you :(')
