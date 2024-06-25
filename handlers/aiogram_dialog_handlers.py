@@ -14,12 +14,16 @@ aiogram_handlers_router = Router()
 # TODO: change logic of this handler
 async def account_yes_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     await callback.message.answer('You choose "Yes"') # type: ignore
+    # TODO: remove this line after writing logic for creating account 
+    await dialog_manager.reset_stack()
 
 
 # handler for processing 'no' button for account settings
-# TODO: change logic of this handler
+# TODO: change logic of this handler for remind about account
 async def account_no_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     await callback.message.answer('You choose "No"') # type: ignore
+    await dialog_manager.reset_stack()
+    
 
 
 # type: pass handler for temporary purpose

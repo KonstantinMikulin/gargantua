@@ -11,7 +11,7 @@ from lexicon.lexicon import LEXICON_COMMANDS, LEXICON_MIDDLEWARES
 logger = logging.getLogger(__name__)
 
 
-# TODO: cheak this middleware. It should be in first layer of middlewares.
+# TODO: check this middleware. It should be in first layer of middlewares.
 # middleware for validating allowed users
 class UserValidationOuterMiddleware(BaseMiddleware):
     async def __call__(

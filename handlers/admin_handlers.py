@@ -18,3 +18,7 @@ admin_router = Router()
 async def create_invite_link(message: Message, bot: Bot) -> None:
     link = await create_start_link(bot, 'score')
     await message.answer(f'Here you go: {html.escape(link)}')
+
+
+# TODO: make handler for downloading photo
+pass

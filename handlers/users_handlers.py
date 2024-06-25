@@ -30,6 +30,7 @@ user_router = Router()
 logger = logging.getLogger(__name__)
 
 
+# TODO: add logic for creating user account
 # handler for /start cmd
 @user_router.message(CommandStart())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
@@ -43,10 +44,6 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     await dialog_manager.start(state=StartSG.start_dialog_desc)
     # sleep(3)
     await dialog_manager.start(state=StartSG.create_account_on_start)
-    
-    # TODO: fix this logic
-    # temp solution
-    await dialog_manager.reset_stack()
     
     logger.info('We are exiting /start handler')
     
