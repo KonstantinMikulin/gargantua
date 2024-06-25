@@ -12,6 +12,7 @@ from config.config import Config, load_config
 admin_router = Router()
 
 
+# TODO: set filtration for admin cmds
 # handler to create invite link
 @admin_router.message(Command(commands=['link']))
 async def create_invite_link(message: Message, bot: Bot) -> None:

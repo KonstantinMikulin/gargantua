@@ -1,9 +1,10 @@
 import logging
 from time import sleep
+import html
 
 from aiogram import Router, Bot, F, Dispatcher
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message
+from aiogram.types import Message, LinkPreviewOptions
 from aiogram.methods import CreateChatInviteLink
 from aiogram.types import FSInputFile, URLInputFile, BufferedInputFile
 
@@ -23,23 +24,10 @@ from states.users_dialog_states import (
     SupportSG,
     ContactsSG
 )
-# TODO: remove this import
-from config.config import USER_DATA
 
 user_router = Router()
 
 logger = logging.getLogger(__name__)
-
-
-# TODO: remove this handler
-# temp handler for testing scoring possibilities
-@user_router.message(Command(commands=['score']))
-@user_router.message(CommandStart(deep_link=True, magic=F.args == 'score'))
-async def process_score_cmd(message: Message) -> None:
-    USER_DATA['score'] += 1
-    user_name = message.from_user.first_name
-    
-    await message.answer(f'{user_name}`s score now is {USER_DATA['score']}')
 
 
 # handler for /start cmd
@@ -79,10 +67,16 @@ async def process_desc_cmd(message: Message, dialog_manager: DialogManager) -> N
     await dialog_manager.start(state=DescSG.start_desc)
 
 
+# TODO: add some messages with pics of Gargantua or picture of user himself
 # handler for Gargantua`s story cmd
 @user_router.message(Command(commands=['what']))
 async def process_what_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=WhatSG.start_what)
+    link_text = 'https://w.wiki/AHxi'
+    option_1 = LinkPreviewOptions(
+        url='https://w.wiki/AHxi',  
+        prefer_small_media=True
+    )
+    await message.answer(f'Behold!\n\n{link_text}', link_preview_options=option_1)
     
     
 # handler for weight record

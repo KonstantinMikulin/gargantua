@@ -2,7 +2,7 @@ from aiogram.types import User
 
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
-from aiogram_dialog.widgets.kbd import Button, Row
+from aiogram_dialog.widgets.kbd import Button, Row, Url
 
 from lexicon.lexicon import LEXICON_RU
 from handlers.aiogram_dialog_handlers import (
@@ -74,6 +74,11 @@ desc_dialog = Dialog(
 what_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/what']),
+        Url(
+            text=Const('Open'),
+            url=Const('https://clck.ru/3BUGPY'),
+            id='gargantua_link'
+        ),
         state=WhatSG.start_what
     )
 )
