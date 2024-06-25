@@ -28,6 +28,18 @@ user_router = Router()
 
 logger = logging.getLogger(__name__)
 
+
+# handler for /help cmd
+@user_router.message(Command(commands=['help']))
+@user_router.message(CommandStart(deep_link=True, magic=F.args == 'help'))
+async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    logger.info('We are in /help handler')
+    
+    await dialog_manager.start(state=HelpSG.start_help)
+
+    logger.info('We are exiting /help handler')
+
+
 # handler for /start cmd
 @user_router.message(CommandStart())
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
@@ -47,16 +59,7 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     await dialog_manager.reset_stack()
     
     logger.info('We are exiting /start handler')
-
-
-# handler for /help cmd
-@user_router.message(Command(commands=['help']))
-async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    logger.info('We are in /help handler')
     
-    await dialog_manager.start(state=HelpSG.start_help)
-
-    logger.info('We are exiting /help handler')
 
 # handler for bot`s description cmd
 @user_router.message(Command(commands=['desc']))
