@@ -6,8 +6,14 @@ from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput
 
 from config.config import Config
+from states.users_dialog_states import DefaultSG, MeasureSG
 
 aiogram_handlers_router = Router()
+
+
+# handler for processing 'weight' button
+async def weight_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+    await dialog_manager.switch_to(MeasureSG.start_weight)
 
 
 # handler for processing 'yes' button for account settings
@@ -23,7 +29,7 @@ async def account_yes_get_clicked(callback: CallbackQuery, button: Button, dialo
 async def account_no_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     await callback.message.answer('You choose "No"') # type: ignore
     await dialog_manager.reset_stack()
-    
+    await dialog_manager.switch_to(DefaultSG.default_dialog)
 
 
 # type: pass handler for temporary purpose

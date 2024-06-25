@@ -8,9 +8,11 @@ from lexicon.lexicon import LEXICON_RU
 from handlers.aiogram_dialog_handlers import (
     account_yes_get_clicked,
     account_no_get_clicked,
+    weight_get_clicked,
     pass_handler 
     )
 from states.users_dialog_states import (
+    DefaultSG,
     StartSG,
     HelpSG,
     DescSG,
@@ -24,6 +26,17 @@ from states.users_dialog_states import (
 )
 from getters.aiogram_dialog_getters import get_username
 
+# TODO: create 'main menu' with reply keyboard
+# dialog for main keyboard menu
+default_dialog = Dialog(
+    Window(
+        Const(text='Main menu'),
+        # TODO: set on_click
+        Button(text='Weight', id='weight', on_click=weight_get_clicked),
+        Button(text='Measure', id='measure', on_click=None),
+        state=DefaultSG.default_dialog
+    )
+)
 
 # TODO: add nessesary Windows
 start_dialog = Dialog(

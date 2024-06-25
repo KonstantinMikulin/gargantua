@@ -11,6 +11,7 @@ from aiogram.types import FSInputFile, URLInputFile, BufferedInputFile
 from aiogram_dialog import DialogManager, StartMode
 
 from config.config import Config, load_config
+from lexicon.lexicon import LEXICON_COMMANDS
 from filters.filters import UserValidation
 from states.users_dialog_states import (
     StartSG,
@@ -160,6 +161,13 @@ async def upload_photo(message: Message) -> None:
     await message.answer("Отправленные файлы:\n"+"\n".join(file_ids))
 
 
+@user_router.message(F.text.startswith('/'))
+async def process_unknown_cmd(message: Message) -> None:
+    if message.text not in LEXICON_COMMANDS:
+        await message.answer(text='I don`t know this command')
+
+
+# handler for anything unknown for bot
 @user_router.message()
-async def sen_what(message: Message):
+async def say_what(message: Message) -> None:
     await message.answer(text='I don`t understand you :(')

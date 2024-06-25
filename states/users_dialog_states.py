@@ -1,6 +1,11 @@
 from aiogram.fsm.state import State, StatesGroup
 
 
+# draft state group for testing default dialog
+class DefaultSG(StatesGroup):
+    default_dialog = State()
+
+
 # draft state group for testing starting dialogs
 # TODO: add nessesary States
 class StartSG(StatesGroup):
