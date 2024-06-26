@@ -40,12 +40,6 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     # TODO: uncomment sleep()
     # TODO: add logic if account alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
-    # sleep(1)
-    await dialog_manager.start(state=StartSG.start_dialog_help)
-    # sleep(2)
-    await dialog_manager.start(state=StartSG.start_dialog_desc)
-    # sleep(3)
-    await dialog_manager.start(state=StartSG.create_account_on_start)
     
     logger.info('We are exiting /start handler')
     

@@ -32,8 +32,8 @@ default_dialog = Dialog(
     Window(
         Const(text='Main menu'),
         # TODO: set on_click
-        Button(text='Weight', id='weight', on_click=weight_get_clicked),
-        Button(text='Measure', id='measure', on_click=None),
+        Button(text=Const('Weight'), id='weight', on_click=None),
+        Button(text=Const('Measure'), id='measure', on_click=None),
         state=DefaultSG.default_dialog
     )
 )
@@ -41,25 +41,13 @@ default_dialog = Dialog(
 # TODO: add nessesary Windows
 start_dialog = Dialog(
     Window(
-        Format(LEXICON_RU['/start']['start_text_1']),
-        getter=get_username,
-        state=StartSG.start_dialog
-    ),
-    Window(
-        Const(LEXICON_RU['/start']['start_text_2']),
-        state=StartSG.start_dialog_help
-    ),
-    Window(
-        Const(LEXICON_RU['/start']['start_text_3']),
-        state=StartSG.start_dialog_desc
-    ),
-    Window(
-        Const(LEXICON_RU['/start']['start_text_4']),
+        Format(LEXICON_RU['/start']),
         Row(
             Button(text=Const('Yes'), id='yes', on_click=account_yes_get_clicked),
             Button(Const('No'), id='no', on_click=account_no_get_clicked)
         ),
-        state=StartSG.create_account_on_start
+        getter=get_username,
+        state=StartSG.start_dialog
     )
 )
 

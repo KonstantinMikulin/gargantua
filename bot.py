@@ -17,6 +17,7 @@ from middlewares.outer_middlewares import (
 )
 from lexicon.lexicon import LEXICON_COMMANDS
 from dialogs.users_dialogs import (
+    default_dialog,
     start_dialog,
     what_dialog,
     measure_dialog,
@@ -60,6 +61,7 @@ async def main() -> None:
     dp.include_routers(admin_router, user_router)
     
     dp.include_routers(
+        default_dialog,
         start_dialog,
         what_dialog,
         measure_dialog,

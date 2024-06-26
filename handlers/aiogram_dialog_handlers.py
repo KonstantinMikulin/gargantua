@@ -1,7 +1,9 @@
+from time import sleep
+
 from aiogram import Bot, Router
 from aiogram.types import Message, CallbackQuery
 
-from aiogram_dialog import DialogManager
+from aiogram_dialog import DialogManager, StartMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput
 
@@ -17,19 +19,17 @@ async def weight_get_clicked(callback: CallbackQuery, button: Button, dialog_man
 
 
 # handler for processing 'yes' button for account settings
-# TODO: change logic of this handler
+# TODO: ? change logic of this handler
 async def account_yes_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
-    await callback.message.answer('You choose "Yes"') # type: ignore
-    # TODO: remove this line after writing logic for creating account 
-    await dialog_manager.reset_stack()
+    await callback.answer('You choose "Yes"') # type: ignore
+    await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK)
 
 
 # handler for processing 'no' button for account settings
 # TODO: change logic of this handler for remind about account
 async def account_no_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
-    await callback.message.answer('You choose "No"') # type: ignore
-    await dialog_manager.reset_stack()
-    await dialog_manager.switch_to(DefaultSG.default_dialog)
+    await callback.answer('You choose "No"') # type: ignore
+    await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK)
 
 
 # type: pass handler for temporary purpose

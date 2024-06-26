@@ -10,9 +10,6 @@ class DefaultSG(StatesGroup):
 # TODO: add nessesary States
 class StartSG(StatesGroup):
     start_dialog = State()
-    start_dialog_help = State()
-    start_dialog_desc = State()
-    create_account_on_start = State()
     
     
 # draft state group for help

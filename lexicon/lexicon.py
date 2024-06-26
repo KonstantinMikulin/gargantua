@@ -1,13 +1,5 @@
-start_text = {
-    'start_text_1': 'Hello, {username}',
-    'start_text_2': 'You can send /help for command`s list',
-    'start_text_3': 'You can send /desc for how to use bot',
-    'start_text_4': 'Do you want to create your account?'
-}
-
-
 LEXICON_RU = {
-    '/start': start_text,
+    '/start': 'Hello, {username}\n\nYou can send /help for command`s list\nYou can send /desc for how to use bot\nDo you want to create your account?',
     '/help': 'Commands etc.',
     '/desc': 'Here what you can do with this bot...',
     '/what': 'Behold!',
