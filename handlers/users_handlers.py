@@ -8,7 +8,7 @@ from aiogram.types import Message, LinkPreviewOptions
 from aiogram.methods import CreateChatInviteLink
 from aiogram.types import FSInputFile, URLInputFile, BufferedInputFile
 
-from aiogram_dialog import DialogManager, StartMode
+from aiogram_dialog import DialogManager, StartMode, ShowMode
 
 from config.config import Config, load_config
 from lexicon.lexicon import LEXICON_COMMANDS
@@ -49,7 +49,7 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
 async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
     logger.info('We are in /help handler')
     
-    await dialog_manager.start(state=HelpSG.start_help)
+    await dialog_manager.start(state=HelpSG.start_help, show_mode=ShowMode.DELETE_AND_SEND)
 
     logger.info('We are exiting /help handler')
     

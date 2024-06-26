@@ -3,7 +3,7 @@ from time import sleep
 from aiogram import Bot, Router
 from aiogram.types import Message, CallbackQuery
 
-from aiogram_dialog import DialogManager, StartMode
+from aiogram_dialog import DialogManager, StartMode, ShowMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput
 
@@ -22,7 +22,7 @@ async def weight_get_clicked(callback: CallbackQuery, button: Button, dialog_man
 # TODO: ? change logic of this handler
 async def account_yes_get_clicked(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     await callback.answer('You choose "Yes"') # type: ignore
-    await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for processing 'no' button for account settings
