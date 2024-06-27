@@ -88,12 +88,15 @@ async def process_setup_cmd(message: Message, dialog_manager: DialogManager) -> 
 async def process_account_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=AccountSG.start_account, show_mode=ShowMode.DELETE_AND_SEND)
 
+
+# TODO: add some sendChatAction
 # handler for /report
 @user_router.message(Command(commands=['report']))
 async def process_report_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=ReportSG.start_report, show_mode=ShowMode.DELETE_AND_SEND)
     
 
+# TODO: ? add some sendChatAction
 # TODO: create another logic for contacting with support/admin
 # handler for /support
 # allow text message from user and send it to support
