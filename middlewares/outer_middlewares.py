@@ -45,30 +45,4 @@ class UserValidationOuterMiddleware(BaseMiddleware):
         logger.info('We are exiting middleware %s', __class__.__name__)
         
         return await handler(event, data)
-        
-        
-# middleware for admins
-class AdminOuterMiddleware(BaseMiddleware):
-    async def __call__(
-    self,
-    handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-    event: TelegramObject,
-    data: Dict[str, Any]
-    ) -> Any:
-        
-        logger.info(
-            'We are in middleware %s, update type %s',
-            __class__.__name__,
-            event.__class__.__name__
-        )
-        
-        user_id: int = data.get('event_from_user').id
-        admins_ids: list = data.get('config').tg_bot.admin_ids
-        
-        if user_id in admins_ids:
-            logger.info('We are exiting middleware %s', __class__.__name__)
-            
-            return await handler(event, data)
-            
-        return await handler(event, data)
     

@@ -73,7 +73,6 @@ async def main() -> None:
     setup_dialogs(dp)
     
     dp.update.outer_middleware(UserValidationOuterMiddleware())
-    # admin_router.message.outer_middleware(AdminOuterMiddleware())
     
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

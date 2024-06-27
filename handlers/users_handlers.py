@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 async def process_cmd_start(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
     logger.info('We are in /start handler')
     
+    # deleting message with cmd from user
     await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     # TODO: add logic if account alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
@@ -42,16 +43,17 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager, bot
 async def process_help_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
     logger.info('We are in /help handler')
     
+    # deleting message with cmd from user
     await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     await dialog_manager.start(state=HelpSG.start_help, show_mode=ShowMode.DELETE_AND_SEND)
     
-
     logger.info('We are exiting /help handler')
     
 
 # handler for bot`s description cmd
 @user_router.message(Command(commands=['desc']))
 async def process_desc_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
+    # deleting message with cmd from user
     await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     await dialog_manager.start(state=DescSG.start_desc, show_mode=ShowMode.DELETE_AND_SEND)
 
