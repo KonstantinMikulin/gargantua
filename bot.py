@@ -11,10 +11,7 @@ from config.config import Config, load_config
 from keyboards.bot_main_menu import set_main_menu
 from handlers.users_handlers import user_router
 from handlers.admin_handlers import admin_router
-from middlewares.outer_middlewares import (
-    UserValidationOuterMiddleware,
-    CommandsValidationOuterMiddleware
-)
+from middlewares.outer_middlewares import UserValidationOuterMiddleware, AdminOuterMiddleware
 from lexicon.lexicon import LEXICON_COMMANDS
 from dialogs.users_dialogs import (
     default_dialog,
@@ -76,7 +73,7 @@ async def main() -> None:
     setup_dialogs(dp)
     
     dp.update.outer_middleware(UserValidationOuterMiddleware())
-    # dp.update.outer_middleware(CommandsValidationOuterMiddleware())
+    # admin_router.message.outer_middleware(AdminOuterMiddleware())
     
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)

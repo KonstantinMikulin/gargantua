@@ -1,9 +1,20 @@
 import logging
 
-from aiogram import Bot
 from aiogram.filters import BaseFilter
-from aiogram.types import TelegramObject
+from aiogram.types import Message
 
 logger = logging.getLogger(__name__)
 
-pass
+
+# admin`s ID filter
+class AdminIDFilter(BaseFilter):
+    """
+    User ID presence check in list of admins
+    """
+        
+    async def __call__(self, message: Message, config) -> bool:
+        if message.from_user.id in config.tg_bot.admins_ids:
+            return True
+        
+        return False
+    

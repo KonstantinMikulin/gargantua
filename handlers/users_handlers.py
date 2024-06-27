@@ -38,7 +38,7 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     
 # handler for /help cmd
 @user_router.message(Command(commands=['help']))
-async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> None:
+async def process_help_cmd(message: Message, dialog_manager: DialogManager, accepted) -> None:
     logger.info('We are in /help handler')
     
     await dialog_manager.start(state=HelpSG.start_help, show_mode=ShowMode.DELETE_AND_SEND)
