@@ -39,7 +39,7 @@ async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> 
     
     # TODO: uncomment sleep()
     # TODO: add logic if account alredy exist but user restart bot
-    await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
     
     logger.info('We are exiting /start handler')
     
@@ -57,7 +57,7 @@ async def process_help_cmd(message: Message, dialog_manager: DialogManager) -> N
 # handler for bot`s description cmd
 @user_router.message(Command(commands=['desc']))
 async def process_desc_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=DescSG.start_desc)
+    await dialog_manager.start(state=DescSG.start_desc, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # TODO: add some messages with pics of Gargantua or picture of user himself
@@ -75,30 +75,30 @@ async def process_what_cmd(message: Message, dialog_manager: DialogManager) -> N
 # handler for weight record
 @user_router.message(Command(commands=['weight', 'kg']))
 async def process_weight_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=MeasureSG.start_weight)
+    await dialog_manager.start(state=MeasureSG.start_weight, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for /measure cmd
 @user_router.message(Command(commands=['measure', 'cm']))
 async def process_measure_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=MeasureSG.start_measure)
+    await dialog_manager.start(state=MeasureSG.start_measure, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for /setup cmd
 @user_router.message(Command(commands=['setup']))
 async def process_setup_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=SetupSG.start_setup)
+    await dialog_manager.start(state=SetupSG.start_setup, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for /account cmd
 @user_router.message(Command(commands=['account']))
 async def process_account_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=AccountSG.start_account)
+    await dialog_manager.start(state=AccountSG.start_account, show_mode=ShowMode.DELETE_AND_SEND)
 
 # handler for /report
 @user_router.message(Command(commands=['report']))
 async def process_report_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=ReportSG.start_report)
+    await dialog_manager.start(state=ReportSG.start_report, show_mode=ShowMode.DELETE_AND_SEND)
     
 
 # TODO: create another logic for contacting with support/admin
@@ -106,16 +106,16 @@ async def process_report_cmd(message: Message, dialog_manager: DialogManager) ->
 # allow text message from user and send it to support
 @user_router.message(Command(commands=['support']))
 async def process_support_cmd(message: Message, bot: Bot, dialog_manager: DialogManager, config) -> None:
-    support = config.tg_bot.support_id[0]
+    support = config.tg_bot.support_ids[0]
     
-    await dialog_manager.start(state=SupportSG.start_support)
+    await dialog_manager.start(state=SupportSG.start_support, show_mode=ShowMode.DELETE_AND_SEND)
     await bot.forward_message(chat_id=support, from_chat_id=message.chat.id, message_id=message.message_id)
 
 
 # handler for /contacts
 @user_router.message(Command(commands=['contacts']))
 async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=ContactsSG.start_contacts)
+    await dialog_manager.start(state=ContactsSG.start_contacts, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 @user_router.message(Command('images'))  
