@@ -1,13 +1,9 @@
 import html
 
-from aiogram import Router, Bot, F
-from aiogram.filters import CommandStart, Command
+from aiogram import Router, Bot
+from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.utils.deep_linking import create_start_link
-
-from aiogram_dialog import DialogManager, StartMode
-
-from config.config import Config, load_config
 
 admin_router = Router()
 

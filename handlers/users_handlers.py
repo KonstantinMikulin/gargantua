@@ -1,23 +1,16 @@
 import logging
-from time import sleep
-import html
 
-from aiogram import Router, Bot, F, Dispatcher
+from aiogram import Router, Bot, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, LinkPreviewOptions
-from aiogram.methods import CreateChatInviteLink
-from aiogram.types import FSInputFile, URLInputFile, BufferedInputFile
 
 from aiogram_dialog import DialogManager, StartMode, ShowMode
 
-from config.config import Config, load_config
 from lexicon.lexicon import LEXICON_COMMANDS
-from filters.filters import UserValidation
 from states.users_dialog_states import (
     StartSG,
     HelpSG,
     DescSG,
-    WhatSG,
     MeasureSG,
     SetupSG,
     AccountSG,
@@ -37,7 +30,6 @@ logger = logging.getLogger(__name__)
 async def process_cmd_start(message: Message, dialog_manager: DialogManager) -> None:
     logger.info('We are in /start handler')
     
-    # TODO: uncomment sleep()
     # TODO: add logic if account alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
     
@@ -69,6 +61,7 @@ async def process_what_cmd(message: Message, dialog_manager: DialogManager) -> N
         url='https://w.wiki/AHxi',  
         prefer_small_media=True
     )
+    
     await message.answer(f'Behold!\n\n{link_text}', link_preview_options=option_1)
     
     
@@ -116,43 +109,6 @@ async def process_support_cmd(message: Message, bot: Bot, dialog_manager: Dialog
 @user_router.message(Command(commands=['contacts']))
 async def process_contacts_cmd(message: Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(state=ContactsSG.start_contacts, show_mode=ShowMode.DELETE_AND_SEND)
-
-
-@user_router.message(Command('images'))  
-async def upload_photo(message: Message) -> None:  
-    # Сюда будем помещать file_id отправленных файлов, чтобы потом ими воспользоваться  
-    file_ids = []  
-  
-    # Чтобы продемонстрировать BufferedInputFile, воспользуемся "классическим"  
-    # открытием файла через `open()`. Но, вообще говоря, этот способ    # лучше всего подходит для отправки байтов из оперативной памяти    # после проведения каких-либо манипуляций, например, редактированием через Pillow    
-    
-    # with open("buffer_emulation.jpg", "rb") as image_from_buffer:  
-    #     result = await message.answer_photo(  
-    #         BufferedInputFile(  
-    #             image_from_buffer.read(),  
-    #             filename="image from buffer.jpg"  
-    #         ),  
-    #         caption="Изображение из буфера"  
-    #     )  
-    #     file_ids.append(result.photo[-1].file_id)  
-  
-    # Отправка файла из файловой системы  
-    image_from_pc = FSInputFile("/mnt/c/Users/user/Pictures/giraffe.jpeg")  
-    result = await message.answer_photo(  
-        image_from_pc,  
-        caption="Изображение из файла на компьютере"  
-    )  
-    file_ids.append(result.photo[-1].file_id)  
-  
-    # Отправка файла по ссылке  
-    # image_from_url = URLInputFile("https://picsum.photos/seed/groosha/400/300")  
-    # result = await message.answer_photo(  
-    #     image_from_url,  
-    #     caption="Изображение по ссылке"  
-    # )  
-    # file_ids.append(result.photo[-1].file_id) 
-     
-    await message.answer("Отправленные файлы:\n"+"\n".join(file_ids))
 
 
 @user_router.message(F.text.startswith('/'))
