@@ -5,7 +5,7 @@ from aiogram_dialog import DialogManager, StartMode, ShowMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput
 
-from states.users_dialog_states import DefaultSG
+from states.users_dialog_states import DefaultSG, FillAccountSG
 
 aiogram_handlers_router = Router()
 
@@ -15,7 +15,7 @@ aiogram_handlers_router = Router()
 async def account_create_click(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'account_yes':
         await callback.answer('You choose "Yes"') # type: ignore
-        await dialog_manager.start(state= show_mode=ShowMode.DELETE_AND_SEND)
+        await dialog_manager.start(state=FillAccountSG.fill_name, show_mode=ShowMode.DELETE_AND_SEND)
     
     if callback.data == 'account_no':
         await callback.answer('You choose "No"') # type: ignore

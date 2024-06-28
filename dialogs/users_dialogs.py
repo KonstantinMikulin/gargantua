@@ -2,7 +2,9 @@ from aiogram.types import User
 
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
+from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button, Row, Url
+from getters.aiogram_dialog_getters import get_username
 
 from lexicon.lexicon import LEXICON_RU
 from handlers.aiogram_dialog_handlers import account_create_click
@@ -19,7 +21,6 @@ from states.users_dialog_states import (
     SupportSG,
     ContactsSG
 )
-from getters.aiogram_dialog_getters import get_username
 
 # TODO: refactor 'main menu' with inline keyboard
 # dialog for main keyboard menu
@@ -137,5 +138,13 @@ contacts_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/contacts']),
         state=ContactsSG.start_contacts
+    )
+)
+
+# dialog for filling account
+fill_account_dialog = Dialog(
+    Window(
+        Const('Send your name, please'),
+        TextInput()
     )
 )
