@@ -25,7 +25,8 @@ from dialogs.users_dialogs import (
     help_dialog,
     desc_dialog,
     support_dialog,
-    contacts_dialog
+    contacts_dialog,
+    fill_account_dialog
 )
 
 logger = logging.getLogger(__name__)
@@ -75,7 +76,8 @@ async def main() -> None:
         help_dialog,
         desc_dialog,
         support_dialog,
-        contacts_dialog
+        contacts_dialog,
+        fill_account_dialog
         )
     setup_dialogs(dp)
     

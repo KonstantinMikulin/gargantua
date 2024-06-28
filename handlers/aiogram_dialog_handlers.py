@@ -22,6 +22,18 @@ async def account_create_click(callback: CallbackQuery, button: Button, dialog_m
         await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
 
 
+# dialog_handler for processing correct name for filling account
+async def name_correct_nandler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager, text: str) -> None:
+    # TODO: delete it after sending or not?
+    await message.answer(text=f'Name is saved.\n\nThank you, {text}')
+    await dialog_manager.switch_to(state=FillAccountSG.fill_gender, show_mode=ShowMode.DELETE_AND_SEND)
+    
+
+# dialog_handler for processing not correct name for filling account
+async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager) -> None:
+    await message.answer(text='This doesn`t look like a name, bro!')
+
+
 # type: pass handler for temporary purpose
 async def pass_handler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager, text: str) -> None:
     await message.answer(text=f'We will do something later with {text}')

@@ -126,7 +126,8 @@ async def process_unknown_cmd(message: Message) -> None:
         await message.answer(text='I don`t know this command')
 
 
+# TODO: do something with unknown messages
 # handler for anything unknown for bot
-@user_router.message()
-async def say_what(message: Message) -> None:
-    await message.answer(text='I don`t understand you :(')
+# @user_router.message()
+# async def say_what(message: Message) -> None:
+#     await message.answer(text='I don`t understand you :(')
