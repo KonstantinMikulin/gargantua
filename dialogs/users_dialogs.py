@@ -10,7 +10,8 @@ from lexicon.lexicon import LEXICON_RU
 from handlers.aiogram_dialog_handlers import (
     account_create_click,
     name_correct_nandler,
-    name_error_nandler
+    name_error_nandler,
+    gender_choose
 )
 from states.users_dialog_states import (
     DefaultSG,
@@ -156,5 +157,21 @@ fill_account_dialog = Dialog(
             on_error=name_error_nandler
             ),
         state=FillAccountSG.fill_name
+    ),
+    Window(
+        Const('Enter your gender, please'),
+        Row(
+            Button(
+                text=Const('Male'),
+                id='fill_male',
+                on_click=gender_choose
+            ),
+            Button(
+                text=Const('Female'),
+                id='fill_female',
+                on_click=gender_choose
+            )
+        ),
+        state=FillAccountSG.fill_gender
     )
 )

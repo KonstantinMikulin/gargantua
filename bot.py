@@ -61,7 +61,7 @@ async def main() -> None:
     
     await set_main_menu(bot)
     
-    dp.workflow_data.update({'config': config, 'bot': bot, 'commands': LEXICON_COMMANDS,})
+    dp.workflow_data.update({'config': config, 'bot': bot, 'commands': LEXICON_COMMANDS})
     
     dp.include_routers(admin_router, user_router)
     
