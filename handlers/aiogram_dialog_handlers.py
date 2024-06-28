@@ -1,14 +1,11 @@
-from pprint import pprint
-
-from aiogram import Bot, Router
+from aiogram import Router
 from aiogram.types import Message, CallbackQuery
 
 from aiogram_dialog import DialogManager, StartMode, ShowMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput
 
-from config.config import Config
-from states.users_dialog_states import DefaultSG, MeasureSG
+from states.users_dialog_states import DefaultSG
 
 aiogram_handlers_router = Router()
 
