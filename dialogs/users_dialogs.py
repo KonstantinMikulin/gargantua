@@ -39,7 +39,8 @@ start_dialog = Dialog(
         Format(LEXICON_RU['/start']),
         Row(
             Button(text=Const('Yes'), id='account_yes', on_click=account_create_click),
-            Button(Const('No'), id='account_no', on_click=account_create_click)
+            Button(Const('No'), id='account_no', on_click=account_create_click),
+            
         ),
         getter=get_username,
         state=StartSG.start_dialog

@@ -15,7 +15,7 @@ aiogram_handlers_router = Router()
 async def account_create_click(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'account_yes':
         await callback.answer('You choose "Yes"') # type: ignore
-        await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
+        await dialog_manager.start(state= show_mode=ShowMode.DELETE_AND_SEND)
     
     if callback.data == 'account_no':
         await callback.answer('You choose "No"') # type: ignore

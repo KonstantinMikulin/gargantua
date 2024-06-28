@@ -62,3 +62,12 @@ class SupportSG(StatesGroup):
 # draft state group for testing contacts sending
 class ContactsSG(StatesGroup):
     start_contacts = State()
+
+
+# draft state group for creating user account
+class FillAccountSG(StatesGroup):
+    fill_name = State()
+    fill_gender = State()
+    fill_birthdate = State()
+    fill_current_weight = State()
+    send_photo = State()
