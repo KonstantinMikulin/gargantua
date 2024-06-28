@@ -11,7 +11,7 @@ from config.config import Config, load_config
 from keyboards.bot_main_menu import set_main_menu
 from handlers.users_handlers import user_router
 from handlers.admin_handlers import admin_router
-from middlewares.outer_middlewares import UserValidationOuterMiddleware, AdminOuterMiddleware
+from middlewares.outer_middlewares import UserValidationOuterMiddleware
 from lexicon.lexicon import LEXICON_COMMANDS
 from dialogs.users_dialogs import (
     default_dialog,

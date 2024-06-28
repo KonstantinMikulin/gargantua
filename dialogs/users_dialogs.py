@@ -5,12 +5,7 @@ from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.kbd import Button, Row, Url
 
 from lexicon.lexicon import LEXICON_RU
-from handlers.aiogram_dialog_handlers import (
-    account_yes_get_clicked,
-    account_no_get_clicked,
-    weight_get_clicked,
-    pass_handler 
-    )
+from handlers.aiogram_dialog_handlers import account_create_click
 from states.users_dialog_states import (
     DefaultSG,
     StartSG,
@@ -26,7 +21,7 @@ from states.users_dialog_states import (
 )
 from getters.aiogram_dialog_getters import get_username
 
-# TODO: create 'main menu' with reply keyboard
+# TODO: refactor 'main menu' with inline keyboard
 # dialog for main keyboard menu
 default_dialog = Dialog(
     Window(
@@ -43,8 +38,8 @@ start_dialog = Dialog(
     Window(
         Format(LEXICON_RU['/start']),
         Row(
-            Button(text=Const('Yes'), id='yes', on_click=account_yes_get_clicked),
-            Button(Const('No'), id='no', on_click=account_no_get_clicked)
+            Button(text=Const('Yes'), id='account_yes', on_click=account_create_click),
+            Button(Const('No'), id='account_no', on_click=account_create_click)
         ),
         getter=get_username,
         state=StartSG.start_dialog
