@@ -71,3 +71,5 @@ class FillAccountSG(StatesGroup):
     fill_birthdate = State()
     fill_current_weight = State()
     send_photo = State()
+    fill_done = State()
+    
