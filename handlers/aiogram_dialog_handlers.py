@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from aiogram import Router
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
@@ -13,7 +15,7 @@ aiogram_handlers_router = Router()
 
 
 # TODO: change logic of this handler for reminding to create account
-# genaral handler for account creation buttons
+# general handler for account creation buttons
 async def account_create_click(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'account_yes':
         await callback.answer('You choose "Yes"') # type: ignore
@@ -21,6 +23,7 @@ async def account_create_click(callback: CallbackQuery, button: Button, dialog_m
     
     if callback.data == 'account_no':
         await callback.answer('You choose "No"') # type: ignore
+        # TODO: change start() to done()
         await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
 
 
@@ -51,14 +54,41 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
         # TODO: remove this line
         print(dialog_manager.dialog_data)
         await callback.message.answer(text='Thank you')
-        # await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
+        await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
     if callback.data == 'fill_female':
         dialog_manager.dialog_data['gender'] = 'female'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
         await callback.message.answer(text='Thank you')
-        # await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
+        await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
+        
+
+# check correct date of birth
+def check_dob(text: str) -> bool:
+    if int(text) > 10:
+        return text
+    raise ValueError
+
+
+# handler for processing correct date of birth
+async def birthdate_correct_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str
+    ) -> None:
+    await message.answer('True')
+    
+    
+# handler for processing not correct date of birth
+async def birthdate_error_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    error: ValueError
+    ) -> None:
+    await message.answer('False')
 
 
 # type: pass handler for temporary purpose

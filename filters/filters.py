@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 # admin`s ID filter
 class AdminIDFilter(BaseFilter):
     """
-    User ID presence check in list of admins
+    Check User`s ID presence in list of admins
     """
         
     async def __call__(self, message: Message, config) -> bool:
