@@ -6,7 +6,8 @@ from aiogram_dialog import DialogManager, StartMode, ShowMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput
 
-from states.users_dialog_states import DefaultSG, FillAccountSG
+from states.users_dialog_states import DefaultSG
+from states.fill_account_states import FillAccountSG
 
 aiogram_handlers_router = Router()
 
@@ -50,14 +51,14 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
         # TODO: remove this line
         print(dialog_manager.dialog_data)
         await callback.message.answer(text='Thank you')
-        await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
+        # await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
     if callback.data == 'fill_female':
         dialog_manager.dialog_data['gender'] = 'female'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
         await callback.message.answer(text='Thank you')
-        await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
+        # await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # type: pass handler for temporary purpose

@@ -14,6 +14,7 @@ from handlers.users_handlers import user_router
 from handlers.admin_handlers import admin_router
 from middlewares.outer_middlewares import UserValidationOuterMiddleware
 from lexicon.lexicon import LEXICON_COMMANDS
+from dialogs.fill_account_dialog import fill_account_dialog
 from dialogs.users_dialogs import (
     default_dialog,
     start_dialog,
@@ -25,8 +26,7 @@ from dialogs.users_dialogs import (
     help_dialog,
     desc_dialog,
     support_dialog,
-    contacts_dialog,
-    fill_account_dialog
+    contacts_dialog
 )
 
 logger = logging.getLogger(__name__)

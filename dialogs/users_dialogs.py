@@ -24,8 +24,7 @@ from states.users_dialog_states import (
     AccountSG,
     ReportSG,
     SupportSG,
-    ContactsSG,
-    FillAccountSG
+    ContactsSG
 )
 
 # TODO: refactor 'main menu' with inline keyboard
@@ -144,34 +143,5 @@ contacts_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/contacts']),
         state=ContactsSG.start_contacts
-    )
-)
-
-# dialog for filling account
-fill_account_dialog = Dialog(
-    Window(
-        Const('Enter your name, please'),
-        TextInput(
-            id='fill_name',
-            on_success=name_correct_nandler,
-            on_error=name_error_nandler
-            ),
-        state=FillAccountSG.fill_name
-    ),
-    Window(
-        Const('Enter your gender, please'),
-        Row(
-            Button(
-                text=Const('Male'),
-                id='fill_male',
-                on_click=gender_choose
-            ),
-            Button(
-                text=Const('Female'),
-                id='fill_female',
-                on_click=gender_choose
-            )
-        ),
-        state=FillAccountSG.fill_gender
     )
 )
