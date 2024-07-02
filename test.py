@@ -1,5 +1,7 @@
-from datetime import datetime
+from aiogram.types import Birthdate
 
-test = '04-01-1988'
+a = Birthdate()
+a.
 
-print(bool(datetime.strptime(test, "%d-%m-%Y")))
+print(a)
+print(type)

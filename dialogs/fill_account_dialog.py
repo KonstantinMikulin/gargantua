@@ -7,7 +7,7 @@ from handlers.aiogram_dialog_handlers import (
     name_correct_nandler,
     name_error_nandler,
     gender_choose,
-    check_dob,
+    validate_birthdate,
     birthdate_correct_handler,
     birthdate_error_handler
 )
@@ -45,7 +45,7 @@ fill_account_dialog = Dialog(
         Const('Enter you date of birth'),
         TextInput(
             id='fill_birthdate',
-            type_factory=check_dob,
+            type_factory=validate_birthdate,
             on_success=birthdate_correct_handler,
             on_error=birthdate_error_handler
         ),

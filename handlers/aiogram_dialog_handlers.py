@@ -65,9 +65,12 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
         
 
 # check correct date of birth
-def check_dob(text: str) -> bool:
-    if int(text) > 10:
-        return text
+def validate_birthdate(text: str) -> bool:
+    if text.count('.') == 2:
+        dob = list(map(int, text.split('.')))
+        if all([1 <= dob[0] <= 31, 1 <= dob[1] <= 12, 1924 <= dob[2] <= 2006]):
+            return True
+    
     raise ValueError
 
 
