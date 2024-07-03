@@ -35,6 +35,7 @@ async def name_correct_nandler(
     text: str,
     ) -> None:
     dialog_manager.dialog_data['name'] = message.text
+    dialog_manager.
     # TODO: remove this line
     print(dialog_manager.dialog_data)
     # TODO: should I delete it after sending or not?
@@ -66,12 +67,17 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
 
 # check correct date of birth
 def validate_birthdate(text: str) -> bool:
-    if text.count('.') == 2:
+    try:
+        datetime.strptime(text, "%d.%m.%Y")
+    
+    except ValueError:
+        raise ValueError
+    else:
         dob = list(map(int, text.split('.')))
         if all([1 <= dob[0] <= 31, 1 <= dob[1] <= 12, 1924 <= dob[2] <= 2006]):
-            return True
-    
-    raise ValueError
+            return text
+        else:
+            raise ValueError
 
 
 # handler for processing correct date of birth
