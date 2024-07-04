@@ -1,6 +1,8 @@
+from aiogram.enums import ContentType
+
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const
-from aiogram_dialog.widgets.input import TextInput
+from aiogram_dialog.widgets.input import TextInput, MessageInput
 from aiogram_dialog.widgets.kbd import Button, Row
 
 from handlers.aiogram_dialog_handlers import (
@@ -12,7 +14,8 @@ from handlers.aiogram_dialog_handlers import (
     birthdate_error_handler,
     validate_weight,
     weight_correct_handler,
-    weight_error_handler
+    weight_error_handler,
+    photo_send_handler
 )
 from states.fill_account_states import FillAccountSG
 
@@ -65,6 +68,14 @@ fill_account_dialog = Dialog(
             on_error=weight_error_handler  # type: ignore
         ),
         state=FillAccountSG.fill_current_weight
+    ),
+    Window(
+        Const('Do you want to send photo?'),
+        MessageInput(
+            func=photo_send_handler,
+            content_types=ContentType.PHOTO
+        ),
+        state=FillAccountSG.send_photo
     )
 )
 

@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 
 from aiogram_dialog import DialogManager, StartMode, ShowMode
 from aiogram_dialog.widgets.kbd import Button
-from aiogram_dialog.widgets.input import ManagedTextInput
+from aiogram_dialog.widgets.input import ManagedTextInput, MessageInput
 
 from states.users_dialog_states import DefaultSG
 from states.fill_account_states import FillAccountSG
@@ -94,7 +94,7 @@ async def birthdate_correct_handler(
     print(dialog_manager.dialog_data)
     
     await message.answer(f'You date of birth is {text}')
-    # await dialog_manager.switch_to(state=FillAccountSG.fill_current_weight, show_mode=ShowMode.DELETE_AND_SEND)
+    await dialog_manager.switch_to(state=FillAccountSG.fill_current_weight, show_mode=ShowMode.DELETE_AND_SEND)
     
     
 # handler for processing not correct date of birth
@@ -125,7 +125,7 @@ async def weight_correct_handler(
 ) -> None:
     dialog_manager.dialog_data['weight'] = int(text)
     
-    await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
+    await dialog_manager.switch_to(state=FillAccountSG.send_photo, show_mode=ShowMode.DELETE_AND_SEND)
     
     
 # handler for processing NOT correct weight
@@ -137,6 +137,21 @@ async def weight_error_handler(
 ) -> None:
     # TODO: change this text
     await message.answer('Enter correct weight, please')
+
+
+# handler for processing if photo was send
+async def photo_send_handler(
+    message: Message,  
+    widget: MessageInput,  
+    dialog_manager: DialogManager
+    ) -> None:
+    # TODO: refactor this line for saving file_unique_id
+    dialog_manager.dialog_data['initial_phot'] = message.photo[-1].file_id  # type: ignore
+    print(dialog_manager.dialog_data)
+    print(message)
+    
+    await message.answer('Thank you')
+    await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # type: pass handler for temporary purpose
