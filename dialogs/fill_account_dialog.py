@@ -9,7 +9,10 @@ from handlers.aiogram_dialog_handlers import (
     gender_choose,
     validate_birthdate,
     birthdate_correct_handler,
-    birthdate_error_handler
+    birthdate_error_handler,
+    validate_weight,
+    weight_correct_handler,
+    weight_error_handler
 )
 from states.fill_account_states import FillAccountSG
 
@@ -21,7 +24,7 @@ fill_account_dialog = Dialog(
         TextInput(
             id='fill_name',
             on_success=name_correct_nandler,
-            on_error=name_error_nandler
+            on_error=name_error_nandler  # type: ignore
             ),
         state=FillAccountSG.fill_name
     ),
@@ -42,6 +45,7 @@ fill_account_dialog = Dialog(
         state=FillAccountSG.fill_gender
     ),
     Window(
+        # TODO: change text of this message
         Const('Enter you date of birth'),
         TextInput(
             id='fill_birthdate',
@@ -50,6 +54,17 @@ fill_account_dialog = Dialog(
             on_error=birthdate_error_handler
         ),
         state=FillAccountSG.fill_birthdate
+    ),
+    Window(
+        # TODO: change text of this message
+        Const('Enter you current weight, please'),
+        TextInput(
+            id='fill_initial_weight',
+            type_factory=validate_weight,
+            on_success=weight_correct_handler,  # type: ignore
+            on_error=weight_error_handler  # type: ignore
+        ),
+        state=FillAccountSG.fill_current_weight
     )
 )
 

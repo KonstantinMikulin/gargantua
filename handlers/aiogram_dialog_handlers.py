@@ -35,7 +35,6 @@ async def name_correct_nandler(
     text: str,
     ) -> None:
     dialog_manager.dialog_data['name'] = message.text
-    dialog_manager.
     # TODO: remove this line
     print(dialog_manager.dialog_data)
     # TODO: should I delete it after sending or not?
@@ -44,7 +43,7 @@ async def name_correct_nandler(
     
 
 # dialog_handler for processing not correct name for filling account
-async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager) -> None:
+async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager, test: str) -> None:
     await message.answer(text='This doesn`t look like a name, bro!')
     
     
@@ -54,19 +53,19 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
         dialog_manager.dialog_data['gender'] = 'male'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
-        await callback.message.answer(text='Thank you')
+        await callback.message.answer(text='Thank you')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
     if callback.data == 'fill_female':
         dialog_manager.dialog_data['gender'] = 'female'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
-        await callback.message.answer(text='Thank you')
+        await callback.message.answer(text='Thank you')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
 
 # check correct date of birth
-def validate_birthdate(text: str) -> bool:
+def validate_birthdate(text: str) -> str:
     try:
         datetime.strptime(text, "%d.%m.%Y")
     
@@ -87,7 +86,15 @@ async def birthdate_correct_handler(
     dialog_manager: DialogManager,
     text: str
     ) -> None:
-    await message.answer('True')
+    dob_keys = ['day', 'month', 'year']
+    
+    dob = {k:int(v) for k, v in zip(dob_keys, text.split('.'))}
+    dialog_manager.dialog_data['birthdate'] = dob
+    # TODO: remove this line
+    print(dialog_manager.dialog_data)
+    
+    await message.answer(f'You date of birth is {text}')
+    # await dialog_manager.switch_to(state=FillAccountSG.fill_current_weight, show_mode=ShowMode.DELETE_AND_SEND)
     
     
 # handler for processing not correct date of birth
@@ -97,7 +104,39 @@ async def birthdate_error_handler(
     dialog_manager: DialogManager,
     error: ValueError
     ) -> None:
-    await message.answer('False')
+    # TODO: change text of this message
+    await message.answer('This is not corect date of birth')
+
+
+# check correct initial weight
+def validate_weight(text: str) -> str | None:
+        if 20 <= int(text) <= 500:
+            return text
+        
+        raise ValueError
+
+
+# handler for processing correct weight
+async def weight_correct_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str
+) -> None:
+    dialog_manager.dialog_data['weight'] = int(text)
+    
+    await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
+    
+    
+# handler for processing NOT correct weight
+async def weight_error_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str
+) -> None:
+    # TODO: change this text
+    await message.answer('Enter correct weight, please')
 
 
 # type: pass handler for temporary purpose
