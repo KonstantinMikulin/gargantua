@@ -10,7 +10,17 @@ class DefaultSG(StatesGroup):
 # TODO: add nessesary States
 class StartSG(StatesGroup):
     start_dialog = State()
-    
+
+
+# draft state group for creating user account
+class FillAccountSG(StatesGroup):
+    fill_name = State()
+    fill_gender = State()
+    fill_birthdate = State()
+    fill_current_weight = State()
+    send_photo = State()
+    fill_done = State()
+
     
 # draft state group for help
 # TODO: add nessesary States

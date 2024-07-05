@@ -9,7 +9,7 @@ from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput, MessageInput
 
 from states.users_dialog_states import DefaultSG
-from states.fill_account_states import FillAccountSG
+from states.users_dialog_states import FillAccountSG
 
 aiogram_handlers_router = Router()
 
@@ -38,7 +38,7 @@ async def name_correct_nandler(
     # TODO: remove this line
     print(dialog_manager.dialog_data)
     # TODO: should I delete it after sending or not?
-    await message.answer(text=f'Name is saved.\n\nThank you, {text}')
+    await message.answer(text=f'Name was saved.\n\nThank you, {text}')
     await dialog_manager.switch_to(state=FillAccountSG.fill_gender, show_mode=ShowMode.DELETE_AND_SEND)
     
 
@@ -53,14 +53,14 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
         dialog_manager.dialog_data['gender'] = 'male'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
-        await callback.message.answer(text='Thank you')  # type: ignore
+        await callback.message.answer(text='Thank you\nYour gender was saved')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
     if callback.data == 'fill_female':
         dialog_manager.dialog_data['gender'] = 'female'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
-        await callback.message.answer(text='Thank you')  # type: ignore
+        await callback.message.answer(text='Thank you\nYour gender was saved')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
 
@@ -105,7 +105,7 @@ async def birthdate_error_handler(
     error: ValueError
     ) -> None:
     # TODO: change text of this message
-    await message.answer('This is not corect date of birth')
+    await message.answer('This is not correct date of birth')
 
 
 # check correct initial weight
@@ -125,6 +125,7 @@ async def weight_correct_handler(
 ) -> None:
     dialog_manager.dialog_data['weight'] = int(text)
     
+    await message.answer(f'Your current weight is {text}\nYou will achieve your goals!')
     await dialog_manager.switch_to(state=FillAccountSG.send_photo, show_mode=ShowMode.DELETE_AND_SEND)
     
     
@@ -146,9 +147,8 @@ async def photo_send_handler(
     dialog_manager: DialogManager
     ) -> None:
     # TODO: refactor this line for saving file_unique_id
-    dialog_manager.dialog_data['initial_phot'] = message.photo[-1].file_id  # type: ignore
+    dialog_manager.dialog_data['initial_photo'] = message.photo[-1].file_id  # type: ignore
     print(dialog_manager.dialog_data)
-    print(message)
     
     await message.answer('Thank you')
     await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)

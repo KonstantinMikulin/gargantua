@@ -1,9 +1,10 @@
 from aiogram.enums import ContentType
 
 from aiogram_dialog import Dialog, Window
-from aiogram_dialog.widgets.text import Const
+from aiogram_dialog.widgets.text import Const, Format, Multi
 from aiogram_dialog.widgets.input import TextInput, MessageInput
 from aiogram_dialog.widgets.kbd import Button, Row
+from aiogram_dialog.widgets.media import DynamicMedia
 
 from handlers.aiogram_dialog_handlers import (
     name_correct_nandler,
@@ -17,7 +18,8 @@ from handlers.aiogram_dialog_handlers import (
     weight_error_handler,
     photo_send_handler
 )
-from states.fill_account_states import FillAccountSG
+from states.users_dialog_states import FillAccountSG
+from getters.aiogram_dialog_getters import get_profile_data
 
 
 # dialog for filling account
@@ -76,6 +78,14 @@ fill_account_dialog = Dialog(
             content_types=ContentType.PHOTO
         ),
         state=FillAccountSG.send_photo
+    ),
+    Window(
+        Const('Here are your profile:'),
+        Format('Name: {name}'),
+        Format('Gender: {gender}'),
+        Const('\nThis is your initial photo:'),
+        DynamicMedia('initial_photo'),
+        getter=get_profile_data,
+        state=FillAccountSG.fill_done
     )
 )
-

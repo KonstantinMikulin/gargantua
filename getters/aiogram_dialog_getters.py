@@ -1,9 +1,11 @@
 import html
-from pprint import pprint
+from typing import Any
 
 from aiogram.types import User
+from aiogram.enums import ContentType
 
 from aiogram_dialog import DialogManager
+from aiogram_dialog.api.entities import MediaAttachment, MediaId
 
 
 # getter for username
@@ -11,10 +13,16 @@ async def get_username(dialog_manager: DialogManager, event_from_user: User, **k
     return {'username': html.escape(event_from_user.first_name)}
 
 
-# getter for retrieving data from db
-# TODO: make this getter work
-# async def get_user_data(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str | None]:
-#     pass
+# TODO: refactor this getter
+# getter for profile data
+async def get_profile_data(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str | Any]:
+    name = dialog_manager.dialog_data.get('name')
+    gender = dialog_manager.dialog_data.get('gender')
+    
+    image_id = dialog_manager.dialog_data['initial_photo']
+    initial_photo = MediaAttachment(ContentType.PHOTO, file_id=MediaId(image_id))
+    
+    return {'name': name, 'gender': gender, 'initial_photo': initial_photo}
 
 
 # getter for collecting all commands in one dict
