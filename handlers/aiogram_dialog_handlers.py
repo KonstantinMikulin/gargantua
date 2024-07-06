@@ -140,8 +140,14 @@ async def weight_error_handler(
     await message.answer('Enter correct weight, please')
 
 
+# handler for y/n send photo
+# async def send_photo_handler(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+#     if callback.data == 'yes_send_photo':
+        
+
+
 # handler for processing if photo was send
-async def photo_send_handler(
+async def save_photo_handler(
     message: Message,  
     widget: MessageInput,  
     dialog_manager: DialogManager

@@ -16,7 +16,7 @@ from handlers.aiogram_dialog_handlers import (
     validate_weight,
     weight_correct_handler,
     weight_error_handler,
-    photo_send_handler
+    save_photo_handler
 )
 from states.users_dialog_states import FillAccountSG
 from getters.aiogram_dialog_getters import get_profile_data
@@ -71,15 +71,18 @@ fill_account_dialog = Dialog(
         ),
         state=FillAccountSG.fill_current_weight
     ),
+    # Window(
+    #     Const('Do you want to send photo?'),
+    #     Button(
+    #         Const('Yes'),
+    #         id = 'yes_send_photo',
+    #         on_click=
+    #     )
+    #     ),
+    #     state=FillAccountSG.send_photo
+    # ),
     Window(
-        Const('Do you want to send photo?'),
-        MessageInput(
-            func=photo_send_handler,
-            content_types=ContentType.PHOTO
-        ),
-        state=FillAccountSG.send_photo
-    ),
-    Window(
+        # TODO: change text of this message
         Const('Here are your profile:'),
         Format('Name: {name}'),
         Format('Gender: {gender}'),
@@ -89,3 +92,13 @@ fill_account_dialog = Dialog(
         state=FillAccountSG.fill_done
     )
 )
+
+
+    # Window(
+    #     Const('Do you want to send photo?'),
+    #     MessageInput(
+    #         func=photo_send_handler,
+    #         content_types=ContentType.PHOTO
+    #     ),
+    #     state=FillAccountSG.send_photo
+    # ),

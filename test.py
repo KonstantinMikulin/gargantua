@@ -1,6 +1,7 @@
-res = {
-    'name': 'dan', 'gender': 'male',
-    'birthdate': {'day': 16, 'month': 1, 'year': 1984},
-    'weight': 94,
-    'initial_photo': 'AgACAgIAAxkBAAIKIGaIH7obbodRYcz-d9DX3b7DiYYfAAKp3TEbsPtASGMjcGEmxl2GAQADAgADbQADNQQ'
-    }
+a = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzaaaaaaaaaaaaa'
+b = '10'
+
+c = bytes(a, 'utf-8')
+
+print(c)
+print(len(c))
