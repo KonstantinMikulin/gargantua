@@ -38,12 +38,12 @@ fill_account_dialog = Dialog(
         Row(
             Button(
                 text=Const('Male'),
-                id='fill_male',
+                id='fill_m',
                 on_click=gender_choose
             ),
             Button(
                 text=Const('Female'),
-                id='fill_female',
+                id='fill_f',
                 on_click=gender_choose
             )
         ),
@@ -53,7 +53,7 @@ fill_account_dialog = Dialog(
         # TODO: change text of this message
         Const('Enter you date of birth'),
         TextInput(
-            id='fill_birthdate',
+            id='fill_dob',
             type_factory=validate_birthdate,
             on_success=birthdate_correct_handler,
             on_error=birthdate_error_handler
@@ -64,7 +64,7 @@ fill_account_dialog = Dialog(
         # TODO: change text of this message
         Const('Enter you current weight, please'),
         TextInput(
-            id='fill_initial_weight',
+            id='fill_weight',
             type_factory=validate_weight,
             on_success=weight_correct_handler,  # type: ignore
             on_error=weight_error_handler  # type: ignore

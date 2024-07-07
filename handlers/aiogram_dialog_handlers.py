@@ -49,14 +49,14 @@ async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_
     
 # handler for processing gender choose
 async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
-    if callback.data == 'fill_male':
+    if callback.data == 'fill_m':
         dialog_manager.dialog_data['gender'] = 'male'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
         await callback.message.answer(text='Thank you\nYour gender was saved')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
-    if callback.data == 'fill_female':
+    if callback.data == 'fill_f':
         dialog_manager.dialog_data['gender'] = 'female'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
