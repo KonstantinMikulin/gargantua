@@ -124,6 +124,7 @@ async def weight_correct_handler(
     text: str
 ) -> None:
     dialog_manager.dialog_data['weight'] = int(text)
+    print(dialog_manager.dialog_data)
     
     await message.answer(f'Your current weight is {text}\nYou will achieve your goals!')
     await dialog_manager.switch_to(state=FillAccountSG.send_photo, show_mode=ShowMode.DELETE_AND_SEND)
@@ -141,13 +142,15 @@ async def weight_error_handler(
 
 
 # handler for y/n send photo
-# async def send_photo_handler(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
-#     if callback.data == 'yes_send_photo':
-        
+async def send_initial_photo_handler(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+    if callback.data == 'y_send_photo':
+        await dialog_manager.switch_to(state=FillAccountSG.save_photo, show_mode=ShowMode.DELETE_AND_SEND)
+    if callback.data == 'n_send_photo':
+        await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for processing if photo was send
-async def save_photo_handler(
+async def save_initial_photo_handler(
     message: Message,  
     widget: MessageInput,  
     dialog_manager: DialogManager
