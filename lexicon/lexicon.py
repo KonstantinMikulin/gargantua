@@ -27,8 +27,6 @@ LEXICON_COMMANDS = {
     '/test': 'Some action',
     '/images': 'Some actions',
     '/link': 'Link',
-    # TODO: fix this list of cmds for setting main menu in bot
-    'wrong_cmd': 'I don`t know this command'
 }
 
 LEXICON_MIDDLEWARES = {

@@ -51,8 +51,11 @@ fill_account_dialog = Dialog(
         state=FillAccountSG.fill_gender
     ),
     Window(
-        # TODO: change text of this message
-        Const('Enter you date of birth'),
+        Const(
+            'Enter you date of birth\n'
+              'Use this format: DD.MM.YY\n'
+              '01.12.2012 for example'
+              ),
         TextInput(
             id='fill_dob',
             type_factory=validate_birthdate,
@@ -62,8 +65,10 @@ fill_account_dialog = Dialog(
         state=FillAccountSG.fill_birthdate
     ),
     Window(
-        # TODO: change text of this message
-        Const('Enter you current weight, please'),
+        Const(
+            'Enter you current weight in kg, please\n'
+            'We will use this data for future analytics'
+            ),
         TextInput(
             id='fill_weight',
             type_factory=validate_weight,
@@ -95,7 +100,7 @@ fill_account_dialog = Dialog(
         state=FillAccountSG.save_photo
     ),
     Window(
-        # TODO: change text of this message
+        # TODO: change the way for showing this message
         Const('Here is your profile:'),
         Format('Name: {name}'),
         Format('Gender: {gender}'),
