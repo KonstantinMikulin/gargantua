@@ -1,6 +1,6 @@
 LEXICON_RU = {
     '/start': 'Hello, {username}\n\nYou can send /help for command`s list\nYou can send /desc for how to use bot\nDo you want to create your account?',
-    '/help': 'Commands etc.',
+    '/help': 'Commands list:',
     '/desc': 'Here what you can do with this bot...',
     '/what': 'Behold!',
     '/weight': '{username}, send your weight, please',

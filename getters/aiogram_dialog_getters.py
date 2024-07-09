@@ -7,6 +7,8 @@ from aiogram.enums import ContentType
 from aiogram_dialog import DialogManager
 from aiogram_dialog.api.entities import MediaAttachment, MediaId
 
+from lexicon.lexicon import LEXICON_COMMANDS
+
 
 # getter for username
 async def get_username(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, str | None]:
@@ -30,5 +32,7 @@ async def get_profile_data(dialog_manager: DialogManager, event_from_user: User,
 
 # getter for collecting all commands in one dict
 # TODO: make this getter work
-# async def get_commands(dialog_manager: DialogManager, user_data: User, **kwargs) -> dict[str, str | None]:
-#     pass
+async def get_commands(**kwargs) -> dict[str, tuple]:
+    commands = tuple([(k, v) for k, v in LEXICON_COMMANDS.items()])
+    
+    return {'commands': commands}

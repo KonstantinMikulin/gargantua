@@ -160,6 +160,7 @@ async def save_initial_photo_handler(
     print(dialog_manager.dialog_data)
     
     await message.answer('Thank you')
+    # TODO: how to automaticly switch dialogs to main menu
     await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
 
 

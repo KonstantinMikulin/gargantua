@@ -1,7 +1,7 @@
 from aiogram_dialog import Dialog, Window
-from aiogram_dialog.widgets.text import Const, Format
+from aiogram_dialog.widgets.text import Const, Format, List
 from aiogram_dialog.widgets.kbd import Button, Row, Url
-from getters.aiogram_dialog_getters import get_username
+from getters.aiogram_dialog_getters import get_username, get_commands
 
 from lexicon.lexicon import LEXICON_RU
 from handlers.aiogram_dialog_handlers import (
@@ -27,8 +27,8 @@ default_dialog = Dialog(
     Window(
         Const(text='Main menu'),
         # TODO: set on_click
-        Button(text=Const('Weight'), id='weight', on_click=None),
-        Button(text=Const('Measure'), id='measure', on_click=None),
+        Button(text=Const('Weight'), id='weight_menu', on_click=None),
+        Button(text=Const('Measure'), id='measure_menu', on_click=None),
         state=DefaultSG.default_dialog
     )
 )
@@ -47,13 +47,15 @@ start_dialog = Dialog(
 )
 
 # /help dialog
-# TODO: add nessesary Windows
 help_dialog = Dialog(
     Window(
         Const(LEXICON_RU['/help']),
+        List(
+            field=Format('{item[0]} - {item[1]}'),
+            items='commands'
+        ),
+        getter=get_commands,
         state=HelpSG.start_help,
-        # TODO: uncomment getter`s row
-        # getter=get_commands
     )
 )
 
