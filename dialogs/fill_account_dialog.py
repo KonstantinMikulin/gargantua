@@ -99,7 +99,11 @@ fill_account_dialog = Dialog(
         Const('Here is your profile:'),
         Format('Name: {name}'),
         Format('Gender: {gender}'),
-        Const('\nThis is your initial photo:'),
+        Format('Initial weight is {initial_weight}'),
+        Const(
+            text='\nThis is your initial photo:',
+            when='initial_photo'
+            ),
         DynamicMedia(
             selector='initial_photo',
             when='initial_photo'

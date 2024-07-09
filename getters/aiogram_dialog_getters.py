@@ -18,16 +18,14 @@ async def get_username(dialog_manager: DialogManager, event_from_user: User, **k
 async def get_profile_data(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, Any]:
     name = dialog_manager.dialog_data.get('name')
     gender = dialog_manager.dialog_data.get('gender')
+    initial_weight = dialog_manager.dialog_data.get('weight')
     
-    try:
-        dialog_manager.dialog_data.get('initial_photo')
-    except KeyError:
-        return {'name': html.escape(name), 'gender': html.escape(gender)}  # type: ignore
-    else:
+    if dialog_manager.dialog_data.get('initial_photo'):
         image_id = dialog_manager.dialog_data.get('initial_photo')
         initial_photo = MediaAttachment(ContentType.PHOTO, file_id=MediaId(image_id))  # type: ignore
-        
-        return {'name': html.escape(name), 'gender': html.escape(gender), 'initial_photo': initial_photo}  # type: ignore
+        return {'name': html.escape(name), 'gender': html.escape(gender), 'initial_weight': initial_weight, 'initial_photo': initial_photo}  # type: ignore
+    else:
+        return {'name': html.escape(name), 'gender': html.escape(gender), 'initial_weight': initial_weight}  # type: ignore
 
 
 # getter for collecting all commands in one dict
