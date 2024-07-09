@@ -123,7 +123,7 @@ async def weight_correct_handler(
     dialog_manager: DialogManager,
     text: str
 ) -> None:
-    dialog_manager.dialog_data['weight'] = int(text)
+    dialog_manager.dialog_data['initial_weight'] = int(text)
     print(dialog_manager.dialog_data)
     
     await message.answer(f'Your current weight is {text}\nYou will achieve your goals!')

@@ -18,7 +18,7 @@ async def get_username(dialog_manager: DialogManager, event_from_user: User, **k
 async def get_profile_data(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, Any]:
     name = dialog_manager.dialog_data.get('name')
     gender = dialog_manager.dialog_data.get('gender')
-    initial_weight = dialog_manager.dialog_data.get('weight')
+    initial_weight = dialog_manager.dialog_data.get('initial_weight')
     
     if dialog_manager.dialog_data.get('initial_photo'):
         image_id = dialog_manager.dialog_data.get('initial_photo')
