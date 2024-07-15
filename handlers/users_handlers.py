@@ -8,6 +8,7 @@ from aiogram_dialog import DialogManager, StartMode, ShowMode
 
 from lexicon.lexicon import LEXICON_COMMANDS
 from states.users_dialog_states import (
+    DefaultSG,
     StartSG,
     HelpSG,
     DescSG,
@@ -27,17 +28,24 @@ logger = logging.getLogger(__name__)
 # TODO: add logic for creating user account
 # handler for /start cmd
 @user_router.message(CommandStart())
-async def process_cmd_start(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
+async def process_start_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
     logger.info('We are in /start handler')
     
-    # deleting message with cmd from user
+    # deleting cmd message from user
     await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     # TODO: add logic if account alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
     
     logger.info('We are exiting /start handler')
     
-    
+
+# handler for switch to main menu command /main
+@user_router.message(Command(commands=['main']))
+async def process_main_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK)
+
+
 # handler for /help cmd
 @user_router.message(Command(commands=['help']))
 async def process_help_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:

@@ -13,6 +13,7 @@ LEXICON_RU = {
 }
 
 LEXICON_COMMANDS = {
+    '/main': 'Switch to main menu',
     '/start': 'Start/re-start bot',
     '/help': 'Show all commands',
     '/desc': 'Bot`s description',
