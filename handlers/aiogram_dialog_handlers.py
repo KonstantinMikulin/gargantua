@@ -46,7 +46,7 @@ async def name_correct_nandler(
 async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager, test: str) -> None:
     await message.answer(text='This doesn`t look like a name, bro!')
     
-    
+
 # handler for processing gender choose
 async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'fill_m':
