@@ -1,30 +1,17 @@
+# aiogram_dialog handlers for fill account dialog
+
 from datetime import datetime
 
 from aiogram import Router, Bot
 from aiogram.types import Message, CallbackQuery
-from aiogram.fsm.context import FSMContext
 
-from aiogram_dialog import DialogManager, StartMode, ShowMode
+from aiogram_dialog import DialogManager, ShowMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput, MessageInput
 
-from states.users_dialog_states import DefaultSG
 from states.users_dialog_states import FillAccountSG
 
-aiogram_handlers_router = Router()
-
-
-# TODO: change logic of this handler for reminding to create account
-# general handler for account creation buttons
-async def account_create_click(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
-    if callback.data == 'account_yes':
-        await callback.answer('You choose "Yes"') # type: ignore
-        await dialog_manager.start(state=FillAccountSG.fill_name, show_mode=ShowMode.DELETE_AND_SEND)
-    
-    if callback.data == 'account_no':
-        await callback.answer('You choose "No"') # type: ignore
-        # TODO: change start() to done()
-        await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
+ad_fill_router = Router()
 
 
 # dialog_handler for processing correct name for filling account
@@ -155,7 +142,7 @@ async def send_initial_photo_handler(callback: CallbackQuery, button: Button, di
         bot: Bot = dialog_manager.middleware_data['bot']
         await bot.send_message(chat_id=callback.message.chat.id, text='Thank you')  # type: ignore
         
-        await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
+        await dialog_manager.switch_to(state=FillAccountSG.fill_confirm, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for processing if photo was send
@@ -168,10 +155,5 @@ async def save_initial_photo_handler(
     dialog_manager.dialog_data['initial_photo'] = message.photo[-1].file_id  # type: ignore
     
     await message.answer('Thank you')
-    # TODO: how to automaticly switch dialogs to main menu
-    await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
-
-
-# type: pass handler for temporary purpose
-async def pass_handler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager, text: str) -> None:
-    await message.answer(text=f'We will do something later with {text}')
+    # TODO: how to automaticly switch dialogs to main menu?
+    await dialog_manager.switch_to(state=FillAccountSG.fill_confirm, show_mode=ShowMode.DELETE_AND_SEND)

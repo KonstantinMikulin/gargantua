@@ -4,7 +4,7 @@ from aiogram_dialog.widgets.kbd import Button, Row, Url
 from getters.aiogram_dialog_getters import get_username, get_commands
 
 from lexicon.lexicon import LEXICON_RU
-from handlers.aiogram_dialog_handlers import (
+from handlers.ad_handlers import (
     account_create_click,
 )
 from states.users_dialog_states import (

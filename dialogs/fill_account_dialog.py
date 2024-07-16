@@ -1,12 +1,12 @@
 from aiogram.enums import ContentType
 
 from aiogram_dialog import Dialog, Window
-from aiogram_dialog.widgets.text import Const, Format, Multi
+from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput, MessageInput
 from aiogram_dialog.widgets.kbd import Button, Row
 from aiogram_dialog.widgets.media import DynamicMedia
 
-from handlers.aiogram_dialog_handlers import (
+from handlers.ad_fill_account_handlers import (
     name_correct_nandler,
     name_error_nandler,
     gender_choose,
@@ -118,6 +118,6 @@ fill_account_dialog = Dialog(
             when='initial_photo'
             ),
         getter=get_profile_data,
-        state=FillAccountSG.fill_done
+        state=FillAccountSG.fill_confirm
     )
 )
