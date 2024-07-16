@@ -31,8 +31,6 @@ logger = logging.getLogger(__name__)
 async def process_start_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
     logger.info('We are in /start handler')
     
-    # deleting cmd message from user
-    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     # TODO: add logic if account alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
     

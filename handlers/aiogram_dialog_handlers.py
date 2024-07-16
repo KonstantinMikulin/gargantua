@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from aiogram import Router
+from aiogram import Router, Bot
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
@@ -34,9 +34,10 @@ async def name_correct_nandler(
     dialog_manager: DialogManager,
     text: str,
     ) -> None:
+    bot: Bot = dialog_manager.middleware_data['bot']
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    
     dialog_manager.dialog_data['name'] = message.text
-    # TODO: remove this line
-    print(dialog_manager.dialog_data)
     # TODO: should I delete it after sending or not?
     await message.answer(text=f'Name was saved.\n\nThank you, {text}')
     await dialog_manager.switch_to(state=FillAccountSG.fill_gender, show_mode=ShowMode.DELETE_AND_SEND)
@@ -53,14 +54,14 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
         dialog_manager.dialog_data['gender'] = 'male'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
-        await callback.message.answer(text='Thank you\nYour gender was saved')  # type: ignore
+        await callback.message.answer(text='Your gender was saved\nThank you')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
     if callback.data == 'fill_f':
         dialog_manager.dialog_data['gender'] = 'female'
         # TODO: remove this line
         print(dialog_manager.dialog_data)
-        await callback.message.answer(text='Thank you\nYour gender was saved')  # type: ignore
+        await callback.message.answer(text='Your gender was saved\nThank you')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
 
@@ -88,10 +89,11 @@ async def birthdate_correct_handler(
     ) -> None:
     dob_keys = ['day', 'month', 'year']
     
+    bot: Bot = dialog_manager.middleware_data['bot']
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    
     dob = {k:int(v) for k, v in zip(dob_keys, text.split('.'))}
     dialog_manager.dialog_data['birthdate'] = dob
-    # TODO: remove this line
-    print(dialog_manager.dialog_data)
     
     await message.answer(f'You date of birth is {text}')
     await dialog_manager.switch_to(state=FillAccountSG.fill_current_weight, show_mode=ShowMode.DELETE_AND_SEND)
@@ -110,10 +112,11 @@ async def birthdate_error_handler(
 
 # check correct initial weight
 def validate_weight(text: str) -> str | None:
-        if 20 <= int(text) <= 500:
-            return text
-        
-        raise ValueError
+    print(text)
+    if 20 <= float(text) <= 500:
+        return text
+    
+    raise ValueError
 
 
 # handler for processing correct weight
@@ -123,9 +126,12 @@ async def weight_correct_handler(
     dialog_manager: DialogManager,
     text: str
 ) -> None:
-    dialog_manager.dialog_data['initial_weight'] = int(text)
-    print(dialog_manager.dialog_data)
+    bot: Bot = dialog_manager.middleware_data['bot']
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     
+    dialog_manager.dialog_data['initial_weight'] = float(text)
+    
+    # TODO: add html.escape()
     await message.answer(f'Your current weight is {text}\nYou will achieve your goals!')
     await dialog_manager.switch_to(state=FillAccountSG.send_photo, show_mode=ShowMode.DELETE_AND_SEND)
     
@@ -137,8 +143,11 @@ async def weight_error_handler(
     dialog_manager: DialogManager,
     text: str
 ) -> None:
+    bot: Bot = dialog_manager.middleware_data['bot']
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    
     # TODO: change this text
-    await message.answer('Enter correct weight, please')
+    await message.answer('The weight must be int or float')
 
 
 # handler for y/n send photo
@@ -146,6 +155,9 @@ async def send_initial_photo_handler(callback: CallbackQuery, button: Button, di
     if callback.data == 'y_send_photo':
         await dialog_manager.switch_to(state=FillAccountSG.save_photo, show_mode=ShowMode.DELETE_AND_SEND)
     if callback.data == 'n_send_photo':
+        bot: Bot = dialog_manager.middleware_data['bot']
+        await bot.send_message(chat_id=callback.message.chat.id, text='Thank you')  # type: ignore
+        
         await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
 
 

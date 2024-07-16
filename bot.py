@@ -57,7 +57,7 @@ async def main() -> None:
     )
     dp = Dispatcher(storage=storage)
     
-    # TODO: remove this
+    # TODO: remove this after setting DB
     # temp db for user data
     user_dict: dict[int, dict[str, str | int | bool]] = {}
     

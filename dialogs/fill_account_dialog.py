@@ -53,9 +53,9 @@ fill_account_dialog = Dialog(
     Window(
         Const(
             'Enter you date of birth\n'
-              'Use this format: DD.MM.YY\n'
-              '01.12.2012 for example'
-              ),
+            'Use this format: DD.MM.YY\n\n'
+            '01.12.2012 for example'
+            ),
         TextInput(
             id='fill_dob',
             type_factory=validate_birthdate,
@@ -100,13 +100,12 @@ fill_account_dialog = Dialog(
         state=FillAccountSG.save_photo
     ),
     Window(
-        # TODO: change the way for showing this message
-        Const('Here is your profile:'),
+        Const('Here is your profile:\n'),
         Format('Name: {name}'),
         Format('Gender: {gender}'),
-        Format('Initial weight is {initial_weight}'),
+        Format('Initial weight is {initial_weight}\n'),
         Const(
-            text='\nThis is your initial photo:',
+            text='This is your initial photo:',
             when='initial_photo'
             ),
         DynamicMedia(
