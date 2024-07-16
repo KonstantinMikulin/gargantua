@@ -52,15 +52,11 @@ async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_
 async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'fill_m':
         dialog_manager.dialog_data['gender'] = 'male'
-        # TODO: remove this line
-        print(dialog_manager.dialog_data)
         await callback.message.answer(text='Your gender was saved\nThank you')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
     if callback.data == 'fill_f':
         dialog_manager.dialog_data['gender'] = 'female'
-        # TODO: remove this line
-        print(dialog_manager.dialog_data)
         await callback.message.answer(text='Your gender was saved\nThank you')  # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
         
@@ -112,8 +108,8 @@ async def birthdate_error_handler(
 
 # check correct initial weight
 def validate_weight(text: str) -> str | None:
-    print(text)
-    if 20 <= float(text) <= 500:
+    weight = round(float(text), 2)
+    if 20 <= weight <= 500:
         return text
     
     raise ValueError
@@ -129,10 +125,11 @@ async def weight_correct_handler(
     bot: Bot = dialog_manager.middleware_data['bot']
     await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     
-    dialog_manager.dialog_data['initial_weight'] = float(text)
+    weight = round(float(text), 2)
+    dialog_manager.dialog_data['initial_weight'] = weight
     
     # TODO: add html.escape()
-    await message.answer(f'Your current weight is {text}\nYou will achieve your goals!')
+    await message.answer(f'Your current weight is {weight}\nYou will achieve your goals!')
     await dialog_manager.switch_to(state=FillAccountSG.send_photo, show_mode=ShowMode.DELETE_AND_SEND)
     
     
@@ -169,7 +166,6 @@ async def save_initial_photo_handler(
     ) -> None:
     # TODO: refactor this line for saving file_unique_id
     dialog_manager.dialog_data['initial_photo'] = message.photo[-1].file_id  # type: ignore
-    print(dialog_manager.dialog_data)
     
     await message.answer('Thank you')
     # TODO: how to automaticly switch dialogs to main menu

@@ -22,6 +22,8 @@ from handlers.aiogram_dialog_handlers import (
 from states.users_dialog_states import FillAccountSG
 from getters.aiogram_dialog_getters import get_profile_data
 
+# TODO: make some text in these dialog bold
+# TODO: decrease number of 'Thank you'
 
 # dialog for filling account
 fill_account_dialog = Dialog(
@@ -66,7 +68,10 @@ fill_account_dialog = Dialog(
     ),
     Window(
         Const(
-            'Enter you current weight in kg, please\n'
+            'Enter you current weight in kg, please\n\n'
+            'Enter just kg, 75 flr example\n'
+            'Or enter kg and gr if you want\n'
+            'Like that: 75.45\n\n'
             'We will use this data for future analytics'
             ),
         TextInput(
