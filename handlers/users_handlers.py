@@ -2,7 +2,7 @@ import logging
 
 from aiogram import Router, Bot, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, LinkPreviewOptions, ChatFullInfo, Birthdate
+from aiogram.types import Message, LinkPreviewOptions
 
 from aiogram_dialog import DialogManager, StartMode, ShowMode
 
