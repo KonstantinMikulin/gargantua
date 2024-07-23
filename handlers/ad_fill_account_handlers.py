@@ -165,3 +165,8 @@ async def confirm_account(callback: CallbackQuery, button: Button, dialog_manage
         await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
     if callback.data == 'correct_acc':
         await dialog_manager.switch_to(state=FillAccountSG.fill_correct, show_mode=ShowMode.DELETE_AND_SEND)
+
+
+# handler for name correction
+# async def correct_name(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+#     await 

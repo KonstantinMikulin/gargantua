@@ -134,5 +134,14 @@ fill_account_dialog = Dialog(
         getter=get_profile_data,
         state=FillAccountSG.fill_show
     ),
-    
+    # Window(
+    #     Const('Choose what we need to correct'),
+    #     Column(
+    #         Button(
+    #             Const('Name'),
+    #             id='correct_name',
+    #             on_click=
+    #         )
+    #     )
+    # )
 )
