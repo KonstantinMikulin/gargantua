@@ -70,7 +70,7 @@ fill_account_dialog = Dialog(
     Window(
         Const(
             'Enter you current weight in kg, please\n\n'
-            'Enter just kg, 75 flr example\n'
+            'Enter just kg, 75 for example\n'
             'Or enter kg and gr if you want\n'
             'Like that: 75.45\n\n'
             'We will use this data for future analytics'
