@@ -159,10 +159,25 @@ async def save_initial_photo_handler(
     await dialog_manager.switch_to(state=FillAccountSG.show_account, show_mode=ShowMode.DELETE_AND_SEND)
 
 
-# TODO: add logic to this handler
 # handler for account`s data confirmation
 async def confirm_account_data(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'acc_correct':
-        pass
+        bot: Bot = dialog_manager.middleware_data['bot']
+        await bot.send_message(chat_id=callback.message.chat.id, text='Your account was saved') # type: ignore
+        await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.SEND)
+        
     if callback.data == 'acc_change':
+        await dialog_manager.switch_to(state=FillAccountSG.change_account, show_mode=ShowMode.SEND)
+        
+        
+# handler for changing name
+# TODO: replace 'pass'
+async def change_account(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+    if callback.data == 'name_change':
+        pass
+    elif callback.data == 'gender_change':
+        pass
+    elif callback.data == 'dob_change':
+        pass
+    elif callback.data == 'init_weight_change':
         pass

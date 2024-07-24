@@ -21,6 +21,7 @@ class FillAccountSG(StatesGroup):
     send_photo = State()
     save_photo = State()
     show_account = State()
+    change_account = State()
     fill_done = State()
 
     

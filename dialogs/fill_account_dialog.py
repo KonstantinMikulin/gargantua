@@ -18,7 +18,8 @@ from handlers.ad_fill_account_handlers import (
     weight_error_handler,
     send_initial_photo_handler,
     save_initial_photo_handler,
-    confirm_account_data
+    confirm_account_data,
+    change_account
 )
 from states.users_dialog_states import FillAccountSG
 from getters.aiogram_dialog_getters import get_profile_data
@@ -132,5 +133,32 @@ fill_account_dialog = Dialog(
             ),
         getter=get_profile_data,
         state=FillAccountSG.show_account
+    ),
+    Window(
+        Const('What do you want to change?'),
+        # TODO: refactor buttons placement if needed
+        Column(
+            Button(
+                Const('Name'),
+                id='name_change',
+                on_click=change_account
+            ),
+            Button(
+                Const('Gender'),
+                id='gender_change',
+                on_click=change_account
+            ),
+            Button(
+                Const('Date of birth'),
+                id='dob_change',
+                on_click=change_account
+            ),
+            Button(
+                Const('Initial weight'),
+                id='init_weight_change',
+                on_click=change_account
+            )
+        ),
+        state=FillAccountSG.change_account
     )
 )
