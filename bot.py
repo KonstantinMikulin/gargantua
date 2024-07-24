@@ -51,8 +51,7 @@ async def main() -> None:
     bot = Bot(
         token=config.tg_bot.token,
         default=DefaultBotProperties(
-            parse_mode=ParseMode.HTML,
-            show_caption_above_media=True
+            parse_mode=ParseMode.HTML
         )
     )
     dp = Dispatcher(storage=storage)

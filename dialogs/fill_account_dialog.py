@@ -106,26 +106,26 @@ fill_account_dialog = Dialog(
         state=FillAccountSG.save_photo
     ),
     Window(
-        Const('Here is your profile:\n'),
-        Format('Name: {name}'),
-        Format('Gender: {gender}'),
-        Format('Initial weight is {initial_weight}\n'),
         Const(
-            text='This is your initial photo:',
+            text='This is your initial photo\n',
             when='initial_photo'
             ),
         DynamicMedia(
             selector='initial_photo',
             when='initial_photo'
             ),
+        Const('Here is your profile:\n'),
+        Format('Name: {name}'),
+        Format('Gender: {gender}'),
+        Format('Initial weight is {initial_weight}\n'),
         Column(
             Button(
-                text=Const('Correct'),
+                text=Const('It is fine'),
                 id='acc_correct',
                 on_click=confirm_account_data
             ),
             Button(
-                text=Const('Change'),
+                text=Const('Let`s change some'),
                 id='acc_change',
                 on_click=confirm_account_data
             )
