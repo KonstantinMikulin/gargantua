@@ -23,7 +23,7 @@ from states.users_dialog_states import FillAccountSG
 from getters.aiogram_dialog_getters import get_profile_data
 
 # TODO: make some text in these dialog bold
-# TODO: decrease number of 'Thank you'
+# TODO: decrease number of 'Thank you', please
 
 # dialog for filling account
 fill_account_dialog = Dialog(
