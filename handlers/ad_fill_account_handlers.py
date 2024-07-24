@@ -142,7 +142,7 @@ async def send_initial_photo_handler(callback: CallbackQuery, button: Button, di
         bot: Bot = dialog_manager.middleware_data['bot']
         await bot.send_message(chat_id=callback.message.chat.id, text='Thank you')  # type: ignore
         
-        await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
+        await dialog_manager.switch_to(state=FillAccountSG.show_account, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for processing if photo was send
@@ -156,4 +156,4 @@ async def save_initial_photo_handler(
     
     await message.answer('Thank you')
     # TODO: how to automaticly switch dialogs to main menu?
-    await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.DELETE_AND_SEND)
+    await dialog_manager.switch_to(state=FillAccountSG.show_account, show_mode=ShowMode.DELETE_AND_SEND)

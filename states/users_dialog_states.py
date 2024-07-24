@@ -20,6 +20,7 @@ class FillAccountSG(StatesGroup):
     fill_current_weight = State()
     send_photo = State()
     save_photo = State()
+    show_account = State()
     fill_done = State()
 
     

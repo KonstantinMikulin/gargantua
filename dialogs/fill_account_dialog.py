@@ -118,6 +118,6 @@ fill_account_dialog = Dialog(
             when='initial_photo'
             ),
         getter=get_profile_data,
-        state=FillAccountSG.fill_done
+        state=FillAccountSG.show_account
     )
 )
