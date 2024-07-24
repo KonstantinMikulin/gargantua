@@ -3,7 +3,7 @@ from aiogram.enums import ContentType
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput, MessageInput
-from aiogram_dialog.widgets.kbd import Button, Row
+from aiogram_dialog.widgets.kbd import Button, Row, Column
 from aiogram_dialog.widgets.media import DynamicMedia
 
 from handlers.ad_fill_account_handlers import (
@@ -17,7 +17,8 @@ from handlers.ad_fill_account_handlers import (
     weight_correct_handler,
     weight_error_handler,
     send_initial_photo_handler,
-    save_initial_photo_handler
+    save_initial_photo_handler,
+    confirm_account_data
 )
 from states.users_dialog_states import FillAccountSG
 from getters.aiogram_dialog_getters import get_profile_data
@@ -116,6 +117,18 @@ fill_account_dialog = Dialog(
         DynamicMedia(
             selector='initial_photo',
             when='initial_photo'
+            ),
+        Column(
+            Button(
+                text=Const('Correct'),
+                id='acc_correct',
+                on_click=confirm_account_data
+            ),
+            Button(
+                text=Const('Change'),
+                id='acc_change',
+                on_click=confirm_account_data
+            )
             ),
         getter=get_profile_data,
         state=FillAccountSG.show_account

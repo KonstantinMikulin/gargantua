@@ -157,3 +157,12 @@ async def save_initial_photo_handler(
     await message.answer('Thank you')
     # TODO: how to automaticly switch dialogs to main menu?
     await dialog_manager.switch_to(state=FillAccountSG.show_account, show_mode=ShowMode.DELETE_AND_SEND)
+
+
+# TODO: add logic to this handler
+# handler for account`s data confirmation
+async def confirm_account_data(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+    if callback.data == 'acc_correct':
+        pass
+    if callback.data == 'acc_change':
+        pass
