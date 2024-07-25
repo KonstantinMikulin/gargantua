@@ -118,6 +118,7 @@ fill_account_dialog = Dialog(
         Const('Here is your profile:\n'),
         Format('Name: {name}'),
         Format('Gender: {gender}'),
+        Format('Date of birth: {date_of_birth}'),
         Format('Initial weight is {initial_weight}\n'),
         Column(
             Button(
@@ -133,6 +134,10 @@ fill_account_dialog = Dialog(
             ),
         getter=get_profile_data,
         state=FillAccountSG.show_account
+    ),
+    Window(
+        Const('Your account was saved'),
+        state=FillAccountSG.fill_done
     ),
     Window(
         Const('What do you want to change?'),

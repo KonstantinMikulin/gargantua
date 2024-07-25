@@ -163,8 +163,6 @@ async def save_initial_photo_handler(
 # handler for account`s data confirmation
 async def confirm_account_data(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'acc_correct':
-        bot: Bot = dialog_manager.middleware_data['bot']
-        await bot.send_message(chat_id=callback.message.chat.id, text='Your account was saved') # type: ignore
         await dialog_manager.switch_to(state=FillAccountSG.fill_done, show_mode=ShowMode.SEND)
         
     if callback.data == 'acc_change':
