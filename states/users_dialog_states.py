@@ -23,6 +23,11 @@ class FillAccountSG(StatesGroup):
     show_account = State()
     change_account = State()
     fill_done = State()
+    
+    
+# draft state group for changing user account
+class ChangeAccountSG(StatesGroup):
+    change_name = State()
 
     
 # draft state group for help
