@@ -24,6 +24,7 @@ user_router = Router()
 
 logger = logging.getLogger(__name__)
 
+# TODO: add command for revision and changing account details
 
 # TODO: add logic for creating user account
 # handler for /start cmd

@@ -77,7 +77,6 @@ async def birthdate_correct_handler(
     
     dob = {k:int(v) for k, v in zip(dob_keys, text.split('.'))}
     dialog_manager.dialog_data['birthdate'] = dob
-    print(dialog_manager.dialog_data)
     
     await message.answer(f'You date of birth is {text}')
     await dialog_manager.switch_to(state=FillAccountSG.fill_current_weight, show_mode=ShowMode.DELETE_AND_SEND)
