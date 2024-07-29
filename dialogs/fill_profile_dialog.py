@@ -26,6 +26,7 @@ from handlers.ad_fill_profile_handlers import (
 from states.users_dialog_states import FillprofileSG
 from getters.aiogram_dialog_getters import get_profile_data
 
+# TODO: add cancel button
 # TODO: make some text in these dialog bold
 # TODO: decrease number of 'Thank you', please
 
@@ -84,7 +85,7 @@ fill_profile_dialog = Dialog(
             on_success=weight_correct_handler,  # type: ignore
             on_error=weight_error_handler  # type: ignore
         ),
-        state=FillprofileSG.fill_current_weight
+        state=FillprofileSG.fill_init_weight
     ),
     Window(
         Const('Do you want to send photo?'),
@@ -194,5 +195,20 @@ fill_profile_dialog = Dialog(
             )
         ),
         state=FillprofileSG.change_gender
+    ),
+    # window for changing dob
+    Window(
+        Const(
+            'Enter new date of birth\n\n'
+            'Use this format: DD.MM.YY\n\n'
+            '01.12.2012 for example'
+            ),
+        TextInput(
+            id='change_dob',
+            type_factory=validate_birthdate,
+            on_success=birthdate_correct_handler,
+            on_error=birthdate_error_handler
+        ),
+        state=FillprofileSG.fill_birthdate
     )
 )

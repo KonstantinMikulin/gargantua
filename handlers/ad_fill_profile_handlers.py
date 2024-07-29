@@ -108,7 +108,7 @@ async def birthdate_correct_handler(
     dialog_manager.dialog_data['birthdate'] = dob
     
     await message.answer(f'You date of birth is {text}')
-    await dialog_manager.switch_to(state=FillprofileSG.fill_current_weight, show_mode=ShowMode.DELETE_AND_SEND)
+    await dialog_manager.switch_to(state=FillprofileSG.fill_init_weight, show_mode=ShowMode.DELETE_AND_SEND)
     
     
 # handler for processing not correct date of birth

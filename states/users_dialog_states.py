@@ -17,7 +17,7 @@ class FillprofileSG(StatesGroup):
     fill_name = State()
     fill_gender = State()
     fill_birthdate = State()
-    fill_current_weight = State()
+    fill_init_weight = State()
     send_photo = State()
     save_photo = State()
     show_profile = State()
