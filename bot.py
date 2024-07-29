@@ -17,6 +17,7 @@ from handlers.admin_handlers import admin_router
 from middlewares.outer_middlewares import UserValidationOuterMiddleware
 from lexicon.lexicon import LEXICON_COMMANDS
 from dialogs.fill_account_dialog import fill_account_dialog
+from dialogs.change_account_dialog import change_account_dialog
 from dialogs.users_dialogs import (
     default_dialog,
     start_dialog,
@@ -78,7 +79,8 @@ async def main() -> None:
         desc_dialog,
         support_dialog,
         contacts_dialog,
-        fill_account_dialog
+        fill_account_dialog,
+        change_account_dialog
         )
     setup_dialogs(dp)
     
