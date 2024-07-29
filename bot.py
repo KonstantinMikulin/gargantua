@@ -4,9 +4,10 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties 
 from aiogram.enums import ParseMode
-from aiogram.fsm.storage.redis import RedisStorage
-from aiogram.fsm.storage.base import DefaultKeyBuilder
-from redis.asyncio.client import Redis
+from aiogram.fsm.storage.memory import MemoryStorage
+# from aiogram.fsm.storage.redis import RedisStorage
+# from aiogram.fsm.storage.base import DefaultKeyBuilder
+# from redis.asyncio.client import Redis
 
 from aiogram_dialog import setup_dialogs
 
@@ -44,8 +45,9 @@ async def main() -> None:
     )
     
     config: Config = load_config()
-    redis = Redis(host='localhost')
-    storage = RedisStorage(redis=redis, key_builder=DefaultKeyBuilder(with_destiny=True))
+    storage = MemoryStorage()
+    # redis = Redis(host='localhost')
+    # storage = RedisStorage(redis=redis, key_builder=DefaultKeyBuilder(with_destiny=True))
     
     # as default I set HTML for parse mode
     # and set show caption above media
