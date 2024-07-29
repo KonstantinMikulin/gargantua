@@ -213,6 +213,7 @@ fill_profile_dialog = Dialog(
         ),
         state=FillprofileSG.change_dob
     ),
+    # window for changing initial weight
     Window(
         Const(
             'Enter you correct current weight in kg, please\n\n'

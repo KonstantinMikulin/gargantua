@@ -235,6 +235,7 @@ async def save_initial_photo_handler(
 # handler for profile`s data confirmation
 async def confirm_profile_data(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'profile_correct':
+        # TODO: add functionality for writing down data in temp DB
         await dialog_manager.switch_to(state=FillprofileSG.fill_done, show_mode=ShowMode.SEND)
         
     if callback.data == 'profile_change':
