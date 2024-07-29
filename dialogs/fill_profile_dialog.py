@@ -17,7 +17,8 @@ from handlers.ad_fill_profile_handlers import (
     birthdate_change_correct_handler,
     birthdate_error_handler,
     validate_weight,
-    weight_correct_handler,
+    weight_fill_correct_handler,
+    weight_change_correct_handler,
     weight_error_handler,
     send_initial_photo_handler,
     save_initial_photo_handler,
@@ -83,7 +84,7 @@ fill_profile_dialog = Dialog(
         TextInput(
             id='fill_weight',
             type_factory=validate_weight,
-            on_success=weight_correct_handler,  # type: ignore
+            on_success=weight_fill_correct_handler,  # type: ignore
             on_error=weight_error_handler  # type: ignore
         ),
         state=FillprofileSG.fill_init_weight
@@ -211,5 +212,21 @@ fill_profile_dialog = Dialog(
             on_error=birthdate_error_handler
         ),
         state=FillprofileSG.change_dob
+    ),
+    Window(
+        Const(
+            'Enter you correct current weight in kg, please\n\n'
+            'Enter just kg, 75 for example\n'
+            'Or enter kg and gr if you want\n'
+            'Like that: 75.45\n\n'
+            'We will use this data for future analytics'
+            ),
+        TextInput(
+            id='change_weight',
+            type_factory=validate_weight,
+            on_success=weight_change_correct_handler,  # type: ignore
+            on_error=weight_error_handler  # type: ignore
+        ),
+        state=FillprofileSG.change_init_weight
     )
 )

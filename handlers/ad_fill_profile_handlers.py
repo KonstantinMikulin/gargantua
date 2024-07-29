@@ -155,8 +155,9 @@ def validate_weight(text: str) -> str | None:
     raise ValueError
 
 
-# handler for processing correct weight
-async def weight_correct_handler(
+# TODO: make it DRY
+# handler for processing FILLING correct weight
+async def weight_fill_correct_handler(
     message: Message,
     widget: ManagedTextInput,
     dialog_manager: DialogManager,
@@ -171,6 +172,25 @@ async def weight_correct_handler(
     # TODO: add html.escape()
     await message.answer(f'Your current weight is {weight}\nYou will achieve your goals!')
     await dialog_manager.switch_to(state=FillprofileSG.send_photo, show_mode=ShowMode.DELETE_AND_SEND)
+    
+    
+# TODO: make it DRY
+# handler for processing CHANGING correct weight
+async def weight_change_correct_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str
+) -> None:
+    bot: Bot = dialog_manager.middleware_data['bot']
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    
+    weight = round(float(text), 2)
+    dialog_manager.dialog_data['initial_weight'] = weight
+    
+    # TODO: add html.escape()
+    await message.answer(f'Your current weight is {weight}\nYou will achieve your goals!')
+    await dialog_manager.switch_to(state=FillprofileSG.show_profile, show_mode=ShowMode.DELETE_AND_SEND)
     
     
 # handler for processing NOT correct weight
@@ -231,4 +251,4 @@ async def change_profile(callback: CallbackQuery, button: Button, dialog_manager
     elif callback.data == 'dob_change':
         await dialog_manager.switch_to(state=FillprofileSG.change_dob, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'init_weight_change':
-        pass
+        await dialog_manager.switch_to(state=FillprofileSG.change_init_weight, show_mode=ShowMode.DELETE_AND_SEND)
