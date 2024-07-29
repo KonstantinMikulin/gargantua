@@ -14,6 +14,7 @@ from states.users_dialog_states import FillprofileSG
 ad_fill_router = Router()
 
 
+# TODO: make it DRY
 # dialog_handler for processing correct name for filling profile
 async def fill_name_correct_nandler(
     message: Message,
@@ -30,6 +31,7 @@ async def fill_name_correct_nandler(
     await dialog_manager.switch_to(state=FillprofileSG.fill_gender, show_mode=ShowMode.DELETE_AND_SEND)
 
 
+# TODO: make it DRY
 # dialog_handler for processing correct name for CHANGING profile
 async def change_name_correct_nandler(
     message: Message,
@@ -51,6 +53,7 @@ async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_
     await message.answer(text='This doesn`t look like a name, bro!')
     
 
+# TODO: make it DRY
 # handler for processing gender choose
 async def choose_gender(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'fill_m':
@@ -62,8 +65,9 @@ async def choose_gender(callback: CallbackQuery, button: Button, dialog_manager:
         dialog_manager.dialog_data['gender'] = 'female'
         await callback.message.answer(text='Your gender was saved\nThank you')  # type: ignore
         await dialog_manager.switch_to(state=FillprofileSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
+      
         
-        
+# TODO: make it DRY        
 # handler for processing gender CHANGE
 async def change_gender(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'change_m':
@@ -91,9 +95,9 @@ def validate_birthdate(text: str) -> str:
         else:
             raise ValueError
 
-
-# handler for processing correct date of birth
-async def birthdate_correct_handler(
+# TODO: make it DRY
+# handler for processing FILLING correct date of birth
+async def birthdate_fill_correct_handler(
     message: Message,
     widget: ManagedTextInput,
     dialog_manager: DialogManager,
@@ -109,6 +113,26 @@ async def birthdate_correct_handler(
     
     await message.answer(f'You date of birth is {text}')
     await dialog_manager.switch_to(state=FillprofileSG.fill_init_weight, show_mode=ShowMode.DELETE_AND_SEND)
+    
+
+# TODO: make it DRY
+# handler for processing CHANGING correct date of birth
+async def birthdate_change_correct_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str
+    ) -> None:
+    dob_keys = ['day', 'month', 'year']
+    
+    bot: Bot = dialog_manager.middleware_data['bot']
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    
+    dob = {k:int(v) for k, v in zip(dob_keys, text.split('.'))}
+    dialog_manager.dialog_data['birthdate'] = dob
+    
+    await message.answer(f'You date of birth is {text}')
+    await dialog_manager.switch_to(state=FillprofileSG.show_profile, show_mode=ShowMode.DELETE_AND_SEND)
     
     
 # handler for processing not correct date of birth
@@ -205,6 +229,6 @@ async def change_profile(callback: CallbackQuery, button: Button, dialog_manager
     elif callback.data == 'gender_change':
         await dialog_manager.switch_to(state=FillprofileSG.change_gender, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'dob_change':
-        pass
+        await dialog_manager.switch_to(state=FillprofileSG.change_dob, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'init_weight_change':
         pass

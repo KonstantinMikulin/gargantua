@@ -13,7 +13,8 @@ from handlers.ad_fill_profile_handlers import (
     choose_gender,
     change_gender,
     validate_birthdate,
-    birthdate_correct_handler,
+    birthdate_fill_correct_handler,
+    birthdate_change_correct_handler,
     birthdate_error_handler,
     validate_weight,
     weight_correct_handler,
@@ -66,7 +67,7 @@ fill_profile_dialog = Dialog(
         TextInput(
             id='fill_dob',
             type_factory=validate_birthdate,
-            on_success=birthdate_correct_handler,
+            on_success=birthdate_fill_correct_handler,
             on_error=birthdate_error_handler
         ),
         state=FillprofileSG.fill_birthdate
@@ -206,9 +207,9 @@ fill_profile_dialog = Dialog(
         TextInput(
             id='change_dob',
             type_factory=validate_birthdate,
-            on_success=birthdate_correct_handler,
+            on_success=birthdate_change_correct_handler,
             on_error=birthdate_error_handler
         ),
-        state=FillprofileSG.fill_birthdate
+        state=FillprofileSG.change_dob
     )
 )
