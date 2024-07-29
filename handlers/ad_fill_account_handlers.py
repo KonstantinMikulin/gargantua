@@ -5,17 +5,17 @@ from datetime import datetime
 from aiogram import Router, Bot
 from aiogram.types import Message, CallbackQuery
 
-from aiogram_dialog import DialogManager, StartMode, ShowMode
+from aiogram_dialog import DialogManager, ShowMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput, MessageInput
 
-from states.users_dialog_states import FillAccountSG, ChangeAccountSG
+from states.users_dialog_states import FillAccountSG
 
 ad_fill_router = Router()
 
 
 # dialog_handler for processing correct name for filling account
-async def name_correct_nandler(
+async def fill_name_correct_nandler(
     message: Message,
     widget: ManagedTextInput,
     dialog_manager: DialogManager,
@@ -25,26 +25,28 @@ async def name_correct_nandler(
     await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     
     dialog_manager.dialog_data['name'] = message.text
-    print(dialog_manager.dialog_data)
-    
-    widget_id = dialog_manager.middleware_data.get('aiogd_context').widget_data.keys() # type: ignore
-    
-    if list(widget_id)[0] == 'fill_name':
-        # TODO: should I delete it after sending or not?
-        await message.answer(text=f'Name was saved.\n\nThank you, {text}')
-        await dialog_manager.switch_to(state=FillAccountSG.fill_gender, show_mode=ShowMode.DELETE_AND_SEND)
-    
-    # TODO: fix this lines
-    if list(widget_id)[0] == 'change_name':
-        await message.answer(text=f'Name was changed.\n\nThank you, {text}')
-        await dialog_manager.start(
-            state=FillAccountSG.show_account,
-            mode=StartMode.NORMAL,
-            show_mode=ShowMode.DELETE_AND_SEND
-            )
-    
+    # TODO: should I delete it after sending or not?
+    await message.answer(text=f'Name was saved.\n\nThank you, {text}')
+    await dialog_manager.switch_to(state=FillAccountSG.fill_gender, show_mode=ShowMode.DELETE_AND_SEND)
 
-# dialog_handler for processing not correct name for filling account
+
+# dialog_handler for processing correct name for CHANGING account
+async def change_name_correct_nandler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str,
+    ) -> None:
+    bot: Bot = dialog_manager.middleware_data['bot']
+    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    
+    dialog_manager.dialog_data['name'] = message.text
+    
+    await message.answer(text=f'Name was changed.\n\nThank you, {text}')
+    await dialog_manager.switch_to(state=FillAccountSG.show_account, show_mode=ShowMode.DELETE_AND_SEND)
+
+
+# dialog_handler for processing not correct name for filling/changing account
 async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_manager: DialogManager, test: str) -> None:
     await message.answer(text='This doesn`t look like a name, bro!')
     
@@ -186,11 +188,7 @@ async def confirm_account_data(callback: CallbackQuery, button: Button, dialog_m
 # TODO: replace 'pass'
 async def change_account(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'name_change':
-        await dialog_manager.start(
-            state=ChangeAccountSG.change_name,
-            mode=StartMode.NORMAL,
-            show_mode=ShowMode.DELETE_AND_SEND
-            )
+        await dialog_manager.switch_to(state=FillAccountSG.change_name, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'gender_change':
         pass
     elif callback.data == 'dob_change':

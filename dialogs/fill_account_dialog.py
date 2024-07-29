@@ -7,8 +7,9 @@ from aiogram_dialog.widgets.kbd import Button, Row, Column
 from aiogram_dialog.widgets.media import DynamicMedia
 
 from handlers.ad_fill_account_handlers import (
-    name_correct_nandler,
+    fill_name_correct_nandler,
     name_error_nandler,
+    change_name_correct_nandler,
     gender_choose,
     validate_birthdate,
     birthdate_correct_handler,
@@ -33,7 +34,7 @@ fill_account_dialog = Dialog(
         Const('Enter your name, please'),
         TextInput(
             id='fill_name',
-            on_success=name_correct_nandler,
+            on_success=fill_name_correct_nandler,
             on_error=name_error_nandler  # type: ignore
             ),
         state=FillAccountSG.fill_name
@@ -165,5 +166,14 @@ fill_account_dialog = Dialog(
             )
         ),
         state=FillAccountSG.change_account
+    ),
+    Window(
+        Const('Enter your name, please'),
+        TextInput(
+            id='change_name',
+            on_success=change_name_correct_nandler,
+            on_error=name_error_nandler # type: ignore
+        ),
+        state=FillAccountSG.change_name
     )
 )
