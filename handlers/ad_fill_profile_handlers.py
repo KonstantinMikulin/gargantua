@@ -52,7 +52,7 @@ async def name_error_nandler(message: Message, widget: ManagedTextInput, dialog_
     
 
 # handler for processing gender choose
-async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+async def choose_gender(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'fill_m':
         dialog_manager.dialog_data['gender'] = 'male'
         await callback.message.answer(text='Your gender was saved\nThank you')  # type: ignore
@@ -62,6 +62,19 @@ async def gender_choose(callback: CallbackQuery, button: Button, dialog_manager:
         dialog_manager.dialog_data['gender'] = 'female'
         await callback.message.answer(text='Your gender was saved\nThank you')  # type: ignore
         await dialog_manager.switch_to(state=FillprofileSG.fill_birthdate, show_mode=ShowMode.DELETE_AND_SEND)
+        
+        
+# handler for processing gender CHANGE
+async def change_gender(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+    if callback.data == 'change_m':
+        dialog_manager.dialog_data['gender'] = 'male'
+        await callback.message.answer(text='Your gender was cnahged\nThank you')  # type: ignore
+        await dialog_manager.switch_to(state=FillprofileSG.show_profile, show_mode=ShowMode.DELETE_AND_SEND)
+        
+    if callback.data == 'change_f':
+        dialog_manager.dialog_data['gender'] = 'female'
+        await callback.message.answer(text='Your gender was changed\nThank you')  # type: ignore
+        await dialog_manager.switch_to(state=FillprofileSG.show_profile, show_mode=ShowMode.DELETE_AND_SEND)
         
 
 # check correct date of birth
@@ -190,7 +203,7 @@ async def change_profile(callback: CallbackQuery, button: Button, dialog_manager
     if callback.data == 'name_change':
         await dialog_manager.switch_to(state=FillprofileSG.change_name, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'gender_change':
-        pass
+        await dialog_manager.switch_to(state=FillprofileSG.change_gender, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'dob_change':
         pass
     elif callback.data == 'init_weight_change':

@@ -10,7 +10,8 @@ from handlers.ad_fill_profile_handlers import (
     fill_name_correct_nandler,
     name_error_nandler,
     change_name_correct_nandler,
-    gender_choose,
+    choose_gender,
+    change_gender,
     validate_birthdate,
     birthdate_correct_handler,
     birthdate_error_handler,
@@ -45,12 +46,12 @@ fill_profile_dialog = Dialog(
             Button(
                 text=Const('Male'),
                 id='fill_m',
-                on_click=gender_choose
+                on_click=choose_gender
             ),
             Button(
                 text=Const('Female'),
                 id='fill_f',
-                on_click=gender_choose
+                on_click=choose_gender
             )
         ),
         state=FillprofileSG.fill_gender
@@ -176,5 +177,22 @@ fill_profile_dialog = Dialog(
             on_error=name_error_nandler # type: ignore
         ),
         state=FillprofileSG.change_name
+    ),
+    # window for changing gender
+    Window(
+        Const('Choose your gender'),
+        Row(
+            Button(
+                text=Const('Male'),
+                id='change_m',
+                on_click=change_gender
+            ),
+            Button(
+                text=Const('Female'),
+                id='change_f',
+                on_click=change_gender
+            )
+        ),
+        state=FillprofileSG.change_gender
     )
 )
