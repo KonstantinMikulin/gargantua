@@ -5,7 +5,7 @@ from getters.aiogram_dialog_getters import get_username, get_commands
 
 from lexicon.lexicon import LEXICON_RU
 from handlers.ad_handlers import (
-    account_create_click,
+    profile_create_click,
 )
 from states.users_dialog_states import (
     DefaultSG,
@@ -15,7 +15,7 @@ from states.users_dialog_states import (
     WhatSG,
     MeasureSG,
     SetupSG,
-    AccountSG,
+    profileSG,
     ReportSG,
     SupportSG,
     ContactsSG
@@ -37,8 +37,8 @@ start_dialog = Dialog(
     Window(
         Format(LEXICON_RU['/start']),
         Row(
-            Button(text=Const('Yes'), id='account_yes', on_click=account_create_click),
-            Button(Const('No'), id='account_no', on_click=account_create_click),
+            Button(text=Const('Yes'), id='profile_yes', on_click=profile_create_click),
+            Button(Const('No'), id='profile_no', on_click=profile_create_click),
             
         ),
         getter=get_username,
@@ -103,13 +103,13 @@ setup_dialog = Dialog(
     )
 )
 
-# TODO: add functionality for parsing account`s details from Telegram
+# TODO: add functionality for parsing profile`s details from Telegram
 # TODO: add nessesary Windows
-account_dialog = Dialog(
+profile_dialog = Dialog(
     Window(
-        Const(LEXICON_RU['/account']),
+        Const(LEXICON_RU['/profile']),
         # add some getter here for parsing data
-        state=AccountSG.start_account
+        state=profileSG.start_profile
     )
 )
 

@@ -1,12 +1,12 @@
 LEXICON_RU = {
-    '/start': 'Hello, {username}\n\nYou can send /help for command`s list\nYou can send /desc for how to use bot\nDo you want to create your account?',
+    '/start': 'Hello, {username}\n\nYou can send /help for command`s list\nYou can send /desc for how to use bot\nDo you want to create your profile?',
     '/help': 'Commands list:',
     '/desc': 'Here what you can do with this bot...',
     '/what': 'Behold!',
     '/weight': '{username}, send your weight, please',
     '/measure': '{username}, send your measurments, please',
     '/setup': 'Let`s setup your bot',
-    '/account': 'Can we save data from your Telegram?',
+    '/profile': 'Can we save data from your Telegram?',
     '/report': 'Preparing report...',
     '/support': 'Send your question, please...',
     '/contacts': 'Here are our contacts...'
@@ -21,7 +21,7 @@ LEXICON_COMMANDS = {
     '/weight': 'Record your weight',
     '/measure': 'Record your weight',
     '/setup': 'Setup your bot',
-    '/account': 'Setup/view your account',
+    '/profile': 'Setup/view your profile',
     '/report': 'Show report',
     '/support': 'Contact support',
     '/contacts': 'Contact us',

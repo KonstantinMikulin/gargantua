@@ -14,14 +14,14 @@ from handlers.users_handlers import user_router
 from handlers.admin_handlers import admin_router
 from middlewares.outer_middlewares import UserValidationOuterMiddleware
 from lexicon.lexicon import LEXICON_COMMANDS
-from dialogs.fill_account_dialog import fill_account_dialog
+from dialogs.fill_profile_dialog import fill_profile_dialog
 from dialogs.users_dialogs import (
     default_dialog,
     start_dialog,
     what_dialog,
     measure_dialog,
     setup_dialog,
-    account_dialog,
+    profile_dialog,
     report_dialog,
     help_dialog,
     desc_dialog,
@@ -71,13 +71,13 @@ async def main() -> None:
         what_dialog,
         measure_dialog,
         setup_dialog,
-        account_dialog,
+        profile_dialog,
         report_dialog,
         help_dialog,
         desc_dialog,
         support_dialog,
         contacts_dialog,
-        fill_account_dialog
+        fill_profile_dialog
         )
     setup_dialogs(dp)
     

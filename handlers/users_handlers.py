@@ -14,7 +14,7 @@ from states.users_dialog_states import (
     DescSG,
     MeasureSG,
     SetupSG,
-    AccountSG,
+    profileSG,
     ReportSG,
     SupportSG,
     ContactsSG
@@ -24,15 +24,15 @@ user_router = Router()
 
 logger = logging.getLogger(__name__)
 
-# TODO: add command for revision and changing account details
+# TODO: add command for revision and changing profile details
 
-# TODO: add logic for creating user account
+# TODO: add logic for creating user profile
 # handler for /start cmd
 @user_router.message(CommandStart())
 async def process_start_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
     logger.info('We are in /start handler')
     
-    # TODO: add logic if account alredy exist but user restart bot
+    # TODO: add logic if profile alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)
     
     logger.info('We are exiting /start handler')
@@ -96,10 +96,10 @@ async def process_setup_cmd(message: Message, dialog_manager: DialogManager) -> 
     await dialog_manager.start(state=SetupSG.start_setup, show_mode=ShowMode.DELETE_AND_SEND)
 
 
-# handler for /account cmd
-@user_router.message(Command(commands=['account']))
-async def process_account_cmd(message: Message, dialog_manager: DialogManager) -> None:
-    await dialog_manager.start(state=AccountSG.start_account, show_mode=ShowMode.DELETE_AND_SEND)
+# handler for /profile cmd
+@user_router.message(Command(commands=['profile']))
+async def process_profile_cmd(message: Message, dialog_manager: DialogManager) -> None:
+    await dialog_manager.start(state=profileSG.start_profile, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # TODO: add some sendChatAction

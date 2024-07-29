@@ -6,7 +6,7 @@ from aiogram_dialog.widgets.input import TextInput, MessageInput
 from aiogram_dialog.widgets.kbd import Button, Row, Column
 from aiogram_dialog.widgets.media import DynamicMedia
 
-from handlers.ad_fill_account_handlers import (
+from handlers.ad_fill_profile_handlers import (
     fill_name_correct_nandler,
     name_error_nandler,
     change_name_correct_nandler,
@@ -19,17 +19,17 @@ from handlers.ad_fill_account_handlers import (
     weight_error_handler,
     send_initial_photo_handler,
     save_initial_photo_handler,
-    confirm_account_data,
-    change_account
+    confirm_profile_data,
+    change_profile
 )
-from states.users_dialog_states import FillAccountSG
+from states.users_dialog_states import FillprofileSG
 from getters.aiogram_dialog_getters import get_profile_data
 
 # TODO: make some text in these dialog bold
 # TODO: decrease number of 'Thank you', please
 
-# dialog for filling account
-fill_account_dialog = Dialog(
+# dialog for filling profile
+fill_profile_dialog = Dialog(
     Window(
         Const('Enter your name, please'),
         TextInput(
@@ -37,7 +37,7 @@ fill_account_dialog = Dialog(
             on_success=fill_name_correct_nandler,
             on_error=name_error_nandler  # type: ignore
             ),
-        state=FillAccountSG.fill_name
+        state=FillprofileSG.fill_name
     ),
     Window(
         Const('Enter your gender, please'),
@@ -53,7 +53,7 @@ fill_account_dialog = Dialog(
                 on_click=gender_choose
             )
         ),
-        state=FillAccountSG.fill_gender
+        state=FillprofileSG.fill_gender
     ),
     Window(
         Const(
@@ -67,7 +67,7 @@ fill_account_dialog = Dialog(
             on_success=birthdate_correct_handler,
             on_error=birthdate_error_handler
         ),
-        state=FillAccountSG.fill_birthdate
+        state=FillprofileSG.fill_birthdate
     ),
     Window(
         Const(
@@ -83,7 +83,7 @@ fill_account_dialog = Dialog(
             on_success=weight_correct_handler,  # type: ignore
             on_error=weight_error_handler  # type: ignore
         ),
-        state=FillAccountSG.fill_current_weight
+        state=FillprofileSG.fill_current_weight
     ),
     Window(
         Const('Do you want to send photo?'),
@@ -97,7 +97,7 @@ fill_account_dialog = Dialog(
             id='n_send_photo',
             on_click=send_initial_photo_handler
         ),
-        state=FillAccountSG.send_photo
+        state=FillprofileSG.send_photo
     ),
     Window(
         Const('Download you first photo, please'),
@@ -105,7 +105,7 @@ fill_account_dialog = Dialog(
             func=save_initial_photo_handler,
             content_types=ContentType.PHOTO
         ),
-        state=FillAccountSG.save_photo
+        state=FillprofileSG.save_photo
     ),
     Window(
         Const(
@@ -124,21 +124,21 @@ fill_account_dialog = Dialog(
         Column(
             Button(
                 text=Const('It is fine'),
-                id='acc_correct',
-                on_click=confirm_account_data
+                id='profile_correct',
+                on_click=confirm_profile_data
             ),
             Button(
                 text=Const('Let`s change some'),
-                id='acc_change',
-                on_click=confirm_account_data
+                id='profile_change',
+                on_click=confirm_profile_data
             )
             ),
         getter=get_profile_data,
-        state=FillAccountSG.show_account
+        state=FillprofileSG.show_profile
     ),
     Window(
-        Const('Your account was saved'),
-        state=FillAccountSG.fill_done
+        Const('Your profile was saved'),
+        state=FillprofileSG.fill_done
     ),
     Window(
         Const('What do you want to change?'),
@@ -147,26 +147,27 @@ fill_account_dialog = Dialog(
             Button(
                 Const('Name'),
                 id='name_change',
-                on_click=change_account
+                on_click=change_profile
             ),
             Button(
                 Const('Gender'),
                 id='gender_change',
-                on_click=change_account
+                on_click=change_profile
             ),
             Button(
                 Const('Date of birth'),
                 id='dob_change',
-                on_click=change_account
+                on_click=change_profile
             ),
             Button(
                 Const('Initial weight'),
                 id='init_weight_change',
-                on_click=change_account
+                on_click=change_profile
             )
         ),
-        state=FillAccountSG.change_account
+        state=FillprofileSG.change_profile
     ),
+    # window for changing name in profile
     Window(
         Const('Enter your name, please'),
         TextInput(
@@ -174,6 +175,6 @@ fill_account_dialog = Dialog(
             on_success=change_name_correct_nandler,
             on_error=name_error_nandler # type: ignore
         ),
-        state=FillAccountSG.change_name
+        state=FillprofileSG.change_name
     )
 )
