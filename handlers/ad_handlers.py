@@ -8,7 +8,7 @@ from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput
 
 from states.users_dialog_states import DefaultSG
-from states.users_dialog_states import FillprofileSG
+from states.users_dialog_states import FillProfileSG
 
 ad_handlers_router = Router()
 
@@ -18,7 +18,7 @@ ad_handlers_router = Router()
 async def profile_create_click(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'profile_yes':
         await callback.answer('You choose "Yes"') # type: ignore
-        await dialog_manager.start(state=FillprofileSG.fill_name, show_mode=ShowMode.DELETE_AND_SEND)
+        await dialog_manager.start(state=FillProfileSG.fill_name, show_mode=ShowMode.DELETE_AND_SEND)
     
     if callback.data == 'profile_no':
         await callback.answer('You choose "No"') # type: ignore

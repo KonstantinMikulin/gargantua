@@ -39,6 +39,16 @@ async def get_profile_data(dialog_manager: DialogManager, event_from_user: User,
                 'initial_weight': initial_weight}  # type: ignore
 
 
+# getter for checking if there is initial photo in profile
+async def get_init_photo(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, Any]:
+    initial_photo = dialog_manager.dialog_data.get('initial_photo')
+    
+    if initial_photo:
+        return {}
+
+    return {'initial_photo': 'empty'}
+
+
 # getter for collecting all commands in one dict
 # TODO: make this getter work
 async def get_commands(**kwargs) -> dict[str, tuple]:

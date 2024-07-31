@@ -13,7 +13,7 @@ class StartSG(StatesGroup):
 
 
 # draft state group for creating user profile
-class FillprofileSG(StatesGroup):
+class FillProfileSG(StatesGroup):
     fill_name = State()
     fill_gender = State()
     fill_birthdate = State()

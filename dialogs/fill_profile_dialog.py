@@ -21,12 +21,13 @@ from handlers.ad_fill_profile_handlers import (
     weight_change_correct_handler,
     weight_error_handler,
     send_initial_photo_handler,
-    save_initial_photo_handler,
+    save_init_photo,
+    save_change__init_photo,
     confirm_profile_data,
     change_profile
 )
-from states.users_dialog_states import FillprofileSG
-from getters.aiogram_dialog_getters import get_profile_data
+from states.users_dialog_states import FillProfileSG
+from getters.aiogram_dialog_getters import get_profile_data, get_init_photo
 
 # TODO: add cancel button
 # TODO: make some text in these dialog bold
@@ -41,7 +42,7 @@ fill_profile_dialog = Dialog(
             on_success=fill_name_correct_nandler,
             on_error=name_error_nandler  # type: ignore
             ),
-        state=FillprofileSG.fill_name
+        state=FillProfileSG.fill_name
     ),
     Window(
         Const('Enter your gender, please'),
@@ -57,7 +58,7 @@ fill_profile_dialog = Dialog(
                 on_click=choose_gender
             )
         ),
-        state=FillprofileSG.fill_gender
+        state=FillProfileSG.fill_gender
     ),
     Window(
         Const(
@@ -71,7 +72,7 @@ fill_profile_dialog = Dialog(
             on_success=birthdate_fill_correct_handler,
             on_error=birthdate_error_handler
         ),
-        state=FillprofileSG.fill_birthdate
+        state=FillProfileSG.fill_birthdate
     ),
     Window(
         Const(
@@ -87,7 +88,7 @@ fill_profile_dialog = Dialog(
             on_success=weight_fill_correct_handler,  # type: ignore
             on_error=weight_error_handler  # type: ignore
         ),
-        state=FillprofileSG.fill_init_weight
+        state=FillProfileSG.fill_init_weight
     ),
     Window(
         Const('Do you want to send photo?'),
@@ -101,15 +102,15 @@ fill_profile_dialog = Dialog(
             id='n_send_photo',
             on_click=send_initial_photo_handler
         ),
-        state=FillprofileSG.send_photo
+        state=FillProfileSG.send_photo
     ),
     Window(
         Const('Download you first photo, please'),
         MessageInput(
-            func=save_initial_photo_handler,
+            func=save_init_photo,
             content_types=ContentType.PHOTO
         ),
-        state=FillprofileSG.save_photo
+        state=FillProfileSG.save_photo
     ),
     Window(
         Const(
@@ -138,11 +139,11 @@ fill_profile_dialog = Dialog(
             )
             ),
         getter=get_profile_data,
-        state=FillprofileSG.show_profile
+        state=FillProfileSG.show_profile
     ),
     Window(
         Const('Your profile was saved'),
-        state=FillprofileSG.fill_done
+        state=FillProfileSG.fill_done
     ),
     Window(
         Const('What do you want to change?'),
@@ -167,9 +168,16 @@ fill_profile_dialog = Dialog(
                 Const('Initial weight'),
                 id='init_weight_change',
                 on_click=change_profile
+            ),
+            Button(
+                Const('Add first photo?'),
+                id='add_init_photo',
+                on_click=save_change__init_photo, # type: ignore
+                when='initial_photo'
             )
         ),
-        state=FillprofileSG.change_profile
+        state=FillProfileSG.change_profile,
+        getter=get_init_photo # type: ignore
     ),
     # window for changing name in profile
     Window(
@@ -179,7 +187,7 @@ fill_profile_dialog = Dialog(
             on_success=change_name_correct_nandler,
             on_error=name_error_nandler # type: ignore
         ),
-        state=FillprofileSG.change_name
+        state=FillProfileSG.change_name
     ),
     # window for changing gender
     Window(
@@ -196,7 +204,7 @@ fill_profile_dialog = Dialog(
                 on_click=change_gender
             )
         ),
-        state=FillprofileSG.change_gender
+        state=FillProfileSG.change_gender
     ),
     # window for changing dob
     Window(
@@ -211,7 +219,7 @@ fill_profile_dialog = Dialog(
             on_success=birthdate_change_correct_handler,
             on_error=birthdate_error_handler
         ),
-        state=FillprofileSG.change_dob
+        state=FillProfileSG.change_dob
     ),
     # window for changing initial weight
     Window(
@@ -228,6 +236,6 @@ fill_profile_dialog = Dialog(
             on_success=weight_change_correct_handler,  # type: ignore
             on_error=weight_error_handler  # type: ignore
         ),
-        state=FillprofileSG.change_init_weight
+        state=FillProfileSG.change_init_weight
     )
 )
