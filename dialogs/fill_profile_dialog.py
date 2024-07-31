@@ -22,7 +22,6 @@ from handlers.ad_fill_profile_handlers import (
     weight_error_handler,
     send_initial_photo_handler,
     save_init_photo,
-    save_change_init_photo,
     confirm_profile_data,
     change_profile,
     cancel_fill_profile
