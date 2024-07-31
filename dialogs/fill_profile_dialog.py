@@ -173,7 +173,7 @@ fill_profile_dialog = Dialog(
                 Const('Add first photo?'),
                 id='add_init_photo',
                 on_click=save_change__init_photo, # type: ignore
-                when='initial_photo'
+                when='no_photo'
             )
         ),
         state=FillProfileSG.change_profile,

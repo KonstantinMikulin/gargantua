@@ -43,10 +43,10 @@ async def get_profile_data(dialog_manager: DialogManager, event_from_user: User,
 async def get_init_photo(dialog_manager: DialogManager, event_from_user: User, **kwargs) -> dict[str, Any]:
     initial_photo = dialog_manager.dialog_data.get('initial_photo')
     
-    if initial_photo:
-        return {}
+    if initial_photo is not None:
+        return {'initial_photo': initial_photo}
 
-    return {'initial_photo': 'empty'}
+    return {'no_photo': 'empty'}
 
 
 # getter for collecting all commands in one dict
