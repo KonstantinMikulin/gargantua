@@ -12,14 +12,20 @@ class StartSG(StatesGroup):
     start_dialog = State()
 
 
-# draft state group for creating user account
-class FillAccountSG(StatesGroup):
+# draft state group for creating user profile
+class FillProfileSG(StatesGroup):
     fill_name = State()
     fill_gender = State()
     fill_birthdate = State()
-    fill_current_weight = State()
+    fill_init_weight = State()
     send_photo = State()
     save_photo = State()
+    show_profile = State()
+    change_profile = State()
+    change_name = State()
+    change_gender = State()
+    change_dob = State()
+    change_init_weight = State()
     fill_done = State()
 
     
@@ -54,10 +60,10 @@ class SetupSG(StatesGroup):
     start_setup = State()
     
     
-# draft state group for testing user`s account details
+# draft state group for testing user`s profile details
 # TODO: add nessesary States
-class AccountSG(StatesGroup):
-    start_account = State()
+class profileSG(StatesGroup):
+    start_profile = State()
     
     
 # drafr start group for testing reporting system
