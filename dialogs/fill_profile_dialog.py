@@ -146,6 +146,7 @@ fill_profile_dialog = Dialog(
         state=FillProfileSG.fill_done
     ),
     Window(
+        # TODO: should I delete text of this window after choosing button?
         Const('What do you want to change?'),
         # TODO: refactor buttons placement if needed
         Column(
