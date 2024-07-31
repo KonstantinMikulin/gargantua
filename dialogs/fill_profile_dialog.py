@@ -206,14 +206,14 @@ fill_profile_dialog = Dialog(
             Button(
                 Const('Add first photo'),
                 id='add_init_photo',
-                on_click=save_change_init_photo, # type: ignore
+                on_click=change_profile,
                 when='no_photo'
             ),
             # button to change initial photo
             Button(
                 Const('Change initial photo'),
                 id='change_init_photo',
-                on_click=save_change_init_photo, # type: ignore
+                on_click=change_profile,
                 when='initial_photo'
             ),
             Button(

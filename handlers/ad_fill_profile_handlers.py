@@ -230,16 +230,6 @@ async def save_init_photo(
     await message.answer('Thank you')
     # TODO: how to automaticly switch dialogs to main menu?
     await dialog_manager.switch_to(state=FillProfileSG.show_profile, show_mode=ShowMode.DELETE_AND_SEND)
-    
-
-# TODO: add this logic to 'change_profile' handler    
-# handler for processing if photo was send during profile CHANGING
-async def save_change_init_photo(
-    message: Message,
-    widget: MessageInput,
-    dialog_manager: DialogManager
-    ) -> None:
-    await dialog_manager.switch_to(state=FillProfileSG.save_photo, show_mode=ShowMode.DELETE_AND_SEND)
 
 
 # handler for profile`s data confirmation
@@ -252,7 +242,6 @@ async def confirm_profile_data(callback: CallbackQuery, button: Button, dialog_m
         await dialog_manager.switch_to(state=FillProfileSG.change_profile, show_mode=ShowMode.SEND)
         
 # handler for changing name
-# TODO: replace 'pass'
 async def change_profile(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'name_change':
         await dialog_manager.switch_to(state=FillProfileSG.change_name, show_mode=ShowMode.DELETE_AND_SEND)
@@ -262,8 +251,10 @@ async def change_profile(callback: CallbackQuery, button: Button, dialog_manager
         await dialog_manager.switch_to(state=FillProfileSG.change_dob, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'init_weight_change':
         await dialog_manager.switch_to(state=FillProfileSG.change_init_weight, show_mode=ShowMode.DELETE_AND_SEND)
-        
-        
+    elif callback.data in ('add_init_photo', 'change_init_photo'):
+        await dialog_manager.switch_to(state=FillProfileSG.save_photo, show_mode=ShowMode.DELETE_AND_SEND)
+    
+    
 # handler for proccesing cancel profile filling
 async def cancel_fill_profile(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'cancel_fill':
