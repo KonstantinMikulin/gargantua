@@ -182,6 +182,11 @@ fill_profile_dialog = Dialog(
                 id='change_init_photo',
                 on_click=save_change_init_photo, # type: ignore
                 when='initial_photo'
+            ),
+            Button(
+                text=Const('It is fine'),
+                id='profile_correct',
+                on_click=confirm_profile_data
             )
         ),
         state=FillProfileSG.change_profile,
