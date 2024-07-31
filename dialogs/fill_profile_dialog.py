@@ -22,7 +22,7 @@ from handlers.ad_fill_profile_handlers import (
     weight_error_handler,
     send_initial_photo_handler,
     save_init_photo,
-    save_change__init_photo,
+    save_change_init_photo,
     confirm_profile_data,
     change_profile
 )
@@ -169,11 +169,19 @@ fill_profile_dialog = Dialog(
                 id='init_weight_change',
                 on_click=change_profile
             ),
+            # button to add photo if there is no initial photo
             Button(
-                Const('Add first photo?'),
+                Const('Add first photo'),
                 id='add_init_photo',
-                on_click=save_change__init_photo, # type: ignore
+                on_click=save_change_init_photo, # type: ignore
                 when='no_photo'
+            ),
+            # button to change initial photo
+            Button(
+                Const('Change initial photo'),
+                id='change_init_photo',
+                on_click=save_change_init_photo, # type: ignore
+                when='initial_photo'
             )
         ),
         state=FillProfileSG.change_profile,

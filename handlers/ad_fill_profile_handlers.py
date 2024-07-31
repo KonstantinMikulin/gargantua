@@ -233,7 +233,7 @@ async def save_init_photo(
     
     
 # handler for processing if photo was send during profile CHANGING
-async def save_change__init_photo(
+async def save_change_init_photo(
     message: Message,
     widget: MessageInput,
     dialog_manager: DialogManager
