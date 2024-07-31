@@ -24,8 +24,10 @@ from handlers.ad_fill_profile_handlers import (
     save_init_photo,
     save_change_init_photo,
     confirm_profile_data,
-    change_profile
+    change_profile,
+    cancel_fill_profile
 )
+
 from states.users_dialog_states import FillProfileSG
 from getters.aiogram_dialog_getters import get_profile_data, get_init_photo
 
@@ -42,6 +44,11 @@ fill_profile_dialog = Dialog(
             on_success=fill_name_correct_nandler,
             on_error=name_error_nandler  # type: ignore
             ),
+        Button(
+            Const('Cancel'),
+            id='cancel_fill',
+            on_click=cancel_fill_profile
+        ),
         state=FillProfileSG.fill_name
     ),
     Window(
@@ -58,6 +65,11 @@ fill_profile_dialog = Dialog(
                 on_click=choose_gender
             )
         ),
+        Button(
+            Const('Cancel'),
+            id='cancel_fill',
+            on_click=cancel_fill_profile
+        ),
         state=FillProfileSG.fill_gender
     ),
     Window(
@@ -71,6 +83,11 @@ fill_profile_dialog = Dialog(
             type_factory=validate_birthdate,
             on_success=birthdate_fill_correct_handler,
             on_error=birthdate_error_handler
+        ),
+        Button(
+            Const('Cancel'),
+            id='cancel_fill',
+            on_click=cancel_fill_profile
         ),
         state=FillProfileSG.fill_birthdate
     ),
@@ -88,6 +105,11 @@ fill_profile_dialog = Dialog(
             on_success=weight_fill_correct_handler,  # type: ignore
             on_error=weight_error_handler  # type: ignore
         ),
+        Button(
+            Const('Cancel'),
+            id='cancel_fill',
+            on_click=cancel_fill_profile
+        ),
         state=FillProfileSG.fill_init_weight
     ),
     Window(
@@ -102,6 +124,11 @@ fill_profile_dialog = Dialog(
             id='n_send_photo',
             on_click=send_initial_photo_handler
         ),
+        Button(
+            Const('Cancel'),
+            id='cancel_fill',
+            on_click=cancel_fill_profile
+        ),
         state=FillProfileSG.send_photo
     ),
     Window(
@@ -109,6 +136,11 @@ fill_profile_dialog = Dialog(
         MessageInput(
             func=save_init_photo,
             content_types=ContentType.PHOTO
+        ),
+        Button(
+            Const('Cancel'),
+            id='cancel_fill',
+            on_click=cancel_fill_profile
         ),
         state=FillProfileSG.save_photo
     ),

@@ -5,11 +5,11 @@ from datetime import datetime
 from aiogram import Router, Bot
 from aiogram.types import Message, CallbackQuery
 
-from aiogram_dialog import DialogManager, ShowMode
+from aiogram_dialog import DialogManager, StartMode, ShowMode
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import ManagedTextInput, MessageInput
 
-from states.users_dialog_states import FillProfileSG
+from states.users_dialog_states import FillProfileSG, DefaultSG
 
 ad_fill_router = Router()
 
@@ -231,7 +231,8 @@ async def save_init_photo(
     # TODO: how to automaticly switch dialogs to main menu?
     await dialog_manager.switch_to(state=FillProfileSG.show_profile, show_mode=ShowMode.DELETE_AND_SEND)
     
-    
+
+# TODO: add this logic to 'change_profile' handler    
 # handler for processing if photo was send during profile CHANGING
 async def save_change_init_photo(
     message: Message,
@@ -261,3 +262,15 @@ async def change_profile(callback: CallbackQuery, button: Button, dialog_manager
         await dialog_manager.switch_to(state=FillProfileSG.change_dob, show_mode=ShowMode.DELETE_AND_SEND)
     elif callback.data == 'init_weight_change':
         await dialog_manager.switch_to(state=FillProfileSG.change_init_weight, show_mode=ShowMode.DELETE_AND_SEND)
+        
+        
+# handler for proccesing cancel profile filling
+async def cancel_fill_profile(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
+    if callback.data == 'cancel_fill':
+        bot: Bot = dialog_manager.middleware_data['bot']
+        
+        await bot.send_message(
+            chat_id=callback.message.chat.id, # type: ignore
+            text='You can use command /profile and fill your profile later'
+            )
+        await dialog_manager.start(state=DefaultSG.default_dialog, mode=StartMode.RESET_STACK)
