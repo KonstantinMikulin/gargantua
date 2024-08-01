@@ -29,8 +29,12 @@ logger = logging.getLogger(__name__)
 # TODO: add logic for creating user profile
 # handler for /start cmd
 @user_router.message(CommandStart())
-async def process_start_cmd(message: Message, dialog_manager: DialogManager, bot: Bot) -> None:
+async def process_start_cmd(message: Message, dialog_manager: DialogManager, bot: Bot, temp_dict: dict) -> None:
     logger.info('We are in /start handler')
+    
+    # TODO: remove this line
+    user_id = message.from_user.id # type: ignore
+    temp_dict[user_id] = {}
     
     # TODO: add logic if profile alredy exist but user restart bot
     await dialog_manager.start(state=StartSG.start_dialog, mode=StartMode.RESET_STACK, show_mode=ShowMode.DELETE_AND_SEND)

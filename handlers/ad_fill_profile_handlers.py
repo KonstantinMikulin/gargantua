@@ -236,12 +236,10 @@ async def save_init_photo(
 async def confirm_profile_data(callback: CallbackQuery, button: Button, dialog_manager: DialogManager) -> None:
     if callback.data == 'profile_correct':
         # TODO: add functionality for writing down data in temp DB
-        print(f'Dict from dialog_data: {dialog_manager.dialog_data}')
-        
-        user_dict: dict = dialog_manager.middleware_data.get('temp_dict') # type: ignore
-        print(f'Dict from workflow_data: {user_dict}')
-        user_dict.update(dialog_manager.dialog_data)
-        print(f'Updated temp_dict: {user_dict}')
+        # TODO: remove these lines later
+        temp_dict: dict = dialog_manager.middleware_data.get('temp_dict') # type: ignore
+        user_id = callback.from_user.id
+        temp_dict[user_id].update(dialog_manager.dialog_data)
         
         await dialog_manager.switch_to(state=FillProfileSG.fill_done, show_mode=ShowMode.SEND)
         

@@ -57,8 +57,7 @@ async def main() -> None:
     
     # TODO: remove this after setting DB
     # temp db for user data
-    temp_dict: dict[str, str | int | bool] = {'One': 1}
-    print(f'Inittial dict: {temp_dict}')
+    temp_dict: dict[str, str | int | bool] = {}
     
     await set_main_menu(bot)
     
