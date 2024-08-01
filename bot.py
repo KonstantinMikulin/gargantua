@@ -57,11 +57,12 @@ async def main() -> None:
     
     # TODO: remove this after setting DB
     # temp db for user data
-    user_dict: dict[int, dict[str, str | int | bool]] = {}
+    temp_dict: dict[str, str | int | bool] = {'One': 1}
+    print(f'Inittial dict: {temp_dict}')
     
     await set_main_menu(bot)
     
-    dp.workflow_data.update({'config': config, 'bot': bot, 'commands': LEXICON_COMMANDS})
+    dp.workflow_data.update({'config': config, 'bot': bot, 'temp_dict': temp_dict, 'commands': LEXICON_COMMANDS})
     
     dp.include_routers(admin_router, user_router)
     
