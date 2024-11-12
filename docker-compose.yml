@@ -1,0 +1,34 @@
+name: sqlalchemy-orm-test
+
+services:
+    postgres:
+        image: postgres:17.0-alpine
+        restart: no
+        ports:
+            - "127.0.0.1:5432:5432"
+        #TODO: change user and password before deploy
+        environment:
+            POSTGRES_USER: superuser
+            POSTGRES_PASSWORD: superpassword
+            POSTGRES_DB: gargantua_db
+        volumes:
+        - sqlalchemy-orm-test-postgres:/var/lib/postgresql/gargantua_db
+
+    #TODO: should I keep pgadmin?
+    pgadmin:
+        image: dpage/pgadmin4:latest
+        restart: no
+        ports:
+            - "127.0.0.1:8080:80"
+        environment:
+            #TODO: change user and password before deploy
+            PGADMIN_DEFAULT_EMAIL: a@a.com
+            PGADMIN_DEFAULT_PASSWORD: pgadmin
+        volumes:
+        - sqlalchemy-orm-test-pgadmin:/var/lib/pgadmin
+        depends_on:
+        - postgres
+
+volumes:
+    sqlalchemy-orm-test-pgadmin:
+    sqlalchemy-orm-test-postgres:
