@@ -12,7 +12,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 from bot.config_reader import get_config, BotConfig, DbConfig
 from bot.handlers import get_commands_routers
-# from bot.handlers.main_menu import set_main_menu
+from bot.handlers.main_bot_menu import set_main_menu
 # from bot.db import Base
 # from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
 
@@ -71,7 +71,7 @@ async def main():
     # dp.message.outer_middleware(TrackAllUsersMiddleware())
 
     # set main menu
-    # await set_main_menu(bot)
+    await set_main_menu(bot)
 
     # skip updates and run pulling
     await bot.delete_webhook(drop_pending_updates=True)
