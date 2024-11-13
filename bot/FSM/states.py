@@ -9,4 +9,3 @@ class FSMAddMeasurmentRecord(StatesGroup):
     fill_chest = State()
     fill_waist = State()
     fill_hips = State()
-    fill_done = State()
