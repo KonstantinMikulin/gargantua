@@ -13,7 +13,7 @@ class User(TimestampMixin, Base):
     last_name: Mapped[str] = mapped_column(String, nullable=True)
     
     weights: Mapped[list['Weight']] = relationship(back_populates='user') # type:ignore # noqa: F821
-    measurements_bicep: Mapped[list["MeasureChest"]] = relationship(  # type:ignore # noqa: F821
+    measurements_chest: Mapped[list["MeasureChest"]] = relationship(  # type:ignore # noqa: F821
         back_populates="user"
     )
     measurements_waist: Mapped[list["MeasureWaist"]] = relationship(  # type:ignore # noqa: F821
