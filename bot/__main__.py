@@ -7,14 +7,14 @@ from aiogram.enums import ParseMode
 #TODO: change to Redis
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from sqlalchemy import text
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+# from sqlalchemy import text
+# from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 from bot.config_reader import get_config, BotConfig, DbConfig
 from bot.handlers import get_commands_routers
-from bot.handlers.main_menu import set_main_menu
-from bot.db import Base
-from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
+# from bot.handlers.main_menu import set_main_menu
+# from bot.db import Base
+# from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
 
 
 async def main():
@@ -31,27 +31,29 @@ async def main():
     bot_config = get_config(BotConfig, "bot")
 
     # create database config 'object'
-    db_config = get_config(DbConfig, "db")
+    # db_config = get_config(DbConfig, "db")
 
     # create sqlachemy engine
-    engine = create_async_engine(url=str(db_config.dsn), echo=db_config.is_echo)
+    # engine = create_async_engine(url=str(db_config.dsn), echo=db_config.is_echo)
 
     # open new connection with database
-    async with engine.begin() as conn:
-        # simple text query
-        await conn.execute(text("SELECT 1"))
+    # async with engine.begin() as conn:
+    #     # simple text query
+    #     await conn.execute(text("SELECT 1"))
 
     # create tables
-    async with engine.begin() as connection:
-        # await connection.run_sync(Base.metadata.drop_all)
-        await connection.run_sync(Base.metadata.create_all)
+    # async with engine.begin() as connection:
+    #     # await connection.run_sync(Base.metadata.drop_all)
+    #     await connection.run_sync(Base.metadata.create_all)
 
     # Инициализируем хранилище (создаем экземпляр класса MemoryStorage)
     storage = MemoryStorage()
 
     # creating dispatcher object
     dp = Dispatcher(
-        admin_id=bot_config.admin_id, db_engine=engine, storage=storage
+        admin_id=bot_config.admin_id,
+        # db_engine=engine,
+        storage=storage
     )
 
     # creating bot object
@@ -64,12 +66,12 @@ async def main():
     dp.include_routers(*get_commands_routers())
 
     # registering middlewares
-    Sessionmaker = async_sessionmaker(engine, expire_on_commit=False)
-    dp.update.outer_middleware(DbSessionMiddleware(Sessionmaker))
-    dp.message.outer_middleware(TrackAllUsersMiddleware())
+    # Sessionmaker = async_sessionmaker(engine, expire_on_commit=False)
+    # dp.update.outer_middleware(DbSessionMiddleware(Sessionmaker))
+    # dp.message.outer_middleware(TrackAllUsersMiddleware())
 
     # set main menu
-    await set_main_menu(bot)
+    # await set_main_menu(bot)
 
     # skip updates and run pulling
     await bot.delete_webhook(drop_pending_updates=True)
