@@ -1,3 +1,7 @@
-from .states import FSMAddWeightRecord, FSMAddMeasurmentRecord
+from .states import FSMBotIsOn, FSMAddWeightRecord, FSMAddMeasurmentRecord
 
-__all__ = ["FSMAddWeightRecord", "FSMAddMeasurmentRecord"]
+__all__ = [
+    "FSMBotIsOn",
+    "FSMAddWeightRecord",
+    "FSMAddMeasurmentRecord"
+    ]
