@@ -17,7 +17,7 @@ user_router = Router(name="user router")
 async def cmd_admin_start(message: Message):
     logger.info("Enter user`s /start handler")
     
-    await message.answer(f"<b>{message.from_user.first_name}</b>, здравстуйте!\n" # type:ignore
+    await message.answer(f"<b>{message.from_user.first_name}</b>, здравствуйте!\n" # type:ignore
                          f"Подробности о работе бота по команде /help")
 
     logger.info("Exit user`s /start handler")
