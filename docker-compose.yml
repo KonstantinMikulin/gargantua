@@ -1,4 +1,4 @@
-name: sqlalchemy-orm-test
+name: gargantua-test
 
 services:
     postgres:
@@ -12,7 +12,7 @@ services:
             POSTGRES_PASSWORD: superpassword
             POSTGRES_DB: gargantua_db
         volumes:
-        - sqlalchemy-orm-test-postgres:/var/lib/postgresql/gargantua_db
+        - gargantua-test-postgres:/var/lib/postgresql/gargantua_db
 
     #TODO: should I keep pgadmin?
     pgadmin:
@@ -25,10 +25,10 @@ services:
             PGADMIN_DEFAULT_EMAIL: a@a.com
             PGADMIN_DEFAULT_PASSWORD: pgadmin
         volumes:
-        - sqlalchemy-orm-test-pgadmin:/var/lib/pgadmin
+        - gargantua-test-pgadmin:/var/lib/pgadmin
         depends_on:
         - postgres
 
 volumes:
-    sqlalchemy-orm-test-pgadmin:
-    sqlalchemy-orm-test-postgres:
+    gargantua-test-pgadmin:
+    gargantua-test-postgres:
