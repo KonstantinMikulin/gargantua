@@ -18,7 +18,7 @@ async def cmd_admin_start(message: Message):
     logger.info("Enter user`s /start handler")
     
     await message.answer(f"<b>{message.from_user.first_name}</b>, здравстуйте!\n" # type:ignore
-                         f"Подробно о работе бота по команде /help")
+                         f"Подробности о работе бота по команде /help")
 
     logger.info("Exit user`s /start handler")
 
