@@ -42,6 +42,8 @@ async def process_weight_sent(
     state: FSMContext,
     session: AsyncSession
 ):
+    logger.debug("Enter /process_weight_sent")
+    
     # store weight into storage
     await state.update_data(weight=int(message.text))  # type:ignore
 
@@ -58,9 +60,15 @@ async def process_weight_sent(
     await state.clear()
     # send message abour success
     await message.answer(f"Ваш текущий вес {weight} кг был сохранен")
+    
+    logger.debug("Exit /process_weight_sent")
 
 
 # handler if weight was sent not correct
 @user_weight_router.message(StateFilter(FSMAddWeightRecord.fill_weight))
 async def warning_not_weight(message: Message):
+    logger.debug("Enter /warning_not_weight")
+    
     await message.answer("Отправьте, пожалуйста, целое число")
+    
+    logger.debug("Exit /warning_not_weight")
