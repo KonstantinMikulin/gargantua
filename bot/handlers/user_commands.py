@@ -12,15 +12,11 @@ logger = logging.getLogger(__name__)
 user_router = Router(name="user router")
 
 
-# simple /start command
+# simple /start command first start
 @user_router.message(CommandStart())
-async def cmd_admin_start(message: Message):
-    logger.info("Enter user`s /start handler")
-    
+async def cmd_start_first(message: Message):
     await message.answer(f"<b>{message.from_user.first_name}</b>, здравствуйте!\n" # type:ignore
                          f"Подробности о работе бота по команде /help")
-
-    logger.info("Exit user`s /start handler")
 
 
 # FSM /cancel command for default state
