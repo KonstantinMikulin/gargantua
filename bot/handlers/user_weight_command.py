@@ -23,6 +23,7 @@ user_weight_router = Router(name="user weight router")
 async def cmd_weight(message: Message, state: FSMContext, admin_id):
     logger.info("Enter /weight command")
     
+    # TODO: add /cancel button
     await message.answer("Напишите, пожалуйста, ваш текущий вес в кг")
     # setup state to waiting for weight data
     await state.set_state(FSMAddWeightRecord.fill_weight)
