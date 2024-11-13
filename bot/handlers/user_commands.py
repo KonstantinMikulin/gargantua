@@ -12,11 +12,17 @@ logger = logging.getLogger(__name__)
 user_router = Router(name="user router")
 
 
-# simple /start command first start
+# simple /start command
 @user_router.message(CommandStart())
 async def cmd_start_first(message: Message):
     await message.answer(f"<b>{message.from_user.first_name}</b>, здравствуйте!\n" # type:ignore
                          f"Подробности о работе бота по команде /help")
+
+
+# /help command
+@user_router.message(Command("help"))
+async def cmd_help(message: Message):
+    await message.answer("Бот может записывать вес и замеры объемов тела")
 
 
 # FSM /cancel command for default state
