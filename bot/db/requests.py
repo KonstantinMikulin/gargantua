@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import insert as upsert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from bot.db.models import User, Weight, MeasureHips, MeasureWaist
+from bot.db.models import User, Weight, MeasureChest, MeasureWaist, MeasureHips
 
 
 async def upsert_user(
