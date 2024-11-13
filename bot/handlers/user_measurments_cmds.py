@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 user_measure_router = Router(name="user measurements router")
 
 
-# command /measure 'only' for user
+# command /measure
 @user_measure_router.message(
     Command("measure"),
     StateFilter(default_state)
@@ -46,7 +46,8 @@ async def process_chest_sent(
 
     # send message
     await message.answer(
-        f"Обхват груди {message.text} см сохранен, {message.from_user.first_name}!\n\nThank you" # type:ignore
+        f"Обхват груди {message.text} см сохранен, {message.from_user.first_name}!\n\n"  # type:ignore
+        f"Отправьте обхват талии"
     )
 
 
@@ -68,8 +69,8 @@ async def process_waist_sent(
 
     # send message
     await message.answer(
-        f"Your waist: {message.text} cm added to database, user!\n"
-        f"Send your hips now"
+        f"Обхват талии {message.text} был сохранен\n\n"
+        f"Отправьте обхват бедер"
     )
 
 
@@ -78,27 +79,32 @@ async def process_waist_sent(
     StateFilter(FSMAddMeasurmentRecord.fill_hips), F.text.isdigit()
 )
 async def process_hips_sent(
-    message: Message, state: FSMContext, session: AsyncSession
+    message: Message,
+    state: FSMContext,
+    session: AsyncSession
 ):
-    # store waist in storage
+    # store hips in storage
     await state.update_data(hips=message.text)  # type:ignore
-
-    # set next state
-    await state.set_state(FSMAddMeasurmentRecord.fill_bicep)
 
     # send message
     await message.answer(
-        f"Your hips: {message.text} cm added to database, user!\n"
-        f"Send your bicep now"
+        f"Обхват бедер {message.text} был сохранен\n\n"
+        f"Спасибо!"
     )
     
     # get data from storage
     context_data = await state.get_data()
+    chest = int(context_data.get("chest"))  # type:ignore
     waist = int(context_data.get("waist"))  # type:ignore
     hips = int(context_data.get("hips"))  # type:ignore
-    bicep = int(context_data.get("bicep"))  # type:ignore
 
     # add all records to db
+    await add_chest(
+        session=session,
+        telegram_id=message.from_user.id,  # type:ignore
+        chest=chest,
+    )
+    
     await add_waist(
         session=session,
         telegram_id=message.from_user.id,  # type:ignore
@@ -111,26 +117,17 @@ async def process_hips_sent(
         hips=hips,
     )
 
-    await add_bicep(
-        session=session,
-        telegram_id=message.from_user.id,  # type:ignore
-        bicep=bicep,
-    )
-
     # stop FSM
     await state.clear()
 
 
-
-
-
-# handler if data of waist, hips or bicep was sent not correct
+# handler if data of waist, hips or chest was sent not correct
 @user_measure_router.message(
     StateFilter(
+        FSMAddMeasurmentRecord.fill_chest,
         FSMAddMeasurmentRecord.fill_waist,
         FSMAddMeasurmentRecord.fill_hips,
-        FSMAddMeasurmentRecord.fill_bicep,
     )
 )
 async def warning_not_correct_mesurment(message: Message):
-    await message.answer("Send correct data, please")
+    await message.answer("Отправьте правильные данные, пожалуйста")
