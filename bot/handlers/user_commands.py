@@ -28,11 +28,7 @@ async def cmd_help(message: Message):
 # FSM /cancel command for default state
 @user_router.message(Command(commands="cancel"), StateFilter(default_state))
 async def cmd_cancel_default(message: Message):
-    logger.info("Enter default /cancel command")
-    
     await message.answer("Сейчас нечего отменять")
-    
-    logger.info("Exit deafult /cancel command")
 
 
 # FSM /cancel if user in some state

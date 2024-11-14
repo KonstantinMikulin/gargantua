@@ -1,4 +1,4 @@
-from . outer import TrackAllUsersMiddleware
+from .outer import TrackAllUsersMiddleware
 from .session import DbSessionMiddleware
 
 __all__ = [
