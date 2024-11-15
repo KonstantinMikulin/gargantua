@@ -19,6 +19,7 @@ async def cmd_start_first(message: Message):
                          f"Подробности о работе бота по команде /help")
 
 
+# TODO: disable this command when FSM is on
 # /help command
 @user_router.message(Command("help"))
 async def cmd_help(message: Message):
