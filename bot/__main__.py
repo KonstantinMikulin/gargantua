@@ -4,8 +4,6 @@ import logging
 from aiogram import Dispatcher, Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-#TODO: change to Redis
-# from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import Redis, RedisStorage
 
 from sqlalchemy import text
@@ -59,10 +57,8 @@ async def main():
         password=redis_config.password
     )
     
-    # Инициализируем хранилище (создаем экземпляр класса MemoryStorage)
-    # storage = MemoryStorage()
+    # Инициализируем хранилище (создаем экземпляр класса RedisStorage)
     storage = RedisStorage(redis=redis)
-    
 
     # creating dispatcher object
     dp = Dispatcher(
