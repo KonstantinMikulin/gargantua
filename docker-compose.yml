@@ -29,6 +29,9 @@ services:
         depends_on:
         - postgres
 
+    redis:
+        
+
 volumes:
     gargantua-test-pgadmin:
     gargantua-test-postgres:
