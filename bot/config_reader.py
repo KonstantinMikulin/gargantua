@@ -21,6 +21,14 @@ class BotConfig(BaseModel):
 class DbConfig(BaseModel):
     dsn: PostgresDsn
     is_echo: bool
+    
+    
+class RedisConfig(BaseModel):
+    db: int
+    host: str
+    port: int
+    username: str
+    password: str
 
 
 @lru_cache(maxsize=1)

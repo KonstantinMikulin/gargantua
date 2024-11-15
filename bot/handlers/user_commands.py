@@ -41,3 +41,11 @@ async def cmd_cancel_state(message: Message, state: FSMContext):
     await state.clear()
     
     logger.info("Exit 'some state' /cancel command")
+
+
+#TODO: remove this handler
+# answer message with current user state
+@user_router.message(Command("state"))
+async def cmd_state(message: Message, state: FSMContext):
+    current_state = await state.get_state()
+    await message.answer(f"Your current state is: {current_state}")
