@@ -18,7 +18,7 @@ from bot.db import Base
 from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
 
 
-# main functinon
+# main func
 async def main():
     logging.basicConfig(
         level=logging.DEBUG,
