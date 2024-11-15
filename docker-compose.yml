@@ -30,6 +30,20 @@ services:
         - postgres
 
     redis:
+        image: redis:latest
+        command:
+        - redis-server
+        environment:
+            - REDIS_DATABASE=1
+            - REDIS_HOST=localhost
+            - REDIS_PORT=6379
+            - REDIS_USERNAME=default
+            - REDIS_PASSWORD=default
+            - REDIS_TTL_STATE=None
+            - REDIS_TTL_DATA=None
+        restart: no
+        ports:
+        - "127.0.0.1:6379:6379"
         
 
 volumes:

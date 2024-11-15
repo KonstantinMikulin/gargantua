@@ -5,12 +5,13 @@ from aiogram import Dispatcher, Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 #TODO: change to Redis
-from aiogram.fsm.storage.memory import MemoryStorage
+# from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.redis import Redis, RedisStorage
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
-from bot.config_reader import get_config, BotConfig, DbConfig
+from bot.config_reader import get_config, BotConfig, DbConfig, RedisConfig
 from bot.handlers import get_commands_routers
 from bot.handlers.main_bot_menu import set_main_menu
 from bot.db import Base
@@ -32,6 +33,9 @@ async def main():
 
     # create database config 'object'
     db_config = get_config(DbConfig, "db")
+    
+    # creating redis config
+    redis_config = get_config(RedisConfig, "redis")
 
     # create sqlachemy engine
     engine = create_async_engine(url=str(db_config.dsn), echo=db_config.is_echo)
@@ -46,8 +50,18 @@ async def main():
         # await connection.run_sync(Base.metadata.drop_all)
         await connection.run_sync(Base.metadata.create_all)
 
+    redis = Redis(
+        host=redis_config.host,
+        port=redis_config.port,
+        db=redis_config.db,
+        username=redis_config.username,
+        password=redis_config.password
+    )
+    
     # Инициализируем хранилище (создаем экземпляр класса MemoryStorage)
-    storage = MemoryStorage()
+    # storage = MemoryStorage()
+    storage = RedisStorage(redis=redis)
+    
 
     # creating dispatcher object
     dp = Dispatcher(
