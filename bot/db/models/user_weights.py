@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import BigInteger, ForeignKey, Integer, Uuid, text
+from sqlalchemy import BigInteger, ForeignKey, Uuid, text, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from bot.db import Base
@@ -17,6 +17,6 @@ class Weight(TimestampMixin, Base):
         BigInteger,
         ForeignKey('users.telegram_id', ondelete='CASCADE')
     )
-    weight: Mapped[int] = mapped_column(Integer, nullable=False)
+    weight: Mapped[float] = mapped_column(Float, nullable=False)
     
     user: Mapped['User'] = relationship(back_populates='weights') # type:ignore  # noqa: F821

@@ -37,7 +37,7 @@ async def upsert_user(
 
 
 # request to add user weight to db
-async def add_weight(session: AsyncSession, telegram_id: int, weight: int):
+async def add_weight(session: AsyncSession, telegram_id: int, weight: float):
     """
     Добавление записи веса пользователя
     :param session: сессия СУБД

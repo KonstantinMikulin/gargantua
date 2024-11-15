@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from bot.FSM.states import FSMAddWeightRecord
 from bot.db import add_weight
+from bot.filters import WeightIsFloat
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,6 @@ logger = logging.getLogger(__name__)
 user_weight_router = Router(name="user weight router")
 
 
-#TODO: change weight from int to float
 # command for record current weight to db
 @user_weight_router.message(Command("weight"), StateFilter(default_state))
 async def cmd_weight(message: Message, state: FSMContext, admin_id):
@@ -31,40 +31,35 @@ async def cmd_weight(message: Message, state: FSMContext, admin_id):
 # handler if weight was sent correct
 @user_weight_router.message(
     StateFilter(FSMAddWeightRecord.fill_weight),
-    F.text.isdigit()
+    F.text,
+    WeightIsFloat()
 )
 async def process_weight_sent(
     message: Message,
     state: FSMContext,
     session: AsyncSession
 ):
-    logger.debug("Enter /process_weight_sent")
-    
     # store weight into storage
-    await state.update_data(weight=int(message.text))  # type:ignore
+    clean_weight = message.text.replace(",", ".")  # type:ignore
+    await state.update_data(weight=float(clean_weight))  # type:ignore
 
     context_data = await state.get_data()
-    weight = int(context_data.get("weight"))  # type:ignore
+    weight = (context_data.get("weight"))  # type:ignore
+    
 
     # add weight to db
     await add_weight(
         session=session,
         telegram_id=message.from_user.id,  # type:ignore
-        weight=weight,
+        weight=weight, # type:ignore
     )
     # stop FSM
     await state.clear()
     # send message abour success
     await message.answer(f"Ваш текущий вес {weight} кг был сохранен")
-    
-    logger.debug("Exit /process_weight_sent")
 
 
 # handler if weight was sent not correct
 @user_weight_router.message(StateFilter(FSMAddWeightRecord.fill_weight))
 async def warning_not_weight(message: Message):
-    logger.debug("Enter /warning_not_weight")
-    
-    await message.answer("Отправьте, пожалуйста, целое число")
-    
-    logger.debug("Exit /warning_not_weight")
+    await message.answer("Отправьте, пожалуйста, число")
