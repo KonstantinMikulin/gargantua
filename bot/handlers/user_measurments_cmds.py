@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from bot.FSM import FSMAddMeasurmentRecord
 from bot.db import add_chest, add_waist, add_hips
+from bot.keyboards import cancel_keyboard
 
 logger = logging.getLogger(__name__)
 
@@ -18,12 +19,12 @@ user_measure_router = Router(name="user measurements router")
 
 
 # command /measure
-@user_measure_router.message(
-    Command("measure"),
-    StateFilter(default_state)
-)
+@user_measure_router.message(Command("measure"),StateFilter(default_state))
 async def cmd_measure(message: Message, state: FSMContext):
-    await message.answer("Отправьте обхват груди")
+    await message.answer(
+        text="Отправьте обхват груди",
+        reply_markup=cancel_keyboard    
+    )
     # setup state to waiting for waist measurements data
     await state.set_state(FSMAddMeasurmentRecord.fill_chest)
 
@@ -46,8 +47,9 @@ async def process_chest_sent(
 
     # send message
     await message.answer(
-        f"Обхват груди {message.text} см сохранен, {message.from_user.first_name}!\n\n"  # type:ignore
-        f"Отправьте обхват талии"
+        text=f"Обхват груди {message.text} см сохранен, {message.from_user.first_name}!\n\n"  # type:ignore
+             f"Отправьте обхват талии",
+        reply_markup=cancel_keyboard
     )
 
 
@@ -69,8 +71,9 @@ async def process_waist_sent(
 
     # send message
     await message.answer(
-        f"Обхват талии {message.text} был сохранен\n\n"
-        f"Отправьте обхват бедер"
+        text=f"Обхват талии {message.text} был сохранен\n\n"
+        f"Отправьте обхват бедер",
+        reply_markup=cancel_keyboard
     )
 
 
@@ -130,4 +133,7 @@ async def process_hips_sent(
     )
 )
 async def warning_not_correct_mesurment(message: Message):
-    await message.answer("Отправьте правильные данные, пожалуйста")
+    await message.answer(
+        text="Отправьте правильные данные, пожалуйста",
+        reply_markup=cancel_keyboard
+    )

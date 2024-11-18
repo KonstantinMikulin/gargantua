@@ -49,6 +49,7 @@ async def main():
         # await connection.run_sync(Base.metadata.drop_all)
         await connection.run_sync(Base.metadata.create_all)
 
+    #TODO: drop some states after certain time
     redis = Redis(
         host=redis_config.host,
         port=redis_config.port,
