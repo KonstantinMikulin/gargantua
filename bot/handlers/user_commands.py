@@ -6,11 +6,6 @@ from aiogram.types import Message
 from aiogram.fsm.state import default_state
 from aiogram.fsm.context import FSMContext
 
-#TODO: remove/change these lines
-from aiogram_dialog import DialogManager, StartMode, ShowMode
-from bot.dialogs import AddWeightTestSG
-
-
 logger = logging.getLogger(__name__)
 
 # creating router`s onject
@@ -55,9 +50,4 @@ async def cmd_cancel_state(message: Message, state: FSMContext):
 async def cmd_state(message: Message, state: FSMContext):
     current_state = await state.get_state()
     await message.answer(f"Your current state is: {current_state}")
-
-
-@user_router.message(Command("test"))
-async def cmd_test(message: Message, dialog_manager: DialogManager):
-    await dialog_manager.start(state=AddWeightTestSG.add_weight, mode=StartMode.NORMAL, show_mode=ShowMode.AUTO)
     
