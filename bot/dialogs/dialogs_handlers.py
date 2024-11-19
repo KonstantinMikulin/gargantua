@@ -11,4 +11,4 @@ async def cancel_btn_clicked(
     dialog_manager: DialogManager
 ):
     await callback.message.edit_text("Запись отменена") # type:ignore
-    await dialog_manager.done()
+    await dialog_manager.reset_stack()
