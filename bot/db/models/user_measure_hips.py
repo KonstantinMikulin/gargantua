@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import BigInteger, ForeignKey, Integer, Uuid, text
+from sqlalchemy import BigInteger, ForeignKey, Integer, Uuid, text, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from bot.db import Base
@@ -16,6 +16,6 @@ class MeasureHips(TimestampMixin, Base):
     user_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("users.telegram_id", ondelete="CASCADE")
     )
-    measurement: Mapped[int] = mapped_column(Integer, nullable=False)
+    measurement: Mapped[float] = mapped_column(Float, nullable=False)
 
     user: Mapped["User"] = relationship(back_populates="measurements_hips")  # type:ignore  # noqa: F821

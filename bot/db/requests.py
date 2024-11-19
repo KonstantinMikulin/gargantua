@@ -50,8 +50,9 @@ async def add_weight(session: AsyncSession, telegram_id: int, weight: float):
     await session.commit()
 
 
+# TODO: write one function for inserting chest, waist and hips at ones
 # request to add chest measurement to db
-async def add_chest(session: AsyncSession, telegram_id: int, chest: int):
+async def add_chest(session: AsyncSession, telegram_id: int, chest: float):
     """
     Добавление записи объема груди пользователя
     :param session: сессия СУБД
@@ -65,7 +66,7 @@ async def add_chest(session: AsyncSession, telegram_id: int, chest: int):
 
 
 # request to add tail measurement to db
-async def add_waist(session: AsyncSession, telegram_id: int, waist: int):
+async def add_waist(session: AsyncSession, telegram_id: int, waist: float):
     """
     Добавление записи объема талии пользователя
     :param session: сессия СУБД
@@ -79,7 +80,7 @@ async def add_waist(session: AsyncSession, telegram_id: int, waist: int):
 
 
 # request to add hips measurement to db
-async def add_hips(session: AsyncSession, telegram_id: int, hips: int):
+async def add_hips(session: AsyncSession, telegram_id: int, hips: float):
     """
     Добавление записи объема пользователя
     :param session: сессия СУБД

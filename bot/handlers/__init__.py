@@ -2,7 +2,7 @@ from aiogram import Router
 #TODO: change all imports to absolute
 from .user_commands import user_router
 from .user_weight_command import user_weight_router
-from .user_measurments_cmds import user_measure_router
+from .user_measurments_command import user_measure_router
 from bot.handlers.user_cb_handlers import user_callback_router
 
 __all__ = [

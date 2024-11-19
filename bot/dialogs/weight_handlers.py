@@ -30,7 +30,7 @@ async def weight_correct_handler(
         weight=weight,
     )
 
-    await message.answer(f"Ваш текущий вес: {weight} кг был сохранен")
+    await message.answer(f"Ваш текущий вес {weight} кг был сохранен")
     await dialog_manager.done()
 
 
@@ -41,7 +41,7 @@ async def weight_error_handler(
     text: str,
 ) -> None:
     await message.answer(
-        "Вес должен быть указан числом\n"
+        "Вес должен быть числом\n"
         "Можно с точностью до сотых"
         )
     

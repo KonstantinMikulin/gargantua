@@ -11,7 +11,7 @@ from bot.dialogs.weight_handlers import validate_weight, weight_correct_handler,
 add_weight_dialog = Dialog(
     Window(
         Const(
-            "Введите ваш вес в кг\n"
+            "Отправьте ваш вес в кг\n"
             "Можно с точностью до сотых"
             ),
         TextInput(

@@ -8,7 +8,7 @@ from aiogram.fsm.context import FSMContext
 
 logger = logging.getLogger(__name__)
 
-# creating router`s onject
+# creating router`s object
 user_router = Router(name="user router")
 
 
