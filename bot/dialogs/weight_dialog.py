@@ -4,7 +4,8 @@ from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button
 
 from bot.dialogs.states import AddWeightSG
-from bot.dialogs.dialogs_handlers import validate_weight, weight_correct_handler, weight_error_handler, cancel_btn_clicked
+from bot.dialogs.dialogs_handlers import cancel_btn_clicked
+from bot.dialogs.weight_handlers import validate_weight, weight_correct_handler, weight_error_handler
 
 
 add_weight_dialog = Dialog(
@@ -20,8 +21,8 @@ add_weight_dialog = Dialog(
             on_error=weight_error_handler,  # type: ignore
         ),
         Button(
-            Const("Отменить"),
-            id="cancel_weight",
+            Const("Отмена"),
+            id="cancel_record",
             on_click=cancel_btn_clicked
         ),
         state=AddWeightSG.add_weight
