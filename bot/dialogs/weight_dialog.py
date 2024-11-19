@@ -27,7 +27,7 @@ add_weight_dialog = Dialog(
         state=AddWeightSG.add_weight,
     ),
     Window(
-        Format("Ваш текущий вес: {user_weight}\n"),
+        Format("Ваш текущий вес: <b>{user_weight}</b> кг"),
         Const("Сохраняем?"),
         Row(
             Button(

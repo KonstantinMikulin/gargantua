@@ -101,6 +101,9 @@ async def hips_correct_handler(
     await message.answer(f"Обхват бёдер {measurment} см был сохранен")
 
 
+async 
+
+
 async def hips_error_handler(
     message: Message,
     widget: ManagedTextInput,

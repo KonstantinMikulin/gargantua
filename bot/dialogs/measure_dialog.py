@@ -1,5 +1,5 @@
 from aiogram_dialog import Dialog, Window
-from aiogram_dialog.widgets.text import Const
+from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button
 
@@ -51,10 +51,32 @@ add_measurments_dialog = Dialog(
             on_error=hips_error_handler,  # type:ignore
         ),
         Button(
-            Const("Отмена"),
-            id="cancel_record",
-            on_click=cancel_btn_clicked
+            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
         ),
         state=AddMeasurmentsSG.add_hips,
+    ),
+    Window(
+        Format(
+            "Ваши замеры:\n"
+            "Объём груди: <b>{user_chest}</b>\n"
+            "Объём талии: <b>{user_waist}</b>"
+            "Объём бёдер: <b>{user_hips}</b>"
+        ),
+        Const("Всё верно?"),
+        Row(
+            Button(
+                Const("Да"),
+                id="measure_appove",
+                on_click=,  # type: ignore
+            ),
+            Button(
+                Const("Изменить..."),
+                id="change_measure",
+                on_click=,
+            ),
+        ),
+        Button(
+            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
+        ),
     ),
 )
