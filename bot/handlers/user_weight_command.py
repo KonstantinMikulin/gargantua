@@ -10,13 +10,12 @@ from bot.dialogs import AddWeightSG
 user_weight_router = Router(name="user weight router")
 
 
-# TODO: add validation message before inserting into db
 # TODO: add 'skip' button
 # command for record current weight to db
 @user_weight_router.message(Command("weight"))
 async def cmd_weight(message: Message, dialog_manager: DialogManager):
     await dialog_manager.start(
         state=AddWeightSG.add_weight,
-        mode=StartMode.NORMAL,
+        mode=StartMode.RESET_STACK,
         show_mode=ShowMode.AUTO,
     )

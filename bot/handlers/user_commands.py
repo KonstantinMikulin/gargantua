@@ -24,30 +24,4 @@ async def cmd_start_first(message: Message):
 @user_router.message(Command("help"))
 async def cmd_help(message: Message):
     await message.answer("Бот может записывать вес и замеры объемов тела")
-
-
-# FSM /cancel command for default state
-@user_router.message(Command(commands="cancel"), StateFilter(default_state))
-async def cmd_cancel_default(message: Message):
-    await message.answer("Сейчас нечего отменять")
-
-
-# FSM /cancel if user in some state
-@user_router.message(Command(commands="cancel"), ~StateFilter(default_state))
-async def cmd_cancel_state(message: Message, state: FSMContext):
-    logger.info("Enter 'some state' /cancel command")
-
-    await message.answer("Вы отменили отправку данных")
-    # reset state and clear any received data
-    await state.clear()
-    
-    logger.info("Exit 'some state' /cancel command")
-
-
-#TODO: remove this handler
-# answer message with current user state
-@user_router.message(Command("state"))
-async def cmd_state(message: Message, state: FSMContext):
-    current_state = await state.get_state()
-    await message.answer(f"Your current state is: {current_state}")
     
