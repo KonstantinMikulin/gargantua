@@ -15,6 +15,7 @@ from bot.dialogs.measure_handlers import (
     hips_error_handler,
     measurements_approved
 )
+from bot.dialogs.measure_handlers import change_measurments
 from bot.dialogs.getters import measurments_getter
 
 add_measurments_dialog = Dialog(
@@ -64,24 +65,31 @@ add_measurments_dialog = Dialog(
             "Объём талии: <b>{user_waist}</b> см\n"
             "Объём бёдер: <b>{user_hips}</b> см\n"
         ),
-        Const("Всё верно?"),
+        Const(text="Всё верно?"),
         Row(
             Button(
                 Const("Да"),
-                id="measure_appove",
+                id="appove_measure",
                 on_click=measurements_approved,  # type: ignore
             ),
             Button(
                 Const("Изменить..."),
                 id="change_measure",
-                # TODO: change this function
-                on_click=measurements_approved,
+                on_click=change_measurments,
             ),
         ),
         Button(
             Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
         ),
-        state=AddMeasurmentsSG.measure_check,
-        getter=measurments_getter
+        state=AddMeasurmentsSG.check_measure,
+        getter=measurments_getter,
+    ),
+    Window(
+        Const("Какие замеры изменить?"),
+        Button(Const("Грудь"), id="change_chest", on_click=change_measurments),
+        Button(Const("Талия"), id="change_waist", on_click=change_measurments),
+        Button(Const("Бёдра"), id="change_hips", on_click=change_measurments),
+        state=AddMeasurmentsSG.change_measure,
     ),
 )
+

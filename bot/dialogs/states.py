@@ -15,5 +15,7 @@ class AddMeasurmentsSG(StatesGroup):
     change_chest = State()
     change_waist = State()
     change_hips = State()
-    measure_check = State()
-    measure_change = State()
+    check_measure = State()
+    change_measure = State()
+
+

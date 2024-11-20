@@ -13,7 +13,7 @@ async def measurments_getter(
     user_hips = dialog_manager.dialog_data.get("hips")
     
     return {
-        "user_chest": user_chest,
-        "user_waist": user_waist,
-        "user_hips": user_hips
+        "user_chest": user_chest,  # type:ignore
+        "user_waist": user_waist,  # type:ignore
+        "user_hips": user_hips  # type:ignore
     }
