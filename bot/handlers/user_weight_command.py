@@ -1,73 +1,22 @@
-import logging
-
-from aiogram import Router, F
-from aiogram.filters import Command, StateFilter
+from aiogram import Router
+from aiogram.filters import Command
 from aiogram.types import Message
-from aiogram.fsm.state import default_state
-from aiogram.fsm.context import FSMContext
 
-from sqlalchemy.ext.asyncio import AsyncSession
+from aiogram_dialog import DialogManager, StartMode, ShowMode
 
-from bot.FSM.states import FSMAddWeightRecord
-from bot.db import add_weight
-from bot.filters import WeightIsFloat
-from bot.keyboards import cancel_keyboard
-
-logger = logging.getLogger(__name__)
+from bot.dialogs import AddWeightSG
 
 # creating router`s onject
 user_weight_router = Router(name="user weight router")
 
 
+# TODO: add validation message before inserting into db
+# TODO: add 'skip' button
 # command for record current weight to db
-@user_weight_router.message(Command("weight"), StateFilter(default_state))
-async def cmd_weight(message: Message, state: FSMContext):
-    # TODO: add /cancel button
-    await message.answer(
-        text="Напишите, пожалуйста, ваш текущий вес в кг",
-        reply_markup=cancel_keyboard
-        )
-    # setup state to waiting for weight data
-    await state.set_state(FSMAddWeightRecord.fill_weight)
-    
-
-#TODO: add possibility to check weight before commit to db
-# handler if weight was sent correct
-@user_weight_router.message(
-    StateFilter(FSMAddWeightRecord.fill_weight),
-    F.text,
-    WeightIsFloat()
-)
-async def process_weight_sent(
-    message: Message,
-    state: FSMContext,
-    session: AsyncSession
-):
-    # store weight into storage
-    clean_weight = message.text.replace(",", ".")  # type:ignore
-    await state.update_data(weight=float(clean_weight))  # type:ignore
-
-    context_data = await state.get_data()
-    weight = (context_data.get("weight"))  # type:ignore
-    
-
-    # add weight to db
-    await add_weight(
-        session=session,
-        telegram_id=message.from_user.id,  # type:ignore
-        weight=weight, # type:ignore
-    )
-    # stop FSM
-    await state.clear()
-    # send message abour success
-    await message.answer(f"Ваш текущий вес {weight} кг был сохранен")
-
-
-# handler if weight was sent not correct
-@user_weight_router.message(StateFilter(FSMAddWeightRecord.fill_weight))
-async def warning_not_weight(message: Message):
-    await message.answer(
-        text="Бот ждёт, когда вы отправите ему значения веса в кг,\n"
-        "Это должно быть число",
-        reply_markup=cancel_keyboard
+@user_weight_router.message(Command("weight"))
+async def cmd_weight(message: Message, dialog_manager: DialogManager):
+    await dialog_manager.start(
+        state=AddWeightSG.add_weight,
+        mode=StartMode.NORMAL,
+        show_mode=ShowMode.AUTO,
     )

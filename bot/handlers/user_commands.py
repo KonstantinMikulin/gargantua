@@ -8,7 +8,7 @@ from aiogram.fsm.context import FSMContext
 
 logger = logging.getLogger(__name__)
 
-# creating router`s onject
+# creating router`s object
 user_router = Router(name="user router")
 
 
@@ -50,3 +50,4 @@ async def cmd_cancel_state(message: Message, state: FSMContext):
 async def cmd_state(message: Message, state: FSMContext):
     current_state = await state.get_state()
     await message.answer(f"Your current state is: {current_state}")
+    

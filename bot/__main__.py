@@ -4,7 +4,7 @@ import logging
 from aiogram import Dispatcher, Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.fsm.storage.redis import Redis, RedisStorage
+from aiogram.fsm.storage.redis import Redis, RedisStorage, DefaultKeyBuilder
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
@@ -14,6 +14,10 @@ from bot.handlers import get_commands_routers
 from bot.handlers.main_bot_menu import set_main_menu
 from bot.db import Base
 from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
+
+#TODO: remove/change these lines
+from aiogram_dialog import setup_dialogs
+from bot.dialogs import add_weight_dialog, add_measurments_dialog
 
 
 # main func
@@ -59,7 +63,8 @@ async def main():
     )
     
     # Инициализируем хранилище (создаем экземпляр класса RedisStorage)
-    storage = RedisStorage(redis=redis)
+    key_builder = DefaultKeyBuilder(with_destiny=True)
+    storage = RedisStorage(redis=redis, key_builder=key_builder)
 
     # creating dispatcher object
     dp = Dispatcher(
@@ -76,6 +81,10 @@ async def main():
 
     # connecting handlers`routers
     dp.include_routers(*get_commands_routers())
+    #TODO: remove/change these lines
+    dp.include_router(add_weight_dialog)
+    dp.include_router(add_measurments_dialog)
+    setup_dialogs(dp)
 
     # registering middlewares
     Sessionmaker = async_sessionmaker(engine, expire_on_commit=False)
