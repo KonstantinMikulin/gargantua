@@ -62,8 +62,5 @@ async def weight_error_handler(
     dialog_manager: DialogManager,
     text: str,
 ) -> None:
-    await message.answer(
-        "Вес должен быть числом\n"
-        "Можно с точностью до сотых"
-        )
+    await message.answer("Вес должен быть числом\n")
     

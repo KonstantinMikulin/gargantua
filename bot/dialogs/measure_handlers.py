@@ -38,9 +38,7 @@ async def chest_error_handler(
     dialog_manager: DialogManager,
     text: str,
 ) -> None:
-    await message.answer(
-        "Обхват груди должен быть числом"
-    )
+    await message.answer("Обхват груди должен быть числом")
 
 
 async def waist_correct_handler(
