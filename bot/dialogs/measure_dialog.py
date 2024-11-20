@@ -1,19 +1,21 @@
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Button
+from aiogram_dialog.widgets.kbd import Button, Row
 
 from bot.dialogs.states import AddMeasurmentsSG
 from bot.dialogs.dialogs_handlers import cancel_btn_clicked
-from bot.dialogs.measurements_handlers import (
+from bot.dialogs.measure_handlers import (
     validate_measurement,
     chest_correct_handler,
     chest_error_handler,
     waist_correct_handler,
     waist_error_handler,
     hips_correct_handler,
-    hips_error_handler
+    hips_error_handler,
+    measurements_approved
 )
+from bot.dialogs.getters import measurments_getter
 
 add_measurments_dialog = Dialog(
     Window(
@@ -57,26 +59,29 @@ add_measurments_dialog = Dialog(
     ),
     Window(
         Format(
-            "Ваши замеры:\n"
-            "Объём груди: <b>{user_chest}</b>\n"
-            "Объём талии: <b>{user_waist}</b>"
-            "Объём бёдер: <b>{user_hips}</b>"
+            "Ваши замеры\n"
+            "Объём груди: <b>{user_chest}</b> см\n"
+            "Объём талии: <b>{user_waist}</b> см\n"
+            "Объём бёдер: <b>{user_hips}</b> см\n"
         ),
         Const("Всё верно?"),
         Row(
             Button(
                 Const("Да"),
                 id="measure_appove",
-                on_click=,  # type: ignore
+                on_click=measurements_approved,  # type: ignore
             ),
             Button(
                 Const("Изменить..."),
                 id="change_measure",
-                on_click=,
+                # TODO: change this function
+                on_click=measurements_approved,
             ),
         ),
         Button(
             Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
         ),
+        state=AddMeasurmentsSG.measure_check,
+        getter=measurments_getter
     ),
 )

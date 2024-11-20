@@ -1,7 +1,8 @@
-from aiogram.types import Message, User
+from aiogram.types import Message, User, CallbackQuery
 
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.input import ManagedTextInput
+from aiogram_dialog.widgets.kbd import Button
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -70,39 +71,71 @@ async def hips_correct_handler(
     text: str,
 ) -> None:
     measurment = round(float(text), 2)
+    dialog_manager.dialog_data["hips"] = measurment
     
+    # chest = dialog_manager.dialog_data.get("chest")
+    # waist = dialog_manager.dialog_data.get("waist")
+    # hips = measurment
+
+    # session: AsyncSession = dialog_manager.middleware_data.get("session")  # type:ignore
+    # user: User = dialog_manager.middleware_data.get("event_from_user")  # type:ignore
+
+    # await add_chest(
+    #     session=session,
+    #     telegram_id=user.id,
+    #     chest=chest  # type:ignore
+    # )
+    
+    # await add_waist(
+    #     session=session,
+    #     telegram_id=user.id,
+    #     waist=waist  # type:ignore
+    # )
+    
+    # await add_hips(
+    #     session=session,
+    #     telegram_id=user.id,
+    #     hips=hips
+    # )
+    
+    await dialog_manager.switch_to(state=AddMeasurmentsSG.measure_check)
+    
+    # await message.answer(f"Обхват бёдер {measurment} см был сохранен")
+    
+    
+async def measurements_approved(
+    callback: CallbackQuery,
+    button: Button,
+    dialog_manager: DialogManager
+):
     chest = dialog_manager.dialog_data.get("chest")
     waist = dialog_manager.dialog_data.get("waist")
-    hips = measurment
+    hips = dialog_manager.dialog_data.get("hips")
 
-    session: AsyncSession = dialog_manager.middleware_data.get("session")  # type:ignore
-    user: User = dialog_manager.middleware_data.get("event_from_user")  # type:ignore
+    session = dialog_manager.middleware_data.get("session")
+    user: User = dialog_manager.middleware_data.get("event_from_user")
 
     await add_chest(
         session=session,
         telegram_id=user.id,
         chest=chest  # type:ignore
     )
-    
+
     await add_waist(
         session=session,
         telegram_id=user.id,
         waist=waist  # type:ignore
     )
-    
+
     await add_hips(
         session=session,
         telegram_id=user.id,
         hips=hips
     )
     
-    await dialog_manager.done()
+    await callback.message.edit_text("Замеры были сохранены")
+    await dialog_manager.reset_stack()
     
-    await message.answer(f"Обхват бёдер {measurment} см был сохранен")
-
-
-async 
-
 
 async def hips_error_handler(
     message: Message,
