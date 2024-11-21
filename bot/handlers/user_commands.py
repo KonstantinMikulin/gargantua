@@ -38,11 +38,10 @@ async def cmd_stats(message: Message, session):
             )
         date = datetime.fromisoformat(str(weight.created_at))  # type:ignore
         formatted_date = date.strftime("%d.%m.%Y")
-        
+        # TODO: change this text
         await message.answer(f"Дата: <b>{formatted_date}</b>\n"
                              f"Вес: <b>{weight.weight}</b> кг")  # type:ignore
     except AttributeError:
-        # TODO: change this text
         await message.answer(
             "Вы еще не записывали свой вес\n"
             "Чтобы сделать это, отправьте команду /weight"
