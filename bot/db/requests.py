@@ -1,3 +1,6 @@
+from typing import Optional
+
+from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as upsert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -91,3 +94,20 @@ async def add_hips(session: AsyncSession, telegram_id: int, hips: float):
     new_hips = MeasureHips(user_id=telegram_id, measurement=hips)
     session.add(new_hips)
     await session.commit()
+    
+
+# get last weight`s records
+async def get_last_weight(
+    session: AsyncSession,
+    telegram_id: int
+    ) -> Optional[Weight]:
+    stmt = (
+        select(Weight)
+        .where(Weight.user_id==telegram_id)
+        .order_by(Weight.created_at.desc())
+        .limit(1)
+    )
+    result = await session.execute(stmt)
+    weight = result.scalars().first()
+
+    return weight

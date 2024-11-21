@@ -1,11 +1,13 @@
 import logging
+from datetime import datetime
 
 from aiogram import Router
-from aiogram.filters import CommandStart, Command, StateFilter
+from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
-from aiogram.fsm.state import default_state
 
 from aiogram_dialog import DialogManager
+
+from bot.db import get_last_weight
 
 logger = logging.getLogger(__name__)
 
@@ -14,14 +16,34 @@ user_router = Router(name="user router")
 
 
 # simple /start command
-@user_router.message(CommandStart(), StateFilter(default_state))
-async def cmd_start_first(message: Message):
+@user_router.message(CommandStart())
+async def cmd_start(message: Message):
     await message.answer(f"<b>{message.from_user.first_name}</b>, здравствуйте!\n" # type:ignore
                          f"Подробности о работе бота по команде /help")
 
 
 # /help command
-@user_router.message(Command("help"), StateFilter(default_state))
+@user_router.message(Command("help"))
 async def cmd_help(message: Message, dialog_manager: DialogManager):
     await message.answer("Бот может записывать вес и замеры объемов тела")
-    print(dialog_manager.current_context().state)
+
+
+# simple command to get last weight
+@user_router.message(Command("last"))
+async def cmd_stats(message: Message, session):
+    try:
+        weight = await get_last_weight(
+            session=session,
+            telegram_id=message.from_user.id # type:ignore
+            )
+        date = datetime.fromisoformat(str(weight.created_at))  # type:ignore
+        formatted_date = date.strftime("%d.%m.%Y")
+        
+        await message.answer(f"Дата: <b>{formatted_date}</b>\n"
+                             f"Вес: <b>{weight.weight}</b> кг")  # type:ignore
+    except AttributeError:
+        # TODO: change this text
+        await message.answer(
+            "Вы еще не записывали свой вес\n"
+            "Чтобы сделать это, отправьте команду /weight"
+            )
