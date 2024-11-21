@@ -1,9 +1,8 @@
-from typing import cast
+from typing import Optional
 
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert as upsert
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import joinedload
 
 from bot.db.models import User, Weight, MeasureChest, MeasureWaist, MeasureHips
 
@@ -97,18 +96,18 @@ async def add_hips(session: AsyncSession, telegram_id: int, hips: float):
     await session.commit()
     
 
-# get all weight`s records
-async def get_last_weights(
-    session: AsyncSession, number_of_weights: int
-) -> list[Weight]:
+# get last weight`s records
+async def get_last_weight(
+    session: AsyncSession,
+    telegram_id: int
+    ) -> Optional[Weight]:
     stmt = (
         select(Weight)
+        .where(Weight.user_id==telegram_id)
         .order_by(Weight.created_at.desc())
-        .limit(number_of_weights)
-        .options(joinedload(Weight.user))
+        .limit(1)
     )
     result = await session.execute(stmt)
-    weights = result.scalars().all()
-    weights = cast(list[Weight], weights)
+    weight = result.scalars().first()
 
-    return weights
+    return weight

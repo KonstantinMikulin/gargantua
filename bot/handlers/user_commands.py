@@ -6,7 +6,7 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager
 
-from bot.db import get_last_weights
+from bot.db import get_last_weight
 
 logger = logging.getLogger(__name__)
 
@@ -27,13 +27,17 @@ async def cmd_help(message: Message, dialog_manager: DialogManager):
     await message.answer("Бот может записывать вес и замеры объемов тела")
 
 
-@user_router.message(Command("stats"))
+# simple command to get last weight
+@user_router.message(Command("last"))
 async def cmd_stats(message: Message, session):
-    weights = await get_last_weights(session=session, number_of_weights=3)
-    
-    result = []
-    
-    for weight in weights:
-        result.append(str(weight.weight))
-        
-    await message.answer(", ".join(result))
+    try:
+        weight = await get_last_weight(
+            session=session,
+            telegram_id=message.from_user.id # type:ignore
+            )
+        await message.answer(f"{weight.weight}")  # type:ignore
+    except AttributeError:
+        await message.answer(
+            "Вы еще не записывали свой вес\n"
+            "Чтобы сделать это, отправьте команду /weight"
+            )
