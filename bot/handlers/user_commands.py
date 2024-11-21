@@ -28,21 +28,27 @@ async def cmd_help(message: Message, dialog_manager: DialogManager):
     await message.answer("Бот может записывать вес и замеры объемов тела")
 
 
+# TODO: change this command to choose all types of records
 # simple command to get last weight
-@user_router.message(Command("last"))
-async def cmd_stats(message: Message, session):
-    try:
-        weight = await get_last_weight(
-            session=session,
-            telegram_id=message.from_user.id # type:ignore
-            )
-        date = datetime.fromisoformat(str(weight.created_at))  # type:ignore
-        formatted_date = date.strftime("%d.%m.%Y")
-        # TODO: change this text
-        await message.answer(f"Дата: <b>{formatted_date}</b>\n"
-                             f"Вес: <b>{weight.weight}</b> кг")  # type:ignore
-    except AttributeError:
-        await message.answer(
-            "Вы еще не записывали свой вес\n"
-            "Чтобы сделать это, отправьте команду /weight"
-            )
+# @user_router.message(Command("last"))
+# async def cmd_stats(message: Message, session):
+    
+    
+    
+    
+    
+    # try:
+    #     weight = await get_last_weight(
+    #         session=session,
+    #         telegram_id=message.from_user.id # type:ignore
+    #         )
+    #     date = datetime.fromisoformat(str(weight.created_at))  # type:ignore
+    #     formatted_date = date.strftime("%d.%m.%Y")
+    #     # TODO: change this text
+    #     await message.answer(f"Дата: <b>{formatted_date}</b>\n"
+    #                          f"Вес: <b>{weight.weight}</b> кг")  # type:ignore
+    # except AttributeError:
+    #     await message.answer(
+    #         "Вы еще не записывали свой вес\n"
+    #         "Чтобы сделать это, отправьте команду /weight"
+    #         )

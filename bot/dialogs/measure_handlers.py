@@ -4,7 +4,7 @@ from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.input import ManagedTextInput
 from aiogram_dialog.widgets.kbd import Button
 
-from bot.dialogs.states import AddMeasurmentsSG
+from bot.dialogs import AddMeasurmentsSG
 from bot.db import add_chest, add_waist, add_hips
 
 
