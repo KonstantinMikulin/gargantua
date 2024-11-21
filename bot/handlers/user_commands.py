@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 from aiogram import Router
 from aiogram.filters import CommandStart, Command
@@ -35,8 +36,13 @@ async def cmd_stats(message: Message, session):
             session=session,
             telegram_id=message.from_user.id # type:ignore
             )
-        await message.answer(f"{weight.weight}")  # type:ignore
+        date = datetime.fromisoformat(str(weight.created_at))  # type:ignore
+        formatted_date = date.strftime("%d.%m.%Y")
+        
+        await message.answer(f"Дата: <b>{formatted_date}</b>\n"
+                             f"Вес: <b>{weight.weight}</b> кг")  # type:ignore
     except AttributeError:
+        # TODO: change this text
         await message.answer(
             "Вы еще не записывали свой вес\n"
             "Чтобы сделать это, отправьте команду /weight"
