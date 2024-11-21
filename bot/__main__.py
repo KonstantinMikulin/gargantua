@@ -50,7 +50,7 @@ async def main():
 
     # create tables
     async with engine.begin() as connection:
-        # await connection.run_sync(Base.metadata.drop_all)
+        await connection.run_sync(Base.metadata.drop_all)
         await connection.run_sync(Base.metadata.create_all)
 
     #TODO: drop some states after certain time

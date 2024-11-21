@@ -8,6 +8,8 @@ services:
             - "127.0.0.1:5432:5432"
         #TODO: change user and password before deploy
         environment:
+            TZ: 'Europe/Moscow'
+            PGTZ: 'Europe/Moscow'
             POSTGRES_USER: superuser
             POSTGRES_PASSWORD: superpassword
             POSTGRES_DB: gargantua_db
