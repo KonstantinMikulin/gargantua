@@ -6,8 +6,14 @@ from aiogram_dialog.widgets.kbd import Button, Row
 # TODO: refactor imports
 from bot.dialogs.getters import weight_getter
 from bot.dialogs import AddWeightSG
-from bot.dialogs.dialogs_handlers import cancel_btn_clicked
-from bot.dialogs.weight_handlers import validate_weight, weight_correct_handler, weight_error_handler, weight_approved, change_weight
+from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
+from bot.dialogs.aiogram_dialog_handlers import (
+    validate_weight,
+    weight_correct_handler,
+    weight_error_handler,
+    weight_approved,
+    change_weight
+)
 
 
 add_weight_dialog = Dialog(

@@ -4,8 +4,8 @@ from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button, Row
 
 from bot.dialogs.states import AddMeasurmentsSG
-from bot.dialogs.dialogs_handlers import cancel_btn_clicked
-from bot.dialogs.measure_handlers import (
+from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
+from bot.dialogs.aiogram_dialog_handlers import (
     validate_measurement,
     chest_correct_handler,
     chest_error_handler,
@@ -13,9 +13,9 @@ from bot.dialogs.measure_handlers import (
     waist_error_handler,
     hips_correct_handler,
     hips_error_handler,
+    change_measurments,
     measurements_approved
 )
-from bot.dialogs.measure_handlers import change_measurments
 from bot.dialogs.getters import measurments_getter
 
 add_measurments_dialog = Dialog(
