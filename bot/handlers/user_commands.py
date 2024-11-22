@@ -5,8 +5,9 @@ from aiogram import Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
-from aiogram_dialog import DialogManager
+from aiogram_dialog import DialogManager, StartMode
 
+from bot.dialogs import GetLastRecordsSG
 from bot.db import get_last_weight
 
 logger = logging.getLogger(__name__)
@@ -30,8 +31,9 @@ async def cmd_help(message: Message, dialog_manager: DialogManager):
 
 # TODO: change this command to choose all types of records
 # simple command to get last weight
-# @user_router.message(Command("last"))
-# async def cmd_stats(message: Message, session):
+@user_router.message(Command("last"))
+async def cmd_stats(message: Message, dialog_manager: DialogManager):
+    await dialog_manager.start(state=GetLastRecordsSG.choose, mode=StartMode.RESET_STACK)
     
     
     
