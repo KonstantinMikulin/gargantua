@@ -8,6 +8,7 @@ from bot.dialogs.aiogram_dialog_handlers import get_last_measurment
 from bot.dialogs.buttons import CANCEL_BUTTON
 from bot.dialogs.getters import last_weight_getter
 
+# TODO: reorganize buttons? Place button "Weight" separately
 CHOOSE_BUTTONS = Row(
                     Button(
                         Const("Грудь"),
@@ -44,4 +45,11 @@ get_last_records_dialog = Dialog(
         state=GetLastRecordsSG.get_weight,
         getter=last_weight_getter,  # type:ignore
     ),
+    # Window(
+    #     Const("Предыдущий замер груди\n"),
+    #     Format("Дата: <b>{last_chest_date}</b>\nВес: <b>{last_chest}</b> см"),
+    #     CHOOSE_BUTTONS,
+    #     CANCEL_BUTTON,
+    #     state=GetLastRecordsSG.get_chest,
+    #     getter=,  # type:ignore
 )
