@@ -5,7 +5,7 @@ from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
 
 # TODO: refactor uses of this button around modules
 CANCEL_BUTTON = Button(
-    Const("Отменено"),
+    Const("Отмена"),
     id="cancel_record",
     on_click=cancel_btn_clicked
 )
