@@ -111,3 +111,19 @@ async def get_last_weight(
     weight = result.scalars().first()
 
     return weight
+
+
+# get last chest`s records
+async def get_last_chest(
+    session: AsyncSession, telegram_id: int
+) -> Optional[MeasureChest]:
+    stmt = (
+        select(MeasureChest)
+        .where(MeasureChest.user_id == telegram_id)
+        .order_by(MeasureChest.created_at.desc())
+        .limit(1)
+    )
+    result = await session.execute(stmt)
+    chest = result.scalars().first()
+
+    return chest

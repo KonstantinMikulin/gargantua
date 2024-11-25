@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import BigInteger, ForeignKey, Integer, Uuid, text, Float
+from sqlalchemy import BigInteger, ForeignKey, Uuid, text, Float
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from bot.db import Base
