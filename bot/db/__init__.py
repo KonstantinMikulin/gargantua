@@ -7,7 +7,8 @@ from bot.db.requests import (
     add_hips,
     get_last_weight,
     get_last_chest,
-    get_last_waist
+    get_last_waist,
+    get_last_hips
 )
 
 __all__ = [
@@ -19,6 +20,7 @@ __all__ = [
     "get_last_weight",
     "get_last_chest",
     "get_last_waist",
+    "get_last_hips",
     "User",
     "Weight",
     "MeasureChest",

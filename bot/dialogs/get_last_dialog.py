@@ -5,7 +5,7 @@ from aiogram_dialog.widgets.kbd import Button, Row
 from bot.dialogs import GetLastRecordsSG
 from bot.dialogs.aiogram_dialog_handlers import get_last_measurment
 from bot.dialogs.buttons import CANCEL_BUTTON
-from bot.dialogs.getters import last_weight_getter, last_chest_getter, last_waist_getter
+from bot.dialogs.getters import last_weight_getter, last_chest_getter, last_waist_getter, last_hips_getter
 
 # TODO: reorganize buttons? Place button "Weight" separately
 CHOOSE_BUTTONS = Row(
@@ -61,16 +61,34 @@ get_last_records_dialog = Dialog(
             when="no_waist",
         ),
         Const(
-            text="Предыдущая запись <b>замера груди</b>\n", when="last_waist"
+            text="Предыдущая запись <b>замера талии</b>\n", when="last_waist"
         ),
         Format(
-            text="Дата: <b>{last_waist_date}</b>\nГрудь: <b>{last_waist}</b> см",
+            text="Дата: <b>{last_waist_date}</b>\nТалия: <b>{last_waist}</b> см",
             when="last_waist",
         ),
         CHOOSE_BUTTONS,
         CANCEL_BUTTON,
         state=GetLastRecordsSG.get_waist,
         getter=last_waist_getter,  # type:ignore
+    ),
+    Window(
+        Const(
+            text="Вы еще не вносили замеры <b>бёдер</b>\n"
+            "Используйте команду /measure для записи замеров",
+            when="no_hips",
+        ),
+        Const(
+            text="Предыдущая запись <b>замера бёдер</b>\n", when="last_hips"
+        ),
+        Format(
+            text="Дата: <b>{last_hips_date}</b>\nБёдра: <b>{last_hips}</b> см",
+            when="last_hips",
+        ),
+        CHOOSE_BUTTONS,
+        CANCEL_BUTTON,
+        state=GetLastRecordsSG.get_hips,
+        getter=last_hips_getter,  # type:ignore
     ),
     Window(
         Const(

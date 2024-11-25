@@ -130,7 +130,7 @@ async def get_last_chest(
     return chest
 
 
-# get last chest`s records
+# get last waist`s records
 async def get_last_waist(
     session: AsyncSession, telegram_id: int
 ) -> Optional[MeasureWaist]:
@@ -144,3 +144,19 @@ async def get_last_waist(
     waist = result.scalars().first()
 
     return waist
+
+
+# get last hips` records
+async def get_last_hips(
+    session: AsyncSession, telegram_id: int
+) -> Optional[MeasureHips]:
+    stmt = (
+        select(MeasureHips)
+        .where(MeasureHips.user_id == telegram_id)
+        .order_by(MeasureHips.created_at.desc())
+        .limit(1)
+    )
+    result = await session.execute(stmt)
+    hips = result.scalars().first()
+
+    return hips
