@@ -15,7 +15,7 @@ from bot.handlers.main_bot_menu import set_main_menu
 from bot.db import Base
 from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
 
-#TODO: remove/change these lines
+#TODO: remove or change these lines
 from aiogram_dialog import setup_dialogs
 from bot.dialogs import add_weight_dialog, add_measurments_dialog, get_last_records_dialog
 
