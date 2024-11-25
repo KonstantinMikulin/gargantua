@@ -37,9 +37,25 @@ get_last_records_dialog = Dialog(
         CANCEL_BUTTON,
         state=GetLastRecordsSG.choose,
     ),
+    # Window(
+    #     Const("Предыдущий замер груди\n"),
+    #     Format("Дата: <b>{last_chest_date}</b>\nВес: <b>{last_chest}</b> см"),
+    #     CHOOSE_BUTTONS,
+    #     CANCEL_BUTTON,
+    #     state=GetLastRecordsSG.get_chest,
+    #     getter=,  # type:ignore
+    # ),
     Window(
-        Const("Предыдущая запись веса\n"),
-        Format("Дата: <b>{last_weight_date}</b>\nВес: <b>{last_weight}</b> кг"),
+        Const(
+            text="Вы еще не вносили показатели веса\n"
+                 "Используйте команду /weight для записи веса",
+            when="no_weight"
+            ),
+        Const(text="Предыдущая запись веса\n", when="last_weight"),
+        Format(
+            text="Дата: <b>{last_weight_date}</b>\nВес: <b>{last_weight}</b> кг",
+            when="last_weight",
+        ),
         CHOOSE_BUTTONS,
         CANCEL_BUTTON,
         state=GetLastRecordsSG.get_weight,
