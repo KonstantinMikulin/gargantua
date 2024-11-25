@@ -4,7 +4,7 @@ from aiogram.types import User
 
 from aiogram_dialog import DialogManager
 
-from bot.db import get_last_chest
+from bot.db import get_last_chest, get_last_waist
 
 
 async def measurments_getter(
@@ -46,3 +46,26 @@ async def last_chest_getter(
     else:
         return {"no_chest": True}
 
+
+async def last_waist_getter(
+    dialog_manager: DialogManager, event_from_user: User, **kwargs
+) -> dict[str, float | str]:
+    session = dialog_manager.middleware_data.get("session")
+    waist = await get_last_waist(
+        session=session,  # type:ignore
+        telegram_id=event_from_user.id,
+    )
+
+    if waist:
+        try:
+            date = datetime.fromisoformat(str(waist.created_at))  # type:ignore
+            formatted_date = date.strftime("%d.%m.%Y")
+        except ValueError:
+            formatted_date = None
+
+        return {
+            "last_waist_date": formatted_date,  # type:ignore
+            "last_waist": waist.measurement,  # type:ignore
+        }
+    else:
+        return {"no_waist": True}

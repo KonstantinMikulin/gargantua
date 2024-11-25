@@ -96,6 +96,7 @@ async def add_hips(session: AsyncSession, telegram_id: int, hips: float):
     await session.commit()
     
 
+# TODO: make one getter if it will be usefull
 # get last weight`s records
 async def get_last_weight(
     session: AsyncSession,
@@ -127,3 +128,19 @@ async def get_last_chest(
     chest = result.scalars().first()
 
     return chest
+
+
+# get last chest`s records
+async def get_last_waist(
+    session: AsyncSession, telegram_id: int
+) -> Optional[MeasureWaist]:
+    stmt = (
+        select(MeasureWaist)
+        .where(MeasureWaist.user_id == telegram_id)
+        .order_by(MeasureWaist.created_at.desc())
+        .limit(1)
+    )
+    result = await session.execute(stmt)
+    waist = result.scalars().first()
+
+    return waist
