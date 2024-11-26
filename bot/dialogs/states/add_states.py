@@ -18,5 +18,4 @@ class AddMeasurmentsSG(StatesGroup):
     change_hips = State()
     check_measure = State()
     change_measure = State()
-
-
+    measurements_progress = State()

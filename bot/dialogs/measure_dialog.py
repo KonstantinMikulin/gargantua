@@ -91,5 +91,21 @@ add_measurments_dialog = Dialog(
         Button(Const("Бёдра"), id="change_hips", on_click=change_measurments),
         state=AddMeasurmentsSG.change_measure,
     ),
+    Window(
+        Format(
+            text="Грудь {chest_gain_loose} на {chest_delta} см\n",
+            when="is_chest_delta",
+        ),
+        Format(
+            text="Талия {waist_gain_loose} на {waist_delta} см\n",
+            when="is_waist_delta",
+        ),
+        Format(
+            text="Бёдра {hips_gain_loose} на {hips_delta} см\n",
+            when="is_hips_delta",
+        ),
+        state=AddMeasurmentsSG.measurements_progress,
+        getter=measure_delta_getter
+    ),
 )
 
