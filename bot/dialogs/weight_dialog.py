@@ -4,7 +4,7 @@ from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button, Row
 
 # TODO: refactor imports
-from bot.dialogs.getters import weight_getter
+from bot.dialogs.getters import weight_getter, weight_delta_getter
 from bot.dialogs import AddWeightSG
 from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
 from bot.dialogs.aiogram_dialog_handlers import (
@@ -26,9 +26,7 @@ add_weight_dialog = Dialog(
             on_error=weight_error_handler,  # type: ignore
         ),
         Button(
-            Const("Отмена"),
-            id="cancel_record",
-            on_click=cancel_btn_clicked
+            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
         ),
         state=AddWeightSG.add_weight,
     ),
@@ -44,15 +42,22 @@ add_weight_dialog = Dialog(
             Button(
                 Const("Изменить вес"),
                 id="change_weight",
-                on_click=change_weight
-            )
+                on_click=change_weight,
+            ),
         ),
         Button(
-            Const("Отмена"),
-            id="cancel_record",
-            on_click=cancel_btn_clicked
+            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
         ),
         state=AddWeightSG.weight_done,
-        getter=weight_getter
+        getter=weight_getter,
+    ),
+    Window(
+        Format("Ваш текущий вес <b>{weight}</b> кг был сохранен\n"),
+        Format(
+            text="С прошлого взвешивания вы {gain_loose}\n<b>{weight_delta}</b> кг",
+            when="is_delta",
+        ),
+        state=AddWeightSG.weight_progress,
+        getter=weight_delta_getter,
     ),
 )

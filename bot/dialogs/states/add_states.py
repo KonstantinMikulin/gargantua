@@ -5,6 +5,7 @@ from aiogram.fsm.state import State, StatesGroup
 class AddWeightSG(StatesGroup):
     add_weight = State()
     weight_done = State()
+    weight_progress = State()
 
 
 # state group for recording measurments
