@@ -51,6 +51,23 @@ async def add_weight(session: AsyncSession, telegram_id: int, weight: float):
     new_weight = Weight(user_id=telegram_id, weight=weight)
     session.add(new_weight)
     await session.commit()
+    
+
+# TODO: make one getter if it will be usefull
+# get last weight`s records
+async def get_last_weight(
+    session: AsyncSession, telegram_id: int
+) -> Optional[Weight]:
+    stmt = (
+        select(Weight)
+        .where(Weight.user_id == telegram_id)
+        .order_by(Weight.created_at.desc())
+        .limit(1)
+    )
+    result = await session.execute(stmt)
+    weight = result.scalars().first()
+
+    return weight
 
 
 # TODO: write one function for inserting chest, waist and hips at ones
@@ -66,54 +83,8 @@ async def add_chest(session: AsyncSession, telegram_id: int, chest: float):
     new_chest = MeasureChest(user_id=telegram_id, measurement=chest)
     session.add(new_chest)
     await session.commit()
-
-
-# request to add tail measurement to db
-async def add_waist(session: AsyncSession, telegram_id: int, waist: float):
-    """
-    Добавление записи объема талии пользователя
-    :param session: сессия СУБД
-    :param telegram_id: айди пользователя
-    :param waist: объем талии пользователя
-    """
-
-    new_waist = MeasureWaist(user_id=telegram_id, measurement=waist)
-    session.add(new_waist)
-    await session.commit()
-
-
-# request to add hips measurement to db
-async def add_hips(session: AsyncSession, telegram_id: int, hips: float):
-    """
-    Добавление записи объема пользователя
-    :param session: сессия СУБД
-    :param telegram_id: айди пользователя
-    :param hips: объем талии пользователя
-    """
-
-    new_hips = MeasureHips(user_id=telegram_id, measurement=hips)
-    session.add(new_hips)
-    await session.commit()
     
-
-# TODO: make one getter if it will be usefull
-# get last weight`s records
-async def get_last_weight(
-    session: AsyncSession,
-    telegram_id: int
-    ) -> Optional[Weight]:
-    stmt = (
-        select(Weight)
-        .where(Weight.user_id==telegram_id)
-        .order_by(Weight.created_at.desc())
-        .limit(1)
-    )
-    result = await session.execute(stmt)
-    weight = result.scalars().first()
-
-    return weight
-
-
+    
 # get last chest`s records
 async def get_last_chest(
     session: AsyncSession, telegram_id: int
@@ -130,6 +101,20 @@ async def get_last_chest(
     return chest
 
 
+# request to add tail measurement to db
+async def add_waist(session: AsyncSession, telegram_id: int, waist: float):
+    """
+    Добавление записи объема талии пользователя
+    :param session: сессия СУБД
+    :param telegram_id: айди пользователя
+    :param waist: объем талии пользователя
+    """
+
+    new_waist = MeasureWaist(user_id=telegram_id, measurement=waist)
+    session.add(new_waist)
+    await session.commit()
+    
+
 # get last waist`s records
 async def get_last_waist(
     session: AsyncSession, telegram_id: int
@@ -144,6 +129,20 @@ async def get_last_waist(
     waist = result.scalars().first()
 
     return waist
+
+
+# request to add hips measurement to db
+async def add_hips(session: AsyncSession, telegram_id: int, hips: float):
+    """
+    Добавление записи объема пользователя
+    :param session: сессия СУБД
+    :param telegram_id: айди пользователя
+    :param hips: объем талии пользователя
+    """
+
+    new_hips = MeasureHips(user_id=telegram_id, measurement=hips)
+    session.add(new_hips)
+    await session.commit()
 
 
 # get last hips` records

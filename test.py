@@ -1,1 +1,1 @@
-
+getter_dict ={'is_delta': True, 'is_chest_delta': True, 'chest': 100.0, 'is_waist_delta': True, 'waist': 90.0, 'is_hips_delta': True, 'hips': 80.0, 'gain_loose': 'меньше', 'chest_delta': 90.0, 'waist_delta': 60.0, 'hips_delta': 75.0}

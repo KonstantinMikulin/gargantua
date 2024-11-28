@@ -52,7 +52,7 @@ async def weight_delta_getter(
         
     weight_delta = abs(prev_weight - current_weight)  # type: ignore
     
-    if weight_delta >= 0.5:
+    if weight_delta >= 1:
         return {
             "is_delta": True,
             "weight": current_weight,  # type: ignore

@@ -14,9 +14,10 @@ from bot.dialogs.aiogram_dialog_handlers import (
     hips_correct_handler,
     hips_error_handler,
     change_measurments,
-    measurements_approved
+    measurements_approved,
+    okey_clicked
 )
-from bot.dialogs.getters import measurments_getter
+from bot.dialogs.getters import measurments_getter, measurements_delta_getter
 
 add_measurments_dialog = Dialog(
     Window(
@@ -93,19 +94,28 @@ add_measurments_dialog = Dialog(
     ),
     Window(
         Format(
-            text="Грудь {chest_gain_loose} на {chest_delta} см\n",
+            text="Итак. У нас изменилось:\n",
+            when="is_delta"
+        ),
+        Format(
+            text="Грудь {chest_gain_loose} на <b>{chest_delta} см</b>",
             when="is_chest_delta",
         ),
         Format(
-            text="Талия {waist_gain_loose} на {waist_delta} см\n",
+            text="Талия {waist_gain_loose} на <b>{waist_delta} см</b>",
             when="is_waist_delta",
         ),
         Format(
-            text="Бёдра {hips_gain_loose} на {hips_delta} см\n",
+            text="Бёдра {hips_gain_loose} на <b>{hips_delta} см</b>",
             when="is_hips_delta",
         ),
+        Button(
+            text=Const("Ok"),
+            id="okey",
+            on_click=okey_clicked
+        ),
         state=AddMeasurmentsSG.measurements_progress,
-        getter=measure_delta_getter
+        getter=measurements_delta_getter
     ),
 )
 

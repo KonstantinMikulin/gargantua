@@ -1,11 +1,11 @@
 from aiogram.types import Message, User, CallbackQuery
 
-from aiogram_dialog import DialogManager
+from aiogram_dialog import DialogManager, ShowMode
 from aiogram_dialog.widgets.input import ManagedTextInput
 from aiogram_dialog.widgets.kbd import Button
 
 from bot.dialogs import AddMeasurmentsSG
-from bot.db import add_chest, add_waist, add_hips
+from bot.db import add_chest, add_waist, add_hips, get_last_chest, get_last_waist, get_last_hips
 
 
 def validate_measurement(text: str) -> str | None:
@@ -22,6 +22,13 @@ async def chest_correct_handler(
     dialog_manager: DialogManager,
     text: str,
 ) -> None:
+    session = dialog_manager.middleware_data.get("session")
+    prev_chest = await get_last_chest(
+        session=session,  # type: ignore
+        telegram_id=message.from_user.id,  # type: ignore
+    )
+    dialog_manager.dialog_data["prev_chest"] = prev_chest.measurement  # type: ignore
+
     measurment = round(float(text), 2)
     
     if dialog_manager.dialog_data.get("chest") is None:
@@ -47,6 +54,13 @@ async def waist_correct_handler(
     dialog_manager: DialogManager,
     text: str,
 ) -> None:
+    session = dialog_manager.middleware_data.get("session")
+    prev_waist = await get_last_waist(
+        session=session,  # type: ignore
+        telegram_id=message.from_user.id,  # type: ignore
+    )
+    dialog_manager.dialog_data["prev_waist"] = prev_waist.measurement  # type: ignore
+
     measurment = round(float(text), 2)
 
     if dialog_manager.dialog_data.get("waist") is None:
@@ -72,6 +86,13 @@ async def hips_correct_handler(
     dialog_manager: DialogManager,
     text: str,
 ) -> None:
+    session = dialog_manager.middleware_data.get("session")
+    prev_hips = await get_last_hips(
+        session=session,  # type: ignore
+        telegram_id=message.from_user.id,  # type: ignore
+    )
+    dialog_manager.dialog_data["prev_hips"] = prev_hips.measurement  # type: ignore
+
     measurment = round(float(text), 2)
 
     if dialog_manager.dialog_data.get("hips") is None:
@@ -138,5 +159,15 @@ async def measurements_approved(
         hips=hips,  # type:ignore
     )
     
-    await callback.message.answer("Замеры были сохранены")  # type:ignore
+    # await callback.message.answer("Замеры были сохранены")  # type:ignore
+    # await dialog_manager.reset_stack()
+    await dialog_manager.switch_to(state=AddMeasurmentsSG.measurements_progress, show_mode=ShowMode.DELETE_AND_SEND)
+
+
+# TODO: remove this handler
+async def okey_clicked(
+    callback: CallbackQuery,
+    button: Button,
+    dialog_manager: DialogManager
+):
     await dialog_manager.reset_stack()

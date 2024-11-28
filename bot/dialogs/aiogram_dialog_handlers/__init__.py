@@ -8,14 +8,15 @@ from bot.dialogs.aiogram_dialog_handlers.add_measure_handlers import (
     hips_correct_handler,
     hips_error_handler,
     change_measurments,
-    measurements_approved
+    measurements_approved,
+    okey_clicked
     )
 from bot.dialogs.aiogram_dialog_handlers.add_weight_handlers import (
     validate_weight,
     weight_correct_handler,
     weight_error_handler,
     weight_approved,
-    change_weight
+    change_weight,
 )
 
 from bot.dialogs.aiogram_dialog_handlers.get_measure_handlers import (
@@ -38,7 +39,8 @@ __all__ = [
     "weight_error_handler",
     "weight_approved",
     "change_weight",
-    "get_last_measurment"
+    "get_last_measurment",
+    "okey_clicked",
 ]
 
 
