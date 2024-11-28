@@ -45,9 +45,6 @@ async def last_chest_getter(
         }
     else:
         return {"no_chest": True}
-    
-    
-
 
 
 async def last_waist_getter(

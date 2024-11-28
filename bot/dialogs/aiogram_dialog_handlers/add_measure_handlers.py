@@ -159,8 +159,6 @@ async def measurements_approved(
         hips=hips,  # type:ignore
     )
     
-    # await callback.message.answer("Замеры были сохранены")  # type:ignore
-    # await dialog_manager.reset_stack()
     await dialog_manager.switch_to(state=AddMeasurmentsSG.measurements_progress, show_mode=ShowMode.DELETE_AND_SEND)
 
 

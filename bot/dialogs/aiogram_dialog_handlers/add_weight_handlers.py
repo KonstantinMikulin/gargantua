@@ -48,7 +48,7 @@ async def weight_approved(
 
     # TODO: remove this line
     # await callback.message.edit_text(f"Ваш текущий вес {weight} кг был сохранен")  # type:ignore
-    await dialog_manager.switch_to(state=AddWeightSG.weight_progress, show_mode=ShowMode.DELETE_AND_SEND)
+    await dialog_manager.switch_to(state=AddWeightSG.weight_progress, show_mode=ShowMode.AUTO)
     
     await add_weight(
         session=session,  # type:ignore

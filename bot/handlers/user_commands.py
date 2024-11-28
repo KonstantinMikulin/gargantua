@@ -5,6 +5,7 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
+from aiogram_dialog.api.exceptions import NoContextError
 
 from bot.dialogs import GetLastRecordsSG
 
@@ -27,9 +28,19 @@ async def cmd_help(message: Message, dialog_manager: DialogManager):
     await message.answer("Бот может записывать вес и замеры объемов тела")
 
 
-# TODO: change this command to choose all types of records
 # simple command to get last weight
 @user_router.message(Command("last"))
 async def cmd_stats(message: Message, dialog_manager: DialogManager):
     await dialog_manager.start(state=GetLastRecordsSG.choose, mode=StartMode.RESET_STACK)
+    
+    
+# show current state
+@user_router.message(Command("state"))
+async def cmd_state(message: Message, dialog_manager: DialogManager):
+    try:
+        msg = {dialog_manager.current_context().state.state}
+    except NoContextError:
+        await message.answer("No current state")
+    else:
+        await message.answer(str(msg))
     
