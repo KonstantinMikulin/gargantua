@@ -1,7 +1,7 @@
-from aiogram_dialog import Dialog, Window, DialogManager
+from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Button, Row, Cancel
+from aiogram_dialog.widgets.kbd import Button, Row, Cancel, SwitchTo
 
 # TODO: refactor imports
 from bot.dialogs.getters import weight_getter, weight_delta_getter
@@ -12,8 +12,7 @@ from bot.dialogs.aiogram_dialog_handlers import (
     weight_correct_handler,
     weight_error_handler,
     weight_approved,
-    change_weight,
-    okey_clicked
+    change_weight
 )
 
 
@@ -26,8 +25,9 @@ add_weight_dialog = Dialog(
             on_success=weight_correct_handler,  # type: ignore
             on_error=weight_error_handler,  # type: ignore
         ),
-        Button(
-            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
+        Cancel(
+            text=Const("Отменить"),
+            on_click=cancel_btn_clicked
         ),
         state=AddWeightSG.add_weight,
     ),
@@ -46,9 +46,10 @@ add_weight_dialog = Dialog(
                 on_click=change_weight,
             ),
         ),
-        Button(
-            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
-        ),
+        Cancel(
+            text=Const("Отмена"),
+            on_click=cancel_btn_clicked
+            ),
         state=AddWeightSG.weight_done,
         getter=weight_getter,
     ),
@@ -58,15 +59,8 @@ add_weight_dialog = Dialog(
             text="С прошлого взвешивания вы {gain_loose}\n<b>{weight_delta}</b> кг",
             when="is_delta",
         ),
-        # Button(
-        #     text=Const("Ok"),
-        #     id="okey",
-        #     on_click=okey_clicked
-        # ),
         Cancel(text=Const("Закрыть")),
         state=AddWeightSG.weight_progress,
         getter=weight_delta_getter
     ),
 )
-
-

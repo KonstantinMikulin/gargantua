@@ -1,7 +1,7 @@
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Button, Row
+from aiogram_dialog.widgets.kbd import Button, Row, Cancel
 
 from bot.dialogs.states import AddMeasurmentsSG
 from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
@@ -28,9 +28,7 @@ add_measurments_dialog = Dialog(
             on_success=chest_correct_handler,
             on_error=chest_error_handler,  # type:ignore
         ),
-        Button(
-            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
-        ),
+        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
         state=AddMeasurmentsSG.add_chest,
     ),
     Window(
@@ -41,9 +39,7 @@ add_measurments_dialog = Dialog(
             on_success=waist_correct_handler,
             on_error=waist_error_handler,  # type:ignore
         ),
-        Button(
-            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
-        ),
+        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
         state=AddMeasurmentsSG.add_waist,
     ),
     Window(
@@ -54,9 +50,7 @@ add_measurments_dialog = Dialog(
             on_success=hips_correct_handler,
             on_error=hips_error_handler,  # type:ignore
         ),
-        Button(
-            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
-        ),
+        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
         state=AddMeasurmentsSG.add_hips,
     ),
     Window(
@@ -79,24 +73,23 @@ add_measurments_dialog = Dialog(
                 on_click=change_measurments,
             ),
         ),
-        Button(
-            Const("Отмена"), id="cancel_record", on_click=cancel_btn_clicked
-        ),
+        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
         state=AddMeasurmentsSG.check_measure,
         getter=measurments_getter,
     ),
+    # TODO: add Cancel button from aiogram_dialog?
     Window(
         Const("Какие замеры изменить?"),
-        Button(Const("Грудь"), id="change_chest", on_click=change_measurments),
-        Button(Const("Талия"), id="change_waist", on_click=change_measurments),
-        Button(Const("Бёдра"), id="change_hips", on_click=change_measurments),
+        Row(
+            Button(Const("Грудь"), id="change_chest", on_click=change_measurments),
+            Button(Const("Талия"), id="change_waist", on_click=change_measurments),
+            Button(Const("Бёдра"), id="change_hips", on_click=change_measurments)
+        ),
+        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
         state=AddMeasurmentsSG.change_measure,
     ),
     Window(
-        Format(
-            text="Итак. У нас изменилось:\n",
-            when="is_delta"
-        ),
+        Format(text="Итак. У нас изменилось:\n", when="is_delta"),
         Format(
             text="Грудь {chest_gain_loose} на <b>{chest_delta} см</b>",
             when="is_chest_delta",
@@ -109,13 +102,8 @@ add_measurments_dialog = Dialog(
             text="Бёдра {hips_gain_loose} на <b>{hips_delta} см</b>",
             when="is_hips_delta",
         ),
-        Button(
-            text=Const("Ok"),
-            id="okey",
-            on_click=okey_clicked
-        ),
+        Button(text=Const("Ok"), id="okey", on_click=okey_clicked),
         state=AddMeasurmentsSG.measurements_progress,
-        getter=measurements_delta_getter
+        getter=measurements_delta_getter,
     ),
 )
-
