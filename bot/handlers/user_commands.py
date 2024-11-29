@@ -7,7 +7,7 @@ from aiogram.types import Message
 from aiogram_dialog import DialogManager, StartMode
 from aiogram_dialog.api.exceptions import NoContextError
 
-from bot.dialogs import GetLastRecordsSG
+from bot.dialogs import MainMenuSG, GetLastRecordsSG
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,11 @@ user_router = Router(name="user router")
 async def cmd_start(message: Message):
     await message.answer(f"<b>{message.from_user.first_name}</b>, здравствуйте!\n" # type:ignore
                          f"Подробности о работе бота по команде /help")
-
+    
+    
+@user_router.message(Command("main"))
+async def cmd_main_menu(message: Message, dialog_manager: DialogManager):
+    await dialog_manager.start(state=MainMenuSG.main_state, mode=StartMode.RESET_STACK)
 
 # /help command
 @user_router.message(Command("help"))

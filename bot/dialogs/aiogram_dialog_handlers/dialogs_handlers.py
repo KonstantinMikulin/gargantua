@@ -21,4 +21,4 @@ async def cancel_btn_clicked(
 async def okey_clicked(
     callback: CallbackQuery, button: Button, dialog_manager: DialogManager
 ):
-    await dialog_manager.done()
+    pass

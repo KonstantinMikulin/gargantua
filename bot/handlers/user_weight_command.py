@@ -16,6 +16,5 @@ user_weight_router = Router(name="user weight router")
 async def cmd_weight(message: Message, dialog_manager: DialogManager):
     await dialog_manager.start(
         state=AddWeightSG.add_weight,
-        mode=StartMode.RESET_STACK,
-        show_mode=ShowMode.AUTO,
+        show_mode=ShowMode.DELETE_AND_SEND,
     )

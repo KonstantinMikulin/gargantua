@@ -1,11 +1,12 @@
-from aiogram_dialog import Dialog, Window
+from aiogram_dialog import Dialog, Window, StartMode, ShowMode
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Button, Row, Cancel, SwitchTo
+from aiogram_dialog.widgets.kbd import Button, Row, Cancel, Start
 
 # TODO: refactor imports
 from bot.dialogs.getters import weight_getter, weight_delta_getter
 from bot.dialogs import AddWeightSG
+from bot.dialogs.states import MainMenuSG
 from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
 from bot.dialogs.aiogram_dialog_handlers import (
     validate_weight,
@@ -25,9 +26,16 @@ add_weight_dialog = Dialog(
             on_success=weight_correct_handler,  # type: ignore
             on_error=weight_error_handler,  # type: ignore
         ),
-        Cancel(
-            text=Const("Отменить"),
-            on_click=cancel_btn_clicked
+        # Cancel(
+        #     text=Const("Отменить"),
+        #     on_click=cancel_btn_clicked
+        # ),
+        Start(
+            text=Const("Отмена"),
+            id="cancel_switch_to_main",
+            state=MainMenuSG.main_state,
+            show_mode=ShowMode.DELETE_AND_SEND,
+            mode=StartMode.RESET_STACK
         ),
         state=AddWeightSG.add_weight,
     ),
