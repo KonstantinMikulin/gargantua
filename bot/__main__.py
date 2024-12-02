@@ -78,7 +78,7 @@ async def main():
         token=bot_config.token.get_secret_value(),
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
-
+    
     # connecting handlers`routers
     dp.include_routers(*get_commands_routers())
     #TODO: remove/change these lines
