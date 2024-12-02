@@ -1,39 +1,15 @@
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
-from aiogram_dialog.widgets.kbd import Button, Row, Cancel
 
 from bot.dialogs import GetLastRecordsSG
-from bot.dialogs.aiogram_dialog_handlers import get_last_measurment
 from bot.dialogs.getters import last_weight_getter, last_chest_getter, last_waist_getter, last_hips_getter
-from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
-
-# TODO: reorganize buttons? Place button "Weight" separately?
-CHOOSE_BUTTONS = Row(
-                    Button(
-                        Const("Грудь"),
-                        id="get_last_chest",
-                        on_click=get_last_measurment,
-                    ),
-                    Button(
-                        Const("Талия"),
-                        id="get_last_waist",
-                        on_click=get_last_measurment,
-                    ),
-                    Button(
-                        Const("Бёдра"),
-                        id="get_last_hips",
-                        on_click=get_last_measurment,
-                    ),
-                    Button(
-                        Const("Вес"), id="get_last_weight", on_click=get_last_measurment
-                    )
-                )
+from bot.dialogs.buttons import CANCEL_START_BUTTON, CHOOSE_MEASUREMENTS_BUTTONS
 
 get_last_records_dialog = Dialog(
     Window(
         Const("Какую запись вы хотите посмотреть?"),
-        CHOOSE_BUTTONS,
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CHOOSE_MEASUREMENTS_BUTTONS,
+        CANCEL_START_BUTTON,
         state=GetLastRecordsSG.choose,
     ),
     Window(
@@ -49,8 +25,8 @@ get_last_records_dialog = Dialog(
             text="Дата: <b>{last_chest_date}</b>\nГрудь: <b>{last_chest}</b> см",
             when="last_chest",
         ),
-        CHOOSE_BUTTONS,
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CHOOSE_MEASUREMENTS_BUTTONS,
+        CANCEL_START_BUTTON,
         state=GetLastRecordsSG.get_chest,
         getter=last_chest_getter,  # type:ignore
     ),
@@ -67,8 +43,8 @@ get_last_records_dialog = Dialog(
             text="Дата: <b>{last_waist_date}</b>\nТалия: <b>{last_waist}</b> см",
             when="last_waist",
         ),
-        CHOOSE_BUTTONS,
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CHOOSE_MEASUREMENTS_BUTTONS,
+        CANCEL_START_BUTTON,
         state=GetLastRecordsSG.get_waist,
         getter=last_waist_getter,  # type:ignore
     ),
@@ -83,8 +59,8 @@ get_last_records_dialog = Dialog(
             text="Дата: <b>{last_hips_date}</b>\nБёдра: <b>{last_hips}</b> см",
             when="last_hips",
         ),
-        CHOOSE_BUTTONS,
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CHOOSE_MEASUREMENTS_BUTTONS,
+        CANCEL_START_BUTTON,
         state=GetLastRecordsSG.get_hips,
         getter=last_hips_getter,  # type:ignore
     ),
@@ -99,8 +75,8 @@ get_last_records_dialog = Dialog(
             text="Дата: <b>{last_weight_date}</b>\nВес: <b>{last_weight}</b> кг",
             when="last_weight",
         ),
-        CHOOSE_BUTTONS,
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CHOOSE_MEASUREMENTS_BUTTONS,
+        CANCEL_START_BUTTON,
         state=GetLastRecordsSG.get_weight,
         getter=last_weight_getter,  # type:ignore
     ),
