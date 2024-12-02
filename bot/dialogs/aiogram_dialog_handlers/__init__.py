@@ -21,7 +21,8 @@ from bot.dialogs.aiogram_dialog_handlers.get_measure_handlers import (
 )
 from bot.dialogs.aiogram_dialog_handlers.main_menu_handlers import (
     weight_main_btn,
-    measure_main_btn
+    measure_main_btn,
+    last_main_btn
 )
 
 __all__ = [
@@ -43,6 +44,7 @@ __all__ = [
     "get_last_measurment",
     "weight_main_btn",
     "measure_main_btn",
+    "last_main_btn",
 ]
 
 
