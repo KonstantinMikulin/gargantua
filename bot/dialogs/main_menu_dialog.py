@@ -7,7 +7,7 @@ from bot.dialogs.states import MainMenuSG
 
 main_menu_dialog = Dialog(
     Window(
-        Const("This will be main menu"),
+        Const("Основное меню"),
         Button(Const("One"), id="one"),
         Button(Const("Two"), id="two"),
         Button(Const("Three"), id="three"),
