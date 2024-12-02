@@ -9,7 +9,6 @@ from bot.dialogs.aiogram_dialog_handlers import (
     last_main_btn
 )
 
-
 main_menu_dialog = Dialog(
     Window(
         Const("Основное меню"),
