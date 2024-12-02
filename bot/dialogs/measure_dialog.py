@@ -1,10 +1,10 @@
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Button, Row, Cancel
+from aiogram_dialog.widgets.kbd import Button, Row
 
 from bot.dialogs.states import AddMeasurmentsSG
-from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
+from bot.dialogs.buttons import CANCEL_START_BUTTON, OKEY_START_BUTTON
 from bot.dialogs.aiogram_dialog_handlers import (
     validate_measurement,
     chest_correct_handler,
@@ -14,8 +14,7 @@ from bot.dialogs.aiogram_dialog_handlers import (
     hips_correct_handler,
     hips_error_handler,
     change_measurments,
-    measurements_approved,
-    okey_clicked
+    measurements_approved
 )
 from bot.dialogs.getters import measurments_getter, measurements_delta_getter
 
@@ -28,7 +27,7 @@ add_measurments_dialog = Dialog(
             on_success=chest_correct_handler,
             on_error=chest_error_handler,  # type:ignore
         ),
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CANCEL_START_BUTTON,
         state=AddMeasurmentsSG.add_chest,
     ),
     Window(
@@ -39,7 +38,7 @@ add_measurments_dialog = Dialog(
             on_success=waist_correct_handler,
             on_error=waist_error_handler,  # type:ignore
         ),
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CANCEL_START_BUTTON,
         state=AddMeasurmentsSG.add_waist,
     ),
     Window(
@@ -50,7 +49,7 @@ add_measurments_dialog = Dialog(
             on_success=hips_correct_handler,
             on_error=hips_error_handler,  # type:ignore
         ),
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CANCEL_START_BUTTON,
         state=AddMeasurmentsSG.add_hips,
     ),
     Window(
@@ -73,11 +72,10 @@ add_measurments_dialog = Dialog(
                 on_click=change_measurments,
             ),
         ),
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CANCEL_START_BUTTON,
         state=AddMeasurmentsSG.check_measure,
         getter=measurments_getter,
     ),
-    # TODO: add Cancel button from aiogram_dialog?
     Window(
         Const("Какие замеры изменить?"),
         Row(
@@ -85,11 +83,12 @@ add_measurments_dialog = Dialog(
             Button(Const("Талия"), id="change_waist", on_click=change_measurments),
             Button(Const("Бёдра"), id="change_hips", on_click=change_measurments)
         ),
-        Cancel(text=Const("Отмена"), on_click=cancel_btn_clicked),
+        CANCEL_START_BUTTON,
         state=AddMeasurmentsSG.change_measure,
     ),
     Window(
-        Format(text="Итак. У нас изменилось:\n", when="is_delta"),
+        Const("Ваши замеры сохранены"),
+        Format(text="Вот такие у нас изменения:\n", when="is_delta"),
         Format(
             text="Грудь {chest_gain_loose} на <b>{chest_delta} см</b>",
             when="is_chest_delta",
@@ -102,7 +101,7 @@ add_measurments_dialog = Dialog(
             text="Бёдра {hips_gain_loose} на <b>{hips_delta} см</b>",
             when="is_hips_delta",
         ),
-        Button(text=Const("Ok"), id="okey", on_click=okey_clicked),
+        OKEY_START_BUTTON,
         state=AddMeasurmentsSG.measurements_progress,
         getter=measurements_delta_getter,
     ),

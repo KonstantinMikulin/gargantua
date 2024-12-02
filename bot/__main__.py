@@ -17,7 +17,7 @@ from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
 
 #TODO: remove or change these lines
 from aiogram_dialog import setup_dialogs
-from bot.dialogs import add_weight_dialog, add_measurments_dialog, get_last_records_dialog
+from bot.dialogs import add_weight_dialog, add_measurments_dialog, get_last_records_dialog, main_menu_dialog
 
 
 # main func
@@ -78,13 +78,14 @@ async def main():
         token=bot_config.token.get_secret_value(),
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
-
+    
     # connecting handlers`routers
     dp.include_routers(*get_commands_routers())
     #TODO: remove/change these lines
     dp.include_router(add_weight_dialog)
     dp.include_router(add_measurments_dialog)
     dp.include_router(get_last_records_dialog)
+    dp.include_router(main_menu_dialog)
     setup_dialogs(dp)
 
     # registering middlewares

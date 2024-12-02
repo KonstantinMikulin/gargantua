@@ -1,4 +1,3 @@
-from bot.dialogs.aiogram_dialog_handlers.dialogs_handlers import cancel_btn_clicked, okey_clicked
 from bot.dialogs.aiogram_dialog_handlers.add_measure_handlers import (
     validate_measurement,
     chest_correct_handler,
@@ -23,7 +22,6 @@ from bot.dialogs.aiogram_dialog_handlers.get_measure_handlers import (
 )
 
 __all__ = [
-    "cancel_btn_clicked",
     "weight_process_result",
     "validate_measurement",
     "chest_correct_handler",
@@ -39,8 +37,7 @@ __all__ = [
     "weight_error_handler",
     "weight_approved",
     "change_weight",
-    "get_last_measurment",
-    "okey_clicked",
+    "get_last_measurment"
 ]
 
 
