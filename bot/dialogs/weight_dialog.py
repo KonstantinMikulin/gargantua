@@ -1,13 +1,12 @@
 from aiogram_dialog import Dialog, Window, StartMode, ShowMode
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
-from aiogram_dialog.widgets.kbd import Button, Row, Cancel, Start
+from aiogram_dialog.widgets.kbd import Button, Row, Start
 
 # TODO: refactor imports
 from bot.dialogs.getters import weight_getter, weight_delta_getter
 from bot.dialogs import AddWeightSG
 from bot.dialogs.states import MainMenuSG
-from bot.dialogs.aiogram_dialog_handlers import cancel_btn_clicked
 from bot.dialogs.aiogram_dialog_handlers import (
     validate_weight,
     weight_correct_handler,
@@ -16,6 +15,14 @@ from bot.dialogs.aiogram_dialog_handlers import (
     change_weight
 )
 
+# buttton to switch to main_menu state (call it "cancel")
+_CANCEL_BUTTON = Start(
+    text=Const("Отмена"),
+    id="cancel_switch_to_main",
+    state=MainMenuSG.main_state,
+    show_mode=ShowMode.DELETE_AND_SEND,
+    mode=StartMode.RESET_STACK,
+)
 
 add_weight_dialog = Dialog(
     Window(
@@ -26,17 +33,7 @@ add_weight_dialog = Dialog(
             on_success=weight_correct_handler,  # type: ignore
             on_error=weight_error_handler,  # type: ignore
         ),
-        # Cancel(
-        #     text=Const("Отменить"),
-        #     on_click=cancel_btn_clicked
-        # ),
-        Start(
-            text=Const("Отмена"),
-            id="cancel_switch_to_main",
-            state=MainMenuSG.main_state,
-            show_mode=ShowMode.DELETE_AND_SEND,
-            mode=StartMode.RESET_STACK
-        ),
+        _CANCEL_BUTTON,
         state=AddWeightSG.add_weight,
     ),
     Window(
@@ -54,10 +51,7 @@ add_weight_dialog = Dialog(
                 on_click=change_weight,
             ),
         ),
-        Cancel(
-            text=Const("Отмена"),
-            on_click=cancel_btn_clicked
-            ),
+        _CANCEL_BUTTON,
         state=AddWeightSG.weight_done,
         getter=weight_getter,
     ),
@@ -67,7 +61,7 @@ add_weight_dialog = Dialog(
             text="С прошлого взвешивания вы {gain_loose}\n<b>{weight_delta}</b> кг",
             when="is_delta",
         ),
-        Cancel(text=Const("Закрыть")),
+        _CANCEL_BUTTON,
         state=AddWeightSG.weight_progress,
         getter=weight_delta_getter
     ),
