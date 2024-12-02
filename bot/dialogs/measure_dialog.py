@@ -14,8 +14,7 @@ from bot.dialogs.aiogram_dialog_handlers import (
     hips_correct_handler,
     hips_error_handler,
     change_measurments,
-    measurements_approved,
-    okey_clicked
+    measurements_approved
 )
 from bot.dialogs.getters import measurments_getter, measurements_delta_getter
 
@@ -88,7 +87,8 @@ add_measurments_dialog = Dialog(
         state=AddMeasurmentsSG.change_measure,
     ),
     Window(
-        Format(text="Итак. У нас изменилось:\n", when="is_delta"),
+        Const("Ваши замеры сохранены"),
+        Format(text="Вот такие у нас изменения:\n", when="is_delta"),
         Format(
             text="Грудь {chest_gain_loose} на <b>{chest_delta} см</b>",
             when="is_chest_delta",
