@@ -1,6 +1,6 @@
 from aiogram_dialog import StartMode, ShowMode
 from aiogram_dialog.widgets.text import Const
-from aiogram_dialog.widgets.kbd import Button, Row, Start
+from aiogram_dialog.widgets.kbd import Button, Row, Group, Start
 
 from bot.dialogs import MainMenuSG
 from bot.dialogs.aiogram_dialog_handlers import get_last_measurment
@@ -23,22 +23,29 @@ OKEY_START_BUTTON = Start(
     mode=StartMode.RESET_STACK,
 )
 
-# TODO: reorganize buttons? Place button "Weight" separately?
-CHOOSE_MEASUREMENTS_BUTTONS = Row(
-    Button(
-        Const("Грудь"),
-        id="get_last_chest",
-        on_click=get_last_measurment,
+CHOOSE_MEASUREMENTS_BUTTONS = Group(
+    Row(
+        Button(
+            Const("Грудь"),
+            id="get_last_chest",
+            on_click=get_last_measurment,
+        ),
+        Button(
+            Const("Талия"),
+            id="get_last_waist",
+            on_click=get_last_measurment,
+        ),
+        Button(
+            Const("Бёдра"),
+            id="get_last_hips",
+            on_click=get_last_measurment,
+        )
     ),
-    Button(
-        Const("Талия"),
-        id="get_last_waist",
-        on_click=get_last_measurment,
-    ),
-    Button(
-        Const("Бёдра"),
-        id="get_last_hips",
-        on_click=get_last_measurment,
-    ),
-    Button(Const("Вес"), id="get_last_weight", on_click=get_last_measurment),
+    Row(
+        Button(
+            Const("Вес"),
+            id="get_last_weight",
+            on_click=get_last_measurment
+        )
+    )
 )
