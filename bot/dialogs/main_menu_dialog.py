@@ -3,7 +3,6 @@ from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.kbd import Button
 
 from bot.dialogs.states import MainMenuSG
-from bot.dialogs.aiogram_dialog_handlers import okey_clicked
 
 
 main_menu_dialog = Dialog(

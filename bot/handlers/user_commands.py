@@ -47,4 +47,12 @@ async def cmd_state(message: Message, dialog_manager: DialogManager):
         await message.answer("No current state")
     else:
         await message.answer(str(msg))
+        
+        
+#TODO: remove this handler
+# reset aiogram_dialog stack
+@user_router.message(Command("cancel"))
+async def cmd_cancel(message: Message, dialog_manager: DialogManager):
+    await dialog_manager.reset_stack()
+    await message.answer(text="Reset stack")
     
