@@ -81,7 +81,7 @@ async def main():
     
     # connecting handlers`routers
     dp.include_routers(*get_commands_routers())
-    #TODO: remove/change these lines
+    #TODO: create fucntion to assemble dialogs
     dp.include_router(add_weight_dialog)
     dp.include_router(add_measurments_dialog)
     dp.include_router(get_last_records_dialog)

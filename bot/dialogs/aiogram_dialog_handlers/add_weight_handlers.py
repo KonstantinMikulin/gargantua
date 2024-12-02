@@ -34,7 +34,7 @@ async def weight_correct_handler(
     )
     dialog_manager.dialog_data["prev_weight"] = prev_weight.weight # type: ignore
     
-    await dialog_manager.switch_to(state=AddWeightSG.weight_done)
+    await dialog_manager.switch_to(state=AddWeightSG.check_weight)
     
     
 async def weight_approved(

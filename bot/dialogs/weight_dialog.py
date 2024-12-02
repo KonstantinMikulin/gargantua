@@ -6,7 +6,7 @@ from aiogram_dialog.widgets.kbd import Button, Row
 # TODO: refactor imports
 from bot.dialogs.getters import weight_getter, weight_delta_getter
 from bot.dialogs import AddWeightSG
-from bot.dialogs.buttons import CANCEL_START_BUTTON
+from bot.dialogs.buttons import CANCEL_START_BUTTON, OKEY_START_BUTTON
 from bot.dialogs.aiogram_dialog_handlers import (
     validate_weight,
     weight_correct_handler,
@@ -43,7 +43,7 @@ add_weight_dialog = Dialog(
             ),
         ),
         CANCEL_START_BUTTON,
-        state=AddWeightSG.weight_done,
+        state=AddWeightSG.check_weight,
         getter=weight_getter,
     ),
     Window(
@@ -52,7 +52,7 @@ add_weight_dialog = Dialog(
             text="С прошлого взвешивания вы {gain_loose}\n<b>{weight_delta}</b> кг",
             when="is_delta",
         ),
-        CANCEL_START_BUTTON,
+        OKEY_START_BUTTON,
         state=AddWeightSG.weight_progress,
         getter=weight_delta_getter
     ),
