@@ -6,7 +6,7 @@ from aiogram_dialog.widgets.kbd import Button
 
 from bot.db import add_weight, get_last_weight
 
-from bot.dialogs import AddWeightSG
+from bot.dialogs import AddWeightSG, AddMeasurmentsSG
 
 
 # main menu weight`s button clicked
@@ -20,3 +20,14 @@ async def weight_main_btn(
         mode=StartMode.NORMAL,
         show_mode=ShowMode.DELETE_AND_SEND
         )
+
+
+# main menu measurements` button clicked
+async def measure_main_btn(
+    callback: CallbackQuery, button: Button, dialog_manager: DialogManager
+):
+    await dialog_manager.start(
+        state=AddMeasurmentsSG.add_chest,
+        mode=StartMode.NORMAL,
+        show_mode=ShowMode.DELETE_AND_SEND,
+    )

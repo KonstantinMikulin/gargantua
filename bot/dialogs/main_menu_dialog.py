@@ -3,7 +3,10 @@ from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.kbd import Button
 
 from bot.dialogs.states import MainMenuSG
-from bot.dialogs.aiogram_dialog_handlers import weight_main_btn
+from bot.dialogs.aiogram_dialog_handlers import (
+    weight_main_btn,
+    measure_main_btn
+)
 
 
 main_menu_dialog = Dialog(
@@ -11,10 +14,14 @@ main_menu_dialog = Dialog(
         Const("Основное меню"),
         Button(
             Const("Вес"),
-            id="one",
+            id="weight_main_menu",
             on_click=weight_main_btn
             ),
-        Button(Const("Two"), id="two"),
+        Button(
+            Const("Замеры"),
+            id="measure_main_menu",
+            on_click=measure_main_btn
+            ),
         Button(Const("Three"), id="three"),
         state=MainMenuSG.main_state
     )
