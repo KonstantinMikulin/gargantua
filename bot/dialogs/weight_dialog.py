@@ -43,7 +43,7 @@ add_weight_dialog = Dialog(
             ),
         ),
         CANCEL_START_BUTTON,
-        state=AddWeightSG.weight_done,
+        state=AddWeightSG.check_weight,
         getter=weight_getter,
     ),
     Window(

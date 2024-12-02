@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from aiogram_dialog import DialogManager, StartMode, ShowMode
+from aiogram_dialog import DialogManager, ShowMode
 
 from bot.dialogs import AddWeightSG
 
