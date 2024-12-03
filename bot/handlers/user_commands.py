@@ -5,7 +5,6 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
-from aiogram_dialog.api.exceptions import NoContextError
 
 from bot.dialogs import MainMenuSG, GetLastRecordsSG
 
@@ -59,23 +58,4 @@ async def cmd_stats(
         state=GetLastRecordsSG.choose,
         mode=StartMode.RESET_STACK
         )
-    
-    
-# show current state
-@user_router.message(Command("state"))
-async def cmd_state(message: Message, dialog_manager: DialogManager):
-    try:
-        msg = {dialog_manager.current_context().state.state}
-    except NoContextError:
-        await message.answer("No current state")
-    else:
-        await message.answer(str(msg))
-        
-        
-#TODO: remove this handler
-# reset aiogram_dialog stack
-@user_router.message(Command("cancel"))
-async def cmd_cancel(message: Message, dialog_manager: DialogManager):
-    await dialog_manager.reset_stack()
-    await message.answer(text="Reset stack")
     
