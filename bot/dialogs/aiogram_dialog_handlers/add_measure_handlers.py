@@ -160,12 +160,3 @@ async def measurements_approved(
     )
     
     await dialog_manager.switch_to(state=AddMeasurmentsSG.measurements_progress, show_mode=ShowMode.DELETE_AND_SEND)
-
-
-# TODO: remove this handler
-async def okey_clicked(
-    callback: CallbackQuery,
-    button: Button,
-    dialog_manager: DialogManager
-):
-    await dialog_manager.reset_stack()
