@@ -15,9 +15,13 @@ from bot.handlers.main_bot_menu import set_main_menu
 from bot.db import Base
 from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
 
-#TODO: remove or change these lines
+from bot.dialogs import (
+    add_weight_dialog,
+    add_measurments_dialog,
+    get_last_records_dialog,
+    main_menu_dialog
+    )
 from aiogram_dialog import setup_dialogs
-from bot.dialogs import add_weight_dialog, add_measurments_dialog, get_last_records_dialog, main_menu_dialog
 
 
 # main func
@@ -81,11 +85,12 @@ async def main():
     
     # connecting handlers`routers
     dp.include_routers(*get_commands_routers())
-    #TODO: create fucntion to assemble dialogs
-    dp.include_router(add_weight_dialog)
-    dp.include_router(add_measurments_dialog)
-    dp.include_router(get_last_records_dialog)
-    dp.include_router(main_menu_dialog)
+    dp.include_routers(
+        add_weight_dialog,
+        add_measurments_dialog,
+        get_last_records_dialog,
+        main_menu_dialog
+    )
     setup_dialogs(dp)
 
     # registering middlewares
