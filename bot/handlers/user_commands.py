@@ -20,7 +20,7 @@ user_router = Router(name="user router")
 async def cmd_start(message: Message):
     await message.answer(f"<b>{message.from_user.first_name}</b>, здравствуйте!\n" # type:ignore
                          f"<b>Основное меню</b> по команде /main\n"
-                         f"Подробности о работе бота по команде /help"
+                         f"<b>Подробности</b> о работе бота по команде /help"
                          )
     
     
@@ -40,7 +40,13 @@ async def cmd_help(
     message: Message,
     dialog_manager: DialogManager
     ):
-    await message.answer("Бот может записывать вес и замеры объемов тела")
+    await message.answer(
+        "Бот может сохранять вес и замеры объемов тела\n"
+        "Основное меню - /main\n"
+        "Сохранить вес - /weight\n"
+        "Записать объёмы тела - /measure\n"
+        "Посмотреть последние сохранённые записи - /last\n"
+        )
 
 
 # simple command to get last weight
