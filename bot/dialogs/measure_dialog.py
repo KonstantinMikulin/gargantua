@@ -90,15 +90,15 @@ add_measurments_dialog = Dialog(
         Const("Ваши замеры сохранены"),
         Format(text="Вот такие у нас изменения:\n", when="is_delta"),
         Format(
-            text="Грудь {chest_gain_loose} на <b>{chest_delta} см</b>",
+            text="Грудь стала {chest_gain_loose} на <b>{chest_delta} см</b>",
             when="is_chest_delta",
         ),
         Format(
-            text="Талия {waist_gain_loose} на <b>{waist_delta} см</b>",
+            text="Талия стала {waist_gain_loose} на <b>{waist_delta} см</b>",
             when="is_waist_delta",
         ),
         Format(
-            text="Бёдра {hips_gain_loose} на <b>{hips_delta} см</b>",
+            text="Бёдра стали {hips_gain_loose} на <b>{hips_delta} см</b>",
             when="is_hips_delta",
         ),
         OKEY_START_BUTTON,

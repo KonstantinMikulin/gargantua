@@ -12,7 +12,7 @@ from bot.dialogs.aiogram_dialog_handlers import (
 main_menu_dialog = Dialog(
     Window(
         Const("Основное меню"),
-        Button(Const("Вес"), id="weight_main_menu", on_click=weight_main_btn),
+        Button(Const("Сохранить вес"), id="weight_main_menu", on_click=weight_main_btn),
         Button(
             Const("Записать объемы"),
             id="measure_main_menu",
