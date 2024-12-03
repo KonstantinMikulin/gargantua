@@ -41,7 +41,7 @@ async def last_weight_getter(
         return {"no_weight": True}
 
 
-# TODO: count delta only if time between records is one week or more
+# TODO: count delta if time between records is one week or more
 async def weight_delta_getter(
     dialog_manager: DialogManager,
     event_from_user: User,
