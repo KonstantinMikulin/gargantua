@@ -46,8 +46,6 @@ async def weight_approved(
     session = dialog_manager.middleware_data.get("session")
     user: User = dialog_manager.middleware_data.get("event_from_user")  # type:ignore
 
-    # TODO: remove this line
-    # await callback.message.edit_text(f"Ваш текущий вес {weight} кг был сохранен")  # type:ignore
     await dialog_manager.switch_to(state=AddWeightSG.weight_progress, show_mode=ShowMode.AUTO)
     
     await add_weight(
