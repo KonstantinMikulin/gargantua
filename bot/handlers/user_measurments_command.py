@@ -10,7 +10,8 @@ from bot.dialogs import AddMeasurmentsSG
 user_measure_router = Router(name="user measurements router")
 
 
-#TODO: add 'skip' button
+# TODO: add 'skip' button
+# TODO: let user possibility to choose which measurments to save
 # command /measure
 @user_measure_router.message(Command("measure"))
 async def cmd_measure(message: Message, dialog_manager: DialogManager):

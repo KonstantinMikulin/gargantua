@@ -10,7 +10,6 @@ from bot.dialogs import AddWeightSG
 user_weight_router = Router(name="user weight router")
 
 
-# TODO: add 'skip' button
 # command for record current weight to db
 @user_weight_router.message(Command("weight"))
 async def cmd_weight(message: Message, dialog_manager: DialogManager):
