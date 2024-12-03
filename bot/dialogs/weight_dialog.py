@@ -3,9 +3,8 @@ from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.input import TextInput
 from aiogram_dialog.widgets.kbd import Button, Row
 
-# TODO: refactor imports
 from bot.dialogs.getters import weight_getter, weight_delta_getter
-from bot.dialogs import AddWeightSG
+from bot.dialogs.states import AddWeightSG
 from bot.dialogs.buttons import CANCEL_START_BUTTON, OKEY_START_BUTTON
 from bot.dialogs.aiogram_dialog_handlers import (
     validate_weight,
