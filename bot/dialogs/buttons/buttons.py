@@ -49,3 +49,30 @@ CHOOSE_LAST_MEASUREMENT_BUTTONS = Group(
         )
     )
 )
+
+CHOOSE_ALL_MEASUREMENTS_BUTTONS = Group(
+    Row(
+        Button(
+            Const("Грудь"),
+            id="get_all_chest",
+            on_click=get_last_measurment,
+        ),
+        Button(
+            Const("Талия"),
+            id="get_all_waist",
+            on_click=get_last_measurment,
+        ),
+        Button(
+            Const("Бёдра"),
+            id="get_all_hips",
+            on_click=get_last_measurment,
+        )
+    ),
+    Row(
+        Button(
+            Const("Вес"),
+            id="get_all_weight",
+            on_click=get_last_measurment
+        )
+    ),
+)
