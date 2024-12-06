@@ -1,4 +1,10 @@
-from bot.dialogs.states import AddWeightSG, AddMeasurmentsSG, GetLastRecordsSG, MainMenuSG
+from bot.dialogs.states import (
+    AddWeightSG,
+    AddMeasurmentsSG,
+    GetLastRecordsSG,
+    GetAllRecordsSG,
+    MainMenuSG
+    )
 from bot.dialogs.weight_dialog import add_weight_dialog
 from bot.dialogs.measure_dialog import add_measurments_dialog
 from bot.dialogs.get_last_dialog import get_last_records_dialog
@@ -9,6 +15,7 @@ __all__ = [
     "AddWeightSG",
     "AddMeasurmentsSG",
     "GetLastRecordsSG",
+    "GetAllRecordsSG",
     "main_menu_dialog",
     "add_weight_dialog",
     "add_measurments_dialog",
