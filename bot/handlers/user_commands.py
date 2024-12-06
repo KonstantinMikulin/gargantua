@@ -68,7 +68,7 @@ async def cmd_stats(
 # TODO: change this temp handler
 # TODO: make this handler with aiogram_dialog
 # TODO: for deleting main diclogs menu
-@user_router.message(Command("get"))
+@user_router.message(Command("records"))
 async def cmd_get(
     message: Message,
     session: AsyncSession
