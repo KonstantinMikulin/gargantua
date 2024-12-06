@@ -49,17 +49,18 @@ async def weight_delta_getter(
 ) -> dict[str, float | str]:
     current_weight = dialog_manager.dialog_data.get("weight")
     prev_weight = dialog_manager.dialog_data.get("prev_weight")
-        
-    weight_delta = abs(prev_weight - current_weight)  # type: ignore
     
-    if weight_delta >= 1:
-        return {
-            "is_delta": True,
-            "weight": current_weight,  # type: ignore
-            "gain_loose": "сбросили"
-            if current_weight < prev_weight  # type: ignore
-            else "набрали",
-            "weight_delta": round(weight_delta, 2)
-        }
+    if prev_weight is not None:    
+        weight_delta = abs(prev_weight - current_weight)  # type: ignore
+        
+        if weight_delta >= 1:
+            return {
+                "is_delta": True,
+                "weight": current_weight,  # type: ignore
+                "gain_loose": "сбросили"
+                if current_weight < prev_weight  # type: ignore
+                else "набрали",
+                "weight_delta": round(weight_delta, 2)
+            }
     
     return {"is_delta": False, "weight": current_weight} # type: ignore

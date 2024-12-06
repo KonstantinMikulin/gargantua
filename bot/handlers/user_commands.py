@@ -6,7 +6,12 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
+# TODO: refactor this
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from bot.dialogs import MainMenuSG, GetLastRecordsSG
+
+from bot.db import get_weights
 
 logger = logging.getLogger(__name__)
 
@@ -58,4 +63,21 @@ async def cmd_stats(
         state=GetLastRecordsSG.choose,
         mode=StartMode.RESET_STACK
         )
+    
+    
+# TODO: change this temp handler
+@user_router.message(Command("get"))
+async def cmd_get(
+    message: Message,
+    session: AsyncSession
+):
+    weights = await get_weights(
+        session=session,
+        telegram_id=message.from_user.id # type: ignore
+    )
+    weights_list = []
+    for weight in weights:
+        weights_list.append(f"{weight.created_at}: {weight.weight}\n")
+    msg_text = "".join(weights_list)
+    await message.answer(msg_text)
     

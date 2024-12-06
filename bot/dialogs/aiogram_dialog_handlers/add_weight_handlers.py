@@ -24,16 +24,16 @@ async def weight_correct_handler(
     text: str,
 ) -> None:
     session = dialog_manager.middleware_data.get("session")
-    
     weight = round(float(text), 2)
     dialog_manager.dialog_data["weight"] = weight
-    
     prev_weight = await get_last_weight(
-        session=session,  # type:ignore
-        telegram_id=message.from_user.id, # type: ignore
-    )
-    dialog_manager.dialog_data["prev_weight"] = prev_weight.weight # type: ignore
+            session=session,  # type:ignore
+            telegram_id=message.from_user.id, # type: ignore
+        )
     
+    if prev_weight is not None:
+        dialog_manager.dialog_data["prev_weight"] = prev_weight.weight  # type: ignore
+
     await dialog_manager.switch_to(state=AddWeightSG.check_weight)
     
     
