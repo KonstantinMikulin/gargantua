@@ -54,6 +54,7 @@ async def main():
 
     # create tables
     async with engine.begin() as connection:
+        # TODO: remove this line
         # await connection.run_sync(Base.metadata.drop_all)
         await connection.run_sync(Base.metadata.create_all)
 
