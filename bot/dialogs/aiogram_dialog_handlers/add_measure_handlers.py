@@ -27,7 +27,9 @@ async def chest_correct_handler(
         session=session,  # type: ignore
         telegram_id=message.from_user.id,  # type: ignore
     )
-    dialog_manager.dialog_data["prev_chest"] = prev_chest.measurement  # type: ignore
+    
+    if prev_chest is not None:
+        dialog_manager.dialog_data["prev_chest"] = prev_chest.measurement  # type: ignore
 
     measurment = round(float(text), 2)
     
@@ -59,7 +61,8 @@ async def waist_correct_handler(
         session=session,  # type: ignore
         telegram_id=message.from_user.id,  # type: ignore
     )
-    dialog_manager.dialog_data["prev_waist"] = prev_waist.measurement  # type: ignore
+    if prev_waist is not None:
+        dialog_manager.dialog_data["prev_waist"] = prev_waist.measurement  # type: ignore
 
     measurment = round(float(text), 2)
 
@@ -91,7 +94,8 @@ async def hips_correct_handler(
         session=session,  # type: ignore
         telegram_id=message.from_user.id,  # type: ignore
     )
-    dialog_manager.dialog_data["prev_hips"] = prev_hips.measurement  # type: ignore
+    if prev_hips is not None:
+        dialog_manager.dialog_data["prev_hips"] = prev_hips.measurement  # type: ignore
 
     measurment = round(float(text), 2)
 

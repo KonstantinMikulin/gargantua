@@ -106,10 +106,6 @@ async def measurements_delta_getter(
     prev_chest = dialog_manager.dialog_data.get("prev_chest")
     prev_waist = dialog_manager.dialog_data.get("prev_waist")
     prev_hips = dialog_manager.dialog_data.get("prev_hips")
-
-    chest_delta = abs(prev_chest - current_chest)  # type: ignore
-    waist_delta = abs(prev_waist - current_waist)  # type: ignore
-    hips_delta = abs(prev_hips - current_hips)  # type: ignore
     
     getter_dict = {
         "is_delta": False,
@@ -120,39 +116,43 @@ async def measurements_delta_getter(
         "is_hips_delta": False,
         "hips": current_hips
     }
-
-    deltas = [chest_delta, waist_delta, hips_delta]
     
-    for delta in deltas:
-        if delta >= 1 and delta is chest_delta:
-            getter_dict.update(
-                {
-                    "is_delta": True,
-                    "is_chest_delta": True,
-                    "chest_chest": current_chest,  # type: ignore
-                    "chest_gain_loose": "меньше" if current_chest < prev_chest else "больше", # type:ignore
-                    "chest_delta": round(chest_delta, 2),
-                }
-            )
-        elif delta >= 1 and delta is waist_delta:
-            getter_dict.update(
-                {
-                    "is_delta": True,
-                    "is_waist_delta": True,
-                    "waist": current_waist,  # type: ignore
-                    "waist_gain_loose": "меньше" if current_waist < prev_waist else "больше",  # type: ignore
-                    "waist_delta": round(waist_delta, 2),
-                }
-            )
-        elif delta >= 1 and delta is hips_delta:
-            getter_dict.update(
-                {
-                    "is_delta": True,
-                    "is_hips_delta": True,
-                    "hips": current_hips,  # type: ignore
-                    "hips_gain_loose": "меньше" if current_hips < prev_hips else "больше", # type: ignore
-                    "hips_delta": round(hips_delta, 2),
-                }
-            )
+    if all([prev_chest, prev_waist, prev_hips]):
+        chest_delta = abs(prev_chest - current_chest)  # type: ignore
+        waist_delta = abs(prev_waist - current_waist)  # type: ignore
+        hips_delta = abs(prev_hips - current_hips)  # type: ignore
+        deltas = [chest_delta, waist_delta, hips_delta]
+        
+        for delta in deltas:
+            if delta >= 1 and delta is chest_delta:
+                getter_dict.update(
+                    {
+                        "is_delta": True,
+                        "is_chest_delta": True,
+                        "chest_chest": current_chest,  # type: ignore
+                        "chest_gain_loose": "меньше" if current_chest < prev_chest else "больше", # type:ignore
+                        "chest_delta": round(chest_delta, 2),
+                    }
+                )
+            elif delta >= 1 and delta is waist_delta:
+                getter_dict.update(
+                    {
+                        "is_delta": True,
+                        "is_waist_delta": True,
+                        "waist": current_waist,  # type: ignore
+                        "waist_gain_loose": "меньше" if current_waist < prev_waist else "больше",  # type: ignore
+                        "waist_delta": round(waist_delta, 2),
+                    }
+                )
+            elif delta >= 1 and delta is hips_delta:
+                getter_dict.update(
+                    {
+                        "is_delta": True,
+                        "is_hips_delta": True,
+                        "hips": current_hips,  # type: ignore
+                        "hips_gain_loose": "меньше" if current_hips < prev_hips else "больше", # type: ignore
+                        "hips_delta": round(hips_delta, 2),
+                    }
+                )
         
     return getter_dict  # type: ignore
