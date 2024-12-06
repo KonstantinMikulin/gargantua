@@ -51,7 +51,24 @@ async def add_weight(session: AsyncSession, telegram_id: int, weight: float):
     new_weight = Weight(user_id=telegram_id, weight=weight)
     session.add(new_weight)
     await session.commit()
+
+
+# TODO: refactor this function
+# get weights list
+async def get_weights(
+    session: AsyncSession, telegram_id: int
+):
+    stmt = (
+        select(Weight)
+        .where(Weight.user_id == telegram_id)
+        .order_by(Weight.created_at.asc())
+        .limit(10)
+    )
+    result = await session.execute(stmt)
+    weights = result.scalars().fetchall()
     
+    return weights
+
 
 # TODO: make one getter if it will be usefull
 # get last weight`s records
