@@ -1,7 +1,6 @@
-from aiogram.types import Message, User, CallbackQuery
+from aiogram.types import CallbackQuery
 
 from aiogram_dialog import DialogManager, ShowMode
-from aiogram_dialog.widgets.input import ManagedTextInput
 from aiogram_dialog.widgets.kbd import Button
 
 from bot.dialogs.states import GetLastRecordsSG

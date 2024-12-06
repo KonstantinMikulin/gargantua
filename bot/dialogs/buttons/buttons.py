@@ -23,7 +23,7 @@ OKEY_START_BUTTON = Start(
     mode=StartMode.RESET_STACK,
 )
 
-CHOOSE_MEASUREMENTS_BUTTONS = Group(
+CHOOSE_LAST_MEASUREMENT_BUTTONS = Group(
     Row(
         Button(
             Const("Грудь"),
