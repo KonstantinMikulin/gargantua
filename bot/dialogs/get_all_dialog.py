@@ -4,7 +4,8 @@ from aiogram_dialog.widgets.text import Const, Format, List
 from bot.dialogs import GetAllRecordsSG
 from bot.dialogs.getters import (
     all_weights_getter,
-    all_chest_getter
+    all_chest_getter,
+    all_waist_getter
 )
 
 from bot.dialogs.buttons import (
@@ -26,7 +27,7 @@ get_all_records_dialog = Dialog(
             "Используйте команду /measure для записи замеров",
             when="no_chest",
         ),
-        List(Format("{item[0]}: <b>{item[1]}</b>"), items="all_chest"),
+        List(Format("{item[0]}: <b>{item[1]}</b> см"), items="all_chest"),
         CHOOSE_ALL_MEASUREMENTS_BUTTONS,
         OKEY_START_BUTTON,
         state=GetAllRecordsSG.get_all_chest,
@@ -34,11 +35,23 @@ get_all_records_dialog = Dialog(
     ),
     Window(
         Const(
+            text="Вы еще не вносили замеры <b>талии</b>\n"
+            "Используйте команду /measure для записи замеров",
+            when="no_waist",
+        ),
+        List(Format("{item[0]}: <b>{item[1]}</b> см"), items="all_waist"),
+        CHOOSE_ALL_MEASUREMENTS_BUTTONS,
+        OKEY_START_BUTTON,
+        state=GetAllRecordsSG.get_all_waist,
+        getter=all_waist_getter,  # type:ignore
+    ),
+    Window(
+        Const(
             text="Вы еще не вносили показатели <b>веса</b>\n"
             "Используйте команду /weight для записи веса",
             when="no_weights",
         ),
-        List(Format("{item[0]}: <b>{item[1]}</b>"), items="all_weights"),
+        List(Format("{item[0]}: <b>{item[1]}</b> кг"), items="all_weights"),
         CHOOSE_ALL_MEASUREMENTS_BUTTONS,
         OKEY_START_BUTTON,
         state=GetAllRecordsSG.get_all_weights,
