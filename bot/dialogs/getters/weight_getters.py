@@ -26,11 +26,17 @@ async def all_weights_getter(
         telegram_id=event_from_user.id,
     )
 
+    print(f"This is list of weights: {weights}")
+    
     if weights:
         weights_list = []
         for weight in weights:
-            date = datetime.fromisoformat(str(weight.created_at))  # type:ignore
-            formatted_date = date.strftime("%d.%m.%Y")
+            try:
+                date = datetime.fromisoformat(str(weight.created_at))  # type:ignore
+                formatted_date = date.strftime("%d.%m.%Y")
+            except ValueError:
+                formatted_date = None
+                
             weights_list.append((formatted_date, weight.weight))
             
         return {"all_weights": tuple(weights_list)} # type: ignore

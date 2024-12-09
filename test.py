@@ -1,7 +1,3 @@
-some_list = [("one", 20), ("two", 30)]
+some = []
 
-some_list.append(("three", 40))
-
-res = tuple(some_list)
-
-print(res)
+print(some is True)
