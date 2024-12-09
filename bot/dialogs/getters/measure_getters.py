@@ -123,6 +123,27 @@ async def last_waist_getter(
         return {"no_waist": True}
 
 
+async def all_hips_getter(
+    dialog_manager: DialogManager, event_from_user: User, **kwargs
+) -> dict[str, tuple[tuple[Any]] | bool]:
+    session = dialog_manager.middleware_data.get("session")
+    records = await get_all_hips(
+        session=session,  # type:ignore
+        telegram_id=event_from_user.id,
+    )
+
+    if records:
+        records_list = []
+        for hips in records:
+            date = datetime.fromisoformat(str(hips.created_at))  # type:ignore
+            formatted_date = date.strftime("%d.%m.%Y")
+            records_list.append((formatted_date, hips.measurement))
+
+        return {"all_hips": tuple(records_list)}  # type: ignore
+    else:
+        return {"no_hips": True}
+
+
 async def last_hips_getter(
     dialog_manager: DialogManager, event_from_user: User, **kwargs
 ) -> dict[str, float | str]:

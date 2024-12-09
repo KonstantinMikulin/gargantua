@@ -5,7 +5,8 @@ from bot.dialogs import GetAllRecordsSG
 from bot.dialogs.getters import (
     all_weights_getter,
     all_chest_getter,
-    all_waist_getter
+    all_waist_getter,
+    all_hips_getter
 )
 
 from bot.dialogs.buttons import (
@@ -44,6 +45,18 @@ get_all_records_dialog = Dialog(
         OKEY_START_BUTTON,
         state=GetAllRecordsSG.get_all_waist,
         getter=all_waist_getter,  # type:ignore
+    ),
+    Window(
+        Const(
+            text="Вы еще не вносили замеры <b>бёдер</b>\n"
+            "Используйте команду /measure для записи замеров",
+            when="no_hips",
+        ),
+        List(Format("{item[0]}: <b>{item[1]}</b> см"), items="all_hips"),
+        CHOOSE_ALL_MEASUREMENTS_BUTTONS,
+        OKEY_START_BUTTON,
+        state=GetAllRecordsSG.get_all_hips,
+        getter=all_hips_getter,  # type:ignore
     ),
     Window(
         Const(
