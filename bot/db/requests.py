@@ -53,9 +53,10 @@ async def add_weight(session: AsyncSession, telegram_id: int, weight: float):
     await session.commit()
 
 
-# TODO: refactor this function
+# TODO: refactor get_all functions
+# TODO: change records limit
 # get weights list
-async def get_weights(
+async def get_all_weights(
     session: AsyncSession, telegram_id: int
 ):
     stmt = (
@@ -100,6 +101,22 @@ async def add_chest(session: AsyncSession, telegram_id: int, chest: float):
     new_chest = MeasureChest(user_id=telegram_id, measurement=chest)
     session.add(new_chest)
     await session.commit()
+
+
+async def get_all_chest(
+    session: AsyncSession,
+    telegram_id: int
+):
+    stmt = (
+        select(MeasureChest)
+        .where(MeasureChest.user_id == telegram_id)
+        .order_by(MeasureChest.created_at.asc())
+        .limit(10)
+    )
+    result = await session.execute(stmt)
+    records = result.scalars().fetchall()
+
+    return records
     
     
 # get last chest`s records
@@ -130,6 +147,19 @@ async def add_waist(session: AsyncSession, telegram_id: int, waist: float):
     new_waist = MeasureWaist(user_id=telegram_id, measurement=waist)
     session.add(new_waist)
     await session.commit()
+
+
+async def get_all_waist(session: AsyncSession, telegram_id: int):
+    stmt = (
+        select(MeasureWaist)
+        .where(MeasureWaist.user_id == telegram_id)
+        .order_by(MeasureWaist.created_at.asc())
+        .limit(10)
+    )
+    result = await session.execute(stmt)
+    records = result.scalars().fetchall()
+
+    return records
     
 
 # get last waist`s records
@@ -160,6 +190,19 @@ async def add_hips(session: AsyncSession, telegram_id: int, hips: float):
     new_hips = MeasureHips(user_id=telegram_id, measurement=hips)
     session.add(new_hips)
     await session.commit()
+
+
+async def get_all_hips(session: AsyncSession, telegram_id: int):
+    stmt = (
+        select(MeasureHips)
+        .where(MeasureHips.user_id == telegram_id)
+        .order_by(MeasureHips.created_at.asc())
+        .limit(10)
+    )
+    result = await session.execute(stmt)
+    records = result.scalars().fetchall()
+
+    return records
 
 
 # get last hips` records

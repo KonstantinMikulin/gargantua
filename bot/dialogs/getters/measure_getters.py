@@ -1,10 +1,18 @@
 from datetime import datetime
+from typing import Any
 
 from aiogram.types import User
 
 from aiogram_dialog import DialogManager
 
-from bot.db import get_last_chest, get_last_waist, get_last_hips
+from bot.db import (
+    get_all_chest,
+    get_last_chest,
+    get_all_waist,
+    get_last_waist,
+    get_all_hips,
+    get_last_hips
+)
 
 
 async def measurments_getter(
@@ -21,7 +29,30 @@ async def measurments_getter(
         "user_waist": user_waist,  # type:ignore
         "user_hips": user_hips  # type:ignore
     }
-    
+
+
+async def all_chest_getter(
+    dialog_manager: DialogManager,
+    event_from_user: User,
+    **kwargs
+) -> dict[str, tuple[tuple[Any]] | bool]:
+    session = dialog_manager.middleware_data.get("session")
+    records = await get_all_chest(
+        session=session,  # type:ignore
+        telegram_id=event_from_user.id,
+    )
+
+    if records:
+        records_list = []
+        for chest in records:
+            date = datetime.fromisoformat(str(chest.created_at))  # type:ignore
+            formatted_date = date.strftime("%d.%m.%Y")
+            records_list.append((formatted_date, chest.measurement))
+
+        return {"all_chest": tuple(records_list)}  # type: ignore
+    else:
+        return {"no_chest": True}
+
 
 async def last_chest_getter(
     dialog_manager: DialogManager, event_from_user: User, **kwargs
@@ -47,6 +78,27 @@ async def last_chest_getter(
         return {"no_chest": True}
 
 
+async def all_waist_getter(
+    dialog_manager: DialogManager, event_from_user: User, **kwargs
+) -> dict[str, tuple[tuple[Any]] | bool]:
+    session = dialog_manager.middleware_data.get("session")
+    records = await get_all_waist(
+        session=session,  # type:ignore
+        telegram_id=event_from_user.id,
+    )
+
+    if records:
+        records_list = []
+        for waist in records:
+            date = datetime.fromisoformat(str(waist.created_at))  # type:ignore
+            formatted_date = date.strftime("%d.%m.%Y")
+            records_list.append((formatted_date, waist.measurement))
+
+        return {"all_waist": tuple(records_list)}  # type: ignore
+    else:
+        return {"no_waist": True}
+
+
 async def last_waist_getter(
     dialog_manager: DialogManager, event_from_user: User, **kwargs
 ) -> dict[str, float | str]:
@@ -69,6 +121,27 @@ async def last_waist_getter(
         }
     else:
         return {"no_waist": True}
+
+
+async def all_hips_getter(
+    dialog_manager: DialogManager, event_from_user: User, **kwargs
+) -> dict[str, tuple[tuple[Any]] | bool]:
+    session = dialog_manager.middleware_data.get("session")
+    records = await get_all_hips(
+        session=session,  # type:ignore
+        telegram_id=event_from_user.id,
+    )
+
+    if records:
+        records_list = []
+        for hips in records:
+            date = datetime.fromisoformat(str(hips.created_at))  # type:ignore
+            formatted_date = date.strftime("%d.%m.%Y")
+            records_list.append((formatted_date, hips.measurement))
+
+        return {"all_hips": tuple(records_list)}  # type: ignore
+    else:
+        return {"no_hips": True}
 
 
 async def last_hips_getter(

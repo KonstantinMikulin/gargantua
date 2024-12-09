@@ -6,12 +6,7 @@ from aiogram.types import Message
 
 from aiogram_dialog import DialogManager, StartMode
 
-# TODO: refactor this
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from bot.dialogs import MainMenuSG, GetLastRecordsSG
-
-from bot.db import get_weights
+from bot.dialogs import MainMenuSG, GetLastRecordsSG, GetAllRecordsSG
 
 logger = logging.getLogger(__name__)
 
@@ -65,21 +60,14 @@ async def cmd_stats(
         )
     
     
-# TODO: change this temp handler
-# TODO: make this handler with aiogram_dialog
-# TODO: for deleting main diclogs menu
-@user_router.message(Command("get"))
+@user_router.message(Command("records"))
 async def cmd_get(
     message: Message,
-    session: AsyncSession
+    dialog_manager: DialogManager
+    # session: AsyncSession
 ):
-    weights = await get_weights(
-        session=session,
-        telegram_id=message.from_user.id # type: ignore
-    )
-    weights_list = []
-    for weight in weights:
-        weights_list.append(f"{weight.created_at}: {weight.weight}\n")
-    msg_text = "".join(weights_list)
-    await message.answer(msg_text)
+    await dialog_manager.start(
+        state=GetAllRecordsSG.choose,
+        mode=StartMode.RESET_STACK
+        )
     
