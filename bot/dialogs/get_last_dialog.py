@@ -3,13 +3,13 @@ from aiogram_dialog.widgets.text import Const, Format
 
 from bot.dialogs import GetLastRecordsSG
 from bot.dialogs.getters import last_weight_getter, last_chest_getter, last_waist_getter, last_hips_getter
-from bot.dialogs.buttons import CHOOSE_LAST_MEASUREMENT_BUTTONS, OKEY_START_BUTTON
+from bot.dialogs.buttons import CHOOSE_LAST_MEASUREMENT_BUTTONS, CANCEL_START_BUTTON, OKEY_START_BUTTON
 
 get_last_records_dialog = Dialog(
     Window(
         Const("Какую запись вы хотите посмотреть?"),
         CHOOSE_LAST_MEASUREMENT_BUTTONS,
-        OKEY_START_BUTTON,
+        CANCEL_START_BUTTON,
         state=GetLastRecordsSG.choose,
     ),
     Window(
