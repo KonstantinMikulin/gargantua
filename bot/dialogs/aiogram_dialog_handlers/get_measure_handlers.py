@@ -7,7 +7,7 @@ from bot.dialogs.states import GetLastRecordsSG, GetAllRecordsSG
 
 
 # get one last measurment record
-async def get_last_measurment(
+async def get_last_record(
     callback: CallbackQuery,
     button: Button,
     dialog_manager: DialogManager
@@ -23,7 +23,7 @@ async def get_last_measurment(
 
 
 # get all measurments records
-async def get_all_measurments(
+async def get_all_records(
     callback: CallbackQuery,
     button: Button,
     dialog_manager: DialogManager

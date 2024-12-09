@@ -17,8 +17,8 @@ from bot.dialogs.aiogram_dialog_handlers.add_weight_handlers import (
     change_weight,
 )
 from bot.dialogs.aiogram_dialog_handlers.get_measure_handlers import (
-    get_last_measurment,
-    get_all_measurments
+    get_last_record,
+    get_all_records
 )
 from bot.dialogs.aiogram_dialog_handlers.main_menu_handlers import (
     weight_main_btn,

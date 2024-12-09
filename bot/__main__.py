@@ -18,6 +18,7 @@ from bot.middlewares import DbSessionMiddleware, TrackAllUsersMiddleware
 from bot.dialogs import (
     add_weight_dialog,
     add_measurments_dialog,
+    get_all_records_dialog,
     get_last_records_dialog,
     main_menu_dialog
     )
@@ -89,6 +90,7 @@ async def main():
     dp.include_routers(
         add_weight_dialog,
         add_measurments_dialog,
+        get_all_records_dialog,
         get_last_records_dialog,
         main_menu_dialog
     )

@@ -3,7 +3,7 @@ from aiogram_dialog.widgets.text import Const
 from aiogram_dialog.widgets.kbd import Button, Row, Group, Start
 
 from bot.dialogs import MainMenuSG
-from bot.dialogs.aiogram_dialog_handlers import get_last_measurment, get_all_measurments
+from bot.dialogs.aiogram_dialog_handlers import get_last_record, get_all_records
 
 # buttton to switch to main_menu state (call it "cancel")
 CANCEL_START_BUTTON = Start(
@@ -28,24 +28,24 @@ CHOOSE_LAST_MEASUREMENT_BUTTONS = Group(
         Button(
             Const("Грудь"),
             id="get_last_chest",
-            on_click=get_last_measurment,
+            on_click=get_last_record,
         ),
         Button(
             Const("Талия"),
             id="get_last_waist",
-            on_click=get_last_measurment,
+            on_click=get_last_record,
         ),
         Button(
             Const("Бёдра"),
             id="get_last_hips",
-            on_click=get_last_measurment,
+            on_click=get_last_record,
         )
     ),
     Row(
         Button(
             Const("Вес"),
             id="get_last_weight",
-            on_click=get_last_measurment
+            on_click=get_last_record
         )
     )
 )
@@ -55,24 +55,24 @@ CHOOSE_ALL_MEASUREMENTS_BUTTONS = Group(
         Button(
             Const("Грудь"),
             id="get_all_chest",
-            on_click=get_all_measurments,
+            on_click=get_all_records,
         ),
         Button(
             Const("Талия"),
             id="get_all_waist",
-            on_click=get_all_measurments,
+            on_click=get_all_records,
         ),
         Button(
             Const("Бёдра"),
             id="get_all_hips",
-            on_click=get_all_measurments,
+            on_click=get_all_records,
         )
     ),
     Row(
         Button(
             Const("Вес"),
             id="get_all_weights",
-            on_click=get_all_measurments
+            on_click=get_all_records
         )
     ),
 )

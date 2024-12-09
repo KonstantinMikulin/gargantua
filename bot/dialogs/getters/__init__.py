@@ -1,4 +1,9 @@
-from bot.dialogs.getters.weight_getters import weight_getter, last_weight_getter, weight_delta_getter
+from bot.dialogs.getters.weight_getters import (
+    weight_getter,
+    all_weights_getter,
+    last_weight_getter,
+    weight_delta_getter
+)
 from bot.dialogs.getters.measure_getters import (
     measurments_getter,
     last_chest_getter,
@@ -9,6 +14,7 @@ from bot.dialogs.getters.measure_getters import (
 
 __all__ = [
     "weight_getter",
+    "all_weights_getter",
     "measurments_getter",
     "last_weight_getter",
     "last_chest_getter",

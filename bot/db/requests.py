@@ -54,8 +54,9 @@ async def add_weight(session: AsyncSession, telegram_id: int, weight: float):
 
 
 # TODO: refactor this function
+# TODO: change records limit
 # get weights list
-async def get_weights(
+async def get_all_weights(
     session: AsyncSession, telegram_id: int
 ):
     stmt = (
