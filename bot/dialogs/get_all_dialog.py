@@ -2,7 +2,10 @@ from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format, List
 
 from bot.dialogs import GetAllRecordsSG
-from bot.dialogs.getters import all_weights_getter
+from bot.dialogs.getters import (
+    all_weights_getter,
+    all_chest_getter
+)
 
 from bot.dialogs.buttons import (
     CANCEL_START_BUTTON,
@@ -19,17 +22,26 @@ get_all_records_dialog = Dialog(
     ),
     Window(
         Const(
+            text="Вы еще не вносили замеры <b>груди</b>\n"
+            "Используйте команду /measure для записи замеров",
+            when="no_chest",
+        ),
+        List(Format("{item[0]}: <b>{item[1]}</b>"), items="all_chest"),
+        CHOOSE_ALL_MEASUREMENTS_BUTTONS,
+        OKEY_START_BUTTON,
+        state=GetAllRecordsSG.get_all_chest,
+        getter=all_chest_getter,  # type:ignore
+    ),
+    Window(
+        Const(
             text="Вы еще не вносили показатели <b>веса</b>\n"
             "Используйте команду /weight для записи веса",
             when="no_weights",
         ),
-        List(
-            Format("{item[0]}: <b>{item[1]}</b>"),
-            items="all_weights"
-        ),
+        List(Format("{item[0]}: <b>{item[1]}</b>"), items="all_weights"),
         CHOOSE_ALL_MEASUREMENTS_BUTTONS,
         OKEY_START_BUTTON,
         state=GetAllRecordsSG.get_all_weights,
         getter=all_weights_getter,  # type:ignore
-    )
+    ),
 )
