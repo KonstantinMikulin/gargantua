@@ -9,3 +9,10 @@ db:
   # что приведёт к выводу на экран расширенной информации о взаимодействии
   # SQLAlchemy и базы данных. В противном случае укажите false
   is_echo: <bool>
+
+redis:
+  db: 1
+  host: "localhost"
+  port: 6379
+  username: "default"
+  password: "default"
