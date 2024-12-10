@@ -7,6 +7,6 @@ main_menu_commands = [
     BotCommand(command="/main", description="Основное меню"),
     BotCommand(command="/weight", description="Записать вес"),
     BotCommand(command="/measure", description="Записать объемы"),
-    BotCommand(command="/last", description="Показать последние значения"),
-    BotCommand(command="/records", description="Показать все значения"),
+    BotCommand(command="/last", description="Показать последнюю запись"),
+    BotCommand(command="/records", description="Показать все записи"),
 ]
